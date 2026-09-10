@@ -64,7 +64,7 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
   return (
     <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
       <aside className="space-y-4">
-        <h2 className="font-display text-lg font-bold text-charcoal">Filter Equipment</h2>
+        <h2 className="font-display text-lg font-bold text-foreground">Filter Equipment</h2>
         <div>
           <label htmlFor="f-q" className="mb-1 block text-xs font-semibold uppercase">
             Search
@@ -155,7 +155,7 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
       <div>
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3">
           <p className="text-sm text-muted-foreground">
-            Showing <strong className="text-charcoal">{results.length}</strong> listings
+            Showing <strong className="text-foreground">{results.length}</strong> listings
           </p>
           <div className="flex items-center gap-2">
             <label htmlFor="f-sort" className="text-xs font-semibold uppercase">

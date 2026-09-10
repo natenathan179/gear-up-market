@@ -77,7 +77,7 @@ export function Header() {
               <Dumbbell className="size-5" />
             </span>
             <span className="font-display leading-none">
-              <span className="block text-lg font-extrabold tracking-tight text-charcoal uppercase">
+              <span className="block text-lg font-extrabold tracking-tight text-foreground uppercase">
                 Gym Equipment
               </span>
               <span className="block text-sm font-bold tracking-[0.18em] text-primary uppercase">
@@ -110,14 +110,14 @@ export function Header() {
             <Phone className="size-6 text-primary" />
             <span className="text-xs leading-tight">
               <span className="block text-muted-foreground">Call Us</span>
-              <span className="block text-base font-bold text-charcoal">{businessInfo.phone}</span>
+              <span className="block text-base font-bold text-foreground">{businessInfo.phone}</span>
               <span className="block text-muted-foreground">{businessInfo.hours}</span>
             </span>
           </a>
 
           <button
             onClick={() => setOpen((v) => !v)}
-            className="ml-auto text-charcoal md:hidden"
+            className="ml-auto text-foreground md:hidden"
             aria-label="Toggle menu"
           >
             {open ? <X className="size-6" /> : <Menu className="size-6" />}

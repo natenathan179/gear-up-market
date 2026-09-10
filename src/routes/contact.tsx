@@ -117,7 +117,7 @@ function Contact() {
           </form>
 
           <aside className="border border-border bg-secondary p-6">
-            <h2 className="font-display text-lg font-bold text-charcoal">Contact Details</h2>
+            <h2 className="font-display text-lg font-bold text-foreground">Contact Details</h2>
             <ul className="mt-4 space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <Phone className="size-4 text-primary" /> {businessInfo.phone}

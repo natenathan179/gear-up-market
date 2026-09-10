@@ -57,7 +57,7 @@ function Page() {
       <section className="mx-auto max-w-3xl px-4 py-12">
         {sections.map((s) => (
           <div key={s.h} className="mb-8">
-            <h2 className="font-display text-xl font-bold text-charcoal">{s.h}</h2>
+            <h2 className="font-display text-xl font-bold text-foreground">{s.h}</h2>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.p}</p>
           </div>
         ))}
