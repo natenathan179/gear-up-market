@@ -33,6 +33,7 @@ const navLinks = [
 ] as const;
 
 export function Header() {
+  const cart = useCart();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
