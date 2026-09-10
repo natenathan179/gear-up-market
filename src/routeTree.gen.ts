@@ -41,6 +41,8 @@ import { Route as FitnessEquipmentGuideIndexRouteImport } from './routes/fitness
 import { Route as FitnessEquipmentGuideSlugRouteImport } from './routes/fitness-equipment-guide.$slug'
 import { Route as GymEquipmentForSaleStateRouteImport } from './routes/gym-equipment-for-sale.$state'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin.reviews'
+import { Route as AuthenticatedAdminProductsIdRouteImport } from './routes/_authenticated/admin.products.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -206,6 +208,18 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminReviewsRoute =
+  AuthenticatedAdminReviewsRouteImport.update({
+    id: '/admin/reviews',
+    path: '/admin/reviews',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminProductsIdRoute =
+  AuthenticatedAdminProductsIdRouteImport.update({
+    id: '/admin/products/$id',
+    path: '/admin/products/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -238,7 +252,9 @@ export interface FileRoutesByFullPath {
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
+  '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -268,7 +284,9 @@ export interface FileRoutesByTo {
   '/brands': typeof BrandsIndexRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideIndexRoute
+  '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -303,7 +321,9 @@ export interface FileRoutesById {
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
+  '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -338,7 +358,9 @@ export interface FileRouteTypes {
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
+    | '/admin/reviews'
     | '/admin/'
+    | '/admin/products/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -368,7 +390,9 @@ export interface FileRouteTypes {
     | '/brands'
     | '/commercial-gym-equipment'
     | '/fitness-equipment-guide'
+    | '/admin/reviews'
     | '/admin'
+    | '/admin/products/$id'
   id:
     | '__root__'
     | '/'
@@ -402,7 +426,9 @@ export interface FileRouteTypes {
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
+    | '/_authenticated/admin/reviews'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/products/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -659,15 +685,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/reviews': {
+      id: '/_authenticated/admin/reviews'
+      path: '/admin/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AuthenticatedAdminReviewsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/products/$id': {
+      id: '/_authenticated/admin/products/$id'
+      path: '/admin/products/$id'
+      fullPath: '/admin/products/$id'
+      preLoaderRoute: typeof AuthenticatedAdminProductsIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminReviewsRoute: typeof AuthenticatedAdminReviewsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminProductsIdRoute: typeof AuthenticatedAdminProductsIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminReviewsRoute: AuthenticatedAdminReviewsRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedAdminProductsIdRoute: AuthenticatedAdminProductsIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
