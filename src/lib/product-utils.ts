@@ -35,7 +35,7 @@ interface SignerClient {
       createSignedUrls: (
         paths: string[],
         expiresIn: number,
-      ) => Promise<{ data: { path: string | null; signedUrl: string }[] | null }>;
+      ) => Promise<{ data: { path: string | null; signedUrl: string | null }[] | null }>;
     };
   };
 }
