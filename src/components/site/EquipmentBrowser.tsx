@@ -49,7 +49,7 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
       if (condition && l.condition !== condition) return false;
       if (state && l.state !== state) return false;
       if (usage && l.usage !== usage) return false;
-      const b = priceBands[band];
+      const b = priceBands[band]!;
       if (l.price < b.min || l.price > b.max) return false;
       return true;
     });

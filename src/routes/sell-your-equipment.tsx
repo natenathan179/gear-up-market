@@ -92,7 +92,7 @@ function SellPage() {
           <form onSubmit={submit} noValidate className="space-y-4">
             <SectionHeading title="List Your Equipment" as="h2" />
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label="Equipment type" error={errors.type}>
+              <Field label="Equipment type" error={errors["type"]}>
                 <select value={form.type} onChange={set("type")} className={field}>
                   <option value="">Select a type</option>
                   {categories.flatMap((c) => c.subcategories).map((s) => (
@@ -102,7 +102,7 @@ function SellPage() {
                   ))}
                 </select>
               </Field>
-              <Field label="Brand" error={errors.brand}>
+              <Field label="Brand" error={errors["brand"]}>
                 <input
                   list="brand-options"
                   value={form.brand}
@@ -116,10 +116,10 @@ function SellPage() {
                   ))}
                 </datalist>
               </Field>
-              <Field label="Model" error={errors.model}>
+              <Field label="Model" error={errors["model"]}>
                 <input value={form.model} onChange={set("model")} className={field} maxLength={60} />
               </Field>
-              <Field label="Condition" error={errors.condition}>
+              <Field label="Condition" error={errors["condition"]}>
                 <select value={form.condition} onChange={set("condition")} className={field}>
                   <option value="">Select a condition</option>
                   {["Like New", "Excellent", "Very Good", "Good", "Needs Repair"].map((c) => (
@@ -129,29 +129,29 @@ function SellPage() {
                   ))}
                 </select>
               </Field>
-              <Field label="Quantity" error={errors.quantity}>
+              <Field label="Quantity" error={errors["quantity"]}>
                 <input value={form.quantity} onChange={set("quantity")} className={field} maxLength={6} />
               </Field>
-              <Field label="Asking price (USD)" error={errors.price}>
+              <Field label="Asking price (USD)" error={errors["price"]}>
                 <input value={form.price} onChange={set("price")} className={field} maxLength={12} />
               </Field>
-              <Field label="Location (city, state)" error={errors.location}>
+              <Field label="Location (city, state)" error={errors["location"]}>
                 <input value={form.location} onChange={set("location")} className={field} maxLength={80} />
               </Field>
-              <Field label="Photos" error={undefined}>
+              <Field label="Photos">
                 <input type="file" accept="image/*" multiple className="w-full border border-border p-2 text-sm" />
               </Field>
-              <Field label="Your name" error={errors.name}>
+              <Field label="Your name" error={errors["name"]}>
                 <input value={form.name} onChange={set("name")} className={field} maxLength={80} />
               </Field>
-              <Field label="Email" error={errors.email}>
+              <Field label="Email" error={errors["email"]}>
                 <input type="email" value={form.email} onChange={set("email")} className={field} maxLength={120} />
               </Field>
-              <Field label="Phone" error={errors.phone}>
+              <Field label="Phone" error={errors["phone"]}>
                 <input value={form.phone} onChange={set("phone")} className={field} maxLength={30} />
               </Field>
             </div>
-            <Field label="Anything else we should know?" error={errors.notes}>
+            <Field label="Anything else we should know?" error={errors["notes"]}>
               <textarea
                 value={form.notes}
                 onChange={set("notes")}
@@ -203,7 +203,7 @@ function Field({
   children,
 }: {
   label: string;
-  error?: string;
+  error?: string | undefined;
   children: React.ReactNode;
 }) {
   return (

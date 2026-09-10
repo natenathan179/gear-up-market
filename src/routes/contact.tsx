@@ -74,7 +74,7 @@ function Contact() {
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 className={field}
               />
-              {errors.name && <span className="mt-1 block text-xs text-primary">{errors.name}</span>}
+              {errors["name"] && <span className="mt-1 block text-xs text-primary">{errors["name"]}</span>}
             </label>
             <label className="block">
               <span className="mb-1 block text-xs font-semibold uppercase">Email</span>
@@ -85,7 +85,7 @@ function Contact() {
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
                 className={field}
               />
-              {errors.email && <span className="mt-1 block text-xs text-primary">{errors.email}</span>}
+              {errors["email"] && <span className="mt-1 block text-xs text-primary">{errors["email"]}</span>}
             </label>
             <label className="block">
               <span className="mb-1 block text-xs font-semibold uppercase">Subject</span>
@@ -95,7 +95,7 @@ function Contact() {
                 onChange={(e) => setForm({ ...form, subject: e.target.value })}
                 className={field}
               />
-              {errors.subject && <span className="mt-1 block text-xs text-primary">{errors.subject}</span>}
+              {errors["subject"] && <span className="mt-1 block text-xs text-primary">{errors["subject"]}</span>}
             </label>
             <label className="block">
               <span className="mb-1 block text-xs font-semibold uppercase">Message</span>
@@ -106,7 +106,7 @@ function Contact() {
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="w-full border border-border bg-background p-3 text-sm outline-none focus:border-primary"
               />
-              {errors.message && <span className="mt-1 block text-xs text-primary">{errors.message}</span>}
+              {errors["message"] && <span className="mt-1 block text-xs text-primary">{errors["message"]}</span>}
             </label>
             <button
               type="submit"
