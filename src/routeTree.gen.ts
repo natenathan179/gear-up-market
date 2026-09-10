@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CardioEquipmentRouteImport } from './routes/cardio-equipment'
 import { Route as CommercialGymEquipmentRouteImport } from './routes/commercial-gym-equipment'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FitnessEquipmentGuideRouteImport } from './routes/fitness-equipment-guide'
 import { Route as FreeWeightsRouteImport } from './routes/free-weights'
 import { Route as GymAccessoriesRouteImport } from './routes/gym-accessories'
@@ -28,10 +31,16 @@ import { Route as CommercialGymEquipmentSolutionRouteImport } from './routes/com
 import { Route as EquipmentSlugRouteImport } from './routes/equipment.$slug'
 import { Route as FitnessEquipmentGuideIndexRouteImport } from './routes/fitness-equipment-guide.index'
 import { Route as FitnessEquipmentGuideSlugRouteImport } from './routes/fitness-equipment-guide.$slug'
+import { Route as GymEquipmentForSaleStateRouteImport } from './routes/gym-equipment-for-sale.$state'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsRoute = BrandsRouteImport.update({
@@ -47,6 +56,16 @@ const CardioEquipmentRoute = CardioEquipmentRouteImport.update({
 const CommercialGymEquipmentRoute = CommercialGymEquipmentRouteImport.update({
   id: '/commercial-gym-equipment',
   path: '/commercial-gym-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FitnessEquipmentGuideRoute = FitnessEquipmentGuideRouteImport.update({
@@ -128,12 +147,21 @@ const FitnessEquipmentGuideSlugRoute =
     path: '/$slug',
     getParentRoute: () => FitnessEquipmentGuideRoute,
   } as any)
+const GymEquipmentForSaleStateRoute =
+  GymEquipmentForSaleStateRouteImport.update({
+    id: '/gym-equipment-for-sale/$state',
+    path: '/gym-equipment-for-sale/$state',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideRouteWithChildren
   '/free-weights': typeof FreeWeightsRoute
   '/gym-accessories': typeof GymAccessoriesRoute
@@ -146,13 +174,17 @@ export interface FileRoutesByFullPath {
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
+  '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/cardio-equipment': typeof CardioEquipmentRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/free-weights': typeof FreeWeightsRoute
   '/gym-accessories': typeof GymAccessoriesRoute
   '/home-gym-equipment': typeof HomeGymEquipmentRoute
@@ -164,6 +196,7 @@ export interface FileRoutesByTo {
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
+  '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/brands': typeof BrandsIndexRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideIndexRoute
@@ -171,9 +204,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideRouteWithChildren
   '/free-weights': typeof FreeWeightsRoute
   '/gym-accessories': typeof GymAccessoriesRoute
@@ -186,6 +222,7 @@ export interface FileRoutesById {
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
+  '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
@@ -194,9 +231,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/brands'
     | '/cardio-equipment'
     | '/commercial-gym-equipment'
+    | '/contact'
+    | '/faq'
     | '/fitness-equipment-guide'
     | '/free-weights'
     | '/gym-accessories'
@@ -209,13 +249,17 @@ export interface FileRouteTypes {
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
+    | '/gym-equipment-for-sale/$state'
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/cardio-equipment'
+    | '/contact'
+    | '/faq'
     | '/free-weights'
     | '/gym-accessories'
     | '/home-gym-equipment'
@@ -227,15 +271,19 @@ export interface FileRouteTypes {
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
+    | '/gym-equipment-for-sale/$state'
     | '/brands'
     | '/commercial-gym-equipment'
     | '/fitness-equipment-guide'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/brands'
     | '/cardio-equipment'
     | '/commercial-gym-equipment'
+    | '/contact'
+    | '/faq'
     | '/fitness-equipment-guide'
     | '/free-weights'
     | '/gym-accessories'
@@ -248,6 +296,7 @@ export interface FileRouteTypes {
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
+    | '/gym-equipment-for-sale/$state'
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
@@ -255,9 +304,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BrandsRoute: typeof BrandsRouteWithChildren
   CardioEquipmentRoute: typeof CardioEquipmentRoute
   CommercialGymEquipmentRoute: typeof CommercialGymEquipmentRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
   FitnessEquipmentGuideRoute: typeof FitnessEquipmentGuideRouteWithChildren
   FreeWeightsRoute: typeof FreeWeightsRoute
   GymAccessoriesRoute: typeof GymAccessoriesRoute
@@ -267,6 +319,7 @@ export interface RootRouteChildren {
   StrengthEquipmentRoute: typeof StrengthEquipmentRoute
   UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
   EquipmentSlugRoute: typeof EquipmentSlugRoute
+  GymEquipmentForSaleStateRoute: typeof GymEquipmentForSaleStateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -276,6 +329,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands': {
@@ -297,6 +357,20 @@ declare module '@tanstack/react-router' {
       path: '/commercial-gym-equipment'
       fullPath: '/commercial-gym-equipment'
       preLoaderRoute: typeof CommercialGymEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fitness-equipment-guide': {
@@ -404,6 +478,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FitnessEquipmentGuideSlugRouteImport
       parentRoute: typeof FitnessEquipmentGuideRoute
     }
+    '/gym-equipment-for-sale/$state': {
+      id: '/gym-equipment-for-sale/$state'
+      path: '/gym-equipment-for-sale/$state'
+      fullPath: '/gym-equipment-for-sale/$state'
+      preLoaderRoute: typeof GymEquipmentForSaleStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -453,9 +534,12 @@ const FitnessEquipmentGuideRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BrandsRoute: BrandsRouteWithChildren,
   CardioEquipmentRoute: CardioEquipmentRoute,
   CommercialGymEquipmentRoute: CommercialGymEquipmentRouteWithChildren,
+  ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
   FitnessEquipmentGuideRoute: FitnessEquipmentGuideRouteWithChildren,
   FreeWeightsRoute: FreeWeightsRoute,
   GymAccessoriesRoute: GymAccessoriesRoute,
@@ -465,6 +549,7 @@ const rootRouteChildren: RootRouteChildren = {
   StrengthEquipmentRoute: StrengthEquipmentRoute,
   UsedGymEquipmentRoute: UsedGymEquipmentRoute,
   EquipmentSlugRoute: EquipmentSlugRoute,
+  GymEquipmentForSaleStateRoute: GymEquipmentForSaleStateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
