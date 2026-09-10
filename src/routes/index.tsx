@@ -3,7 +3,9 @@ import { BadgeCheck, CreditCard, Truck, Headphones, ArrowRight } from "lucide-re
 import heroImg from "@/assets/hero-gym.jpg";
 import sellImg from "@/assets/sell-banner.jpg";
 import { ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
-import { brands, categories, faqs, guides, listings, reviews } from "@/data/catalog";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { brands, categories, faqs, guides } from "@/data/catalog";
+import { productsQueryOptions, reviewsQueryOptions } from "@/lib/queries";
 
 const title = "Gym Equipment Marketplace – Buy New & Used Gym Equipment";
 const description =
@@ -58,9 +60,12 @@ const steps = [
 ];
 
 function Home() {
-  const featured = listings.filter((l) => l.featured);
-  const used = listings.filter((l) => l.condition !== "New").slice(0, 6);
-  const commercial = listings.filter((l) => l.usage === "Commercial").slice(0, 4);
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const { data: allReviews } = useSuspenseQuery(reviewsQueryOptions);
+  const featured = products.filter((l) => l.featured).slice(0, 8);
+  const used = products.filter((l) => l.condition !== "New").slice(0, 6);
+  const commercial = products.filter((l) => l.usage === "Commercial").slice(0, 4);
+  const reviews = allReviews.slice(0, 6);
 
   return (
     <>
@@ -309,12 +314,25 @@ function Home() {
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeading title="What Our Customers Say" />
           <p className="-mt-2 mb-6 text-xs text-muted-foreground">
-            Sample reviews shown while the marketplace collects verified buyer feedback.
+            Feedback from buyers who bought equipment through the marketplace.{" "}
+            <Link to="/reviews" className="font-semibold text-primary hover:underline">
+              Read all {allReviews.length} reviews
+            </Link>
           </p>
           <div className="grid gap-4 md:grid-cols-3">
             {reviews.map((r) => (
-              <figure key={r.name} className="border border-border bg-card p-5">
-                <Stars rating={r.rating} />
+              <figure key={r.id} className="border border-border bg-card p-5">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={r.avatarUrl}
+                    alt={`${r.name}, verified buyer`}
+                    loading="lazy"
+                    width={44}
+                    height={44}
+                    className="size-11 rounded-full object-cover"
+                  />
+                  <Stars rating={r.rating} />
+                </div>
                 <blockquote className="mt-3 text-sm text-foreground">“{r.quote}”</blockquote>
                 <figcaption className="mt-3 text-xs text-muted-foreground">
                   {r.name} – {r.location}

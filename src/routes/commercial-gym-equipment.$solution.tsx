@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/components/site/Bits";
-import { listings, solutionBySlug, solutions } from "@/data/catalog";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { solutionBySlug, solutions } from "@/data/catalog";
+import { productsQueryOptions } from "@/lib/queries";
 
 export const Route = createFileRoute("/commercial-gym-equipment/$solution")({
   loader: ({ params }) => {
@@ -33,7 +35,8 @@ export const Route = createFileRoute("/commercial-gym-equipment/$solution")({
 
 function SolutionPage() {
   const { solution } = Route.useLoaderData();
-  const picks = listings.filter((l) => l.usage === "Commercial").slice(0, 8);
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const picks = products.filter((l) => l.usage === "Commercial").slice(0, 8);
 
   return (
     <>
