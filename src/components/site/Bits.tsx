@@ -48,7 +48,7 @@ export function Breadcrumbs({ items }: { items: { label: string; to?: string }[]
           <li key={item.label} className="flex items-center gap-1">
             <ChevronRight className="size-3" />
             {item.to ? (
-              <Link to={item.to} className="hover:text-primary">
+              <Link to={item.to as never} className="hover:text-primary">
                 {item.label}
               </Link>
             ) : (
