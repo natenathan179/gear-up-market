@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CardioEquipmentRouteImport } from './routes/cardio-equipment'
+import { Route as CartRouteImport } from './routes/cart'
 import { Route as CommercialGymEquipmentRouteImport } from './routes/commercial-gym-equipment'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -22,6 +23,7 @@ import { Route as GymAccessoriesRouteImport } from './routes/gym-accessories'
 import { Route as HomeGymEquipmentRouteImport } from './routes/home-gym-equipment'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ReturnsAndRefundsRouteImport } from './routes/returns-and-refunds'
+import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as SellYourEquipmentRouteImport } from './routes/sell-your-equipment'
 import { Route as ShippingInformationRouteImport } from './routes/shipping-information'
 import { Route as ShopEquipmentRouteImport } from './routes/shop-equipment'
@@ -55,6 +57,11 @@ const BrandsRoute = BrandsRouteImport.update({
 const CardioEquipmentRoute = CardioEquipmentRouteImport.update({
   id: '/cardio-equipment',
   path: '/cardio-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommercialGymEquipmentRoute = CommercialGymEquipmentRouteImport.update({
@@ -100,6 +107,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const ReturnsAndRefundsRoute = ReturnsAndRefundsRouteImport.update({
   id: '/returns-and-refunds',
   path: '/returns-and-refunds',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SellYourEquipmentRoute = SellYourEquipmentRouteImport.update({
@@ -183,6 +195,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
+  '/cart': typeof CartRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -192,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/home-gym-equipment': typeof HomeGymEquipmentRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/returns-and-refunds': typeof ReturnsAndRefundsRoute
+  '/reviews': typeof ReviewsRoute
   '/sell-your-equipment': typeof SellYourEquipmentRoute
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
@@ -211,6 +225,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/cardio-equipment': typeof CardioEquipmentRoute
+  '/cart': typeof CartRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/free-weights': typeof FreeWeightsRoute
@@ -218,6 +233,7 @@ export interface FileRoutesByTo {
   '/home-gym-equipment': typeof HomeGymEquipmentRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/returns-and-refunds': typeof ReturnsAndRefundsRoute
+  '/reviews': typeof ReviewsRoute
   '/sell-your-equipment': typeof SellYourEquipmentRoute
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
@@ -239,6 +255,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
+  '/cart': typeof CartRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
@@ -248,6 +265,7 @@ export interface FileRoutesById {
   '/home-gym-equipment': typeof HomeGymEquipmentRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/returns-and-refunds': typeof ReturnsAndRefundsRoute
+  '/reviews': typeof ReviewsRoute
   '/sell-your-equipment': typeof SellYourEquipmentRoute
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
@@ -270,6 +288,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/brands'
     | '/cardio-equipment'
+    | '/cart'
     | '/commercial-gym-equipment'
     | '/contact'
     | '/faq'
@@ -279,6 +298,7 @@ export interface FileRouteTypes {
     | '/home-gym-equipment'
     | '/privacy-policy'
     | '/returns-and-refunds'
+    | '/reviews'
     | '/sell-your-equipment'
     | '/shipping-information'
     | '/shop-equipment'
@@ -298,6 +318,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/cardio-equipment'
+    | '/cart'
     | '/contact'
     | '/faq'
     | '/free-weights'
@@ -305,6 +326,7 @@ export interface FileRouteTypes {
     | '/home-gym-equipment'
     | '/privacy-policy'
     | '/returns-and-refunds'
+    | '/reviews'
     | '/sell-your-equipment'
     | '/shipping-information'
     | '/shop-equipment'
@@ -325,6 +347,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/brands'
     | '/cardio-equipment'
+    | '/cart'
     | '/commercial-gym-equipment'
     | '/contact'
     | '/faq'
@@ -334,6 +357,7 @@ export interface FileRouteTypes {
     | '/home-gym-equipment'
     | '/privacy-policy'
     | '/returns-and-refunds'
+    | '/reviews'
     | '/sell-your-equipment'
     | '/shipping-information'
     | '/shop-equipment'
@@ -355,6 +379,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BrandsRoute: typeof BrandsRouteWithChildren
   CardioEquipmentRoute: typeof CardioEquipmentRoute
+  CartRoute: typeof CartRoute
   CommercialGymEquipmentRoute: typeof CommercialGymEquipmentRouteWithChildren
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
@@ -364,6 +389,7 @@ export interface RootRouteChildren {
   HomeGymEquipmentRoute: typeof HomeGymEquipmentRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ReturnsAndRefundsRoute: typeof ReturnsAndRefundsRoute
+  ReviewsRoute: typeof ReviewsRoute
   SellYourEquipmentRoute: typeof SellYourEquipmentRoute
   ShippingInformationRoute: typeof ShippingInformationRoute
   ShopEquipmentRoute: typeof ShopEquipmentRoute
@@ -402,6 +428,13 @@ declare module '@tanstack/react-router' {
       path: '/cardio-equipment'
       fullPath: '/cardio-equipment'
       preLoaderRoute: typeof CardioEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/commercial-gym-equipment': {
@@ -465,6 +498,13 @@ declare module '@tanstack/react-router' {
       path: '/returns-and-refunds'
       fullPath: '/returns-and-refunds'
       preLoaderRoute: typeof ReturnsAndRefundsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sell-your-equipment': {
@@ -617,6 +657,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BrandsRoute: BrandsRouteWithChildren,
   CardioEquipmentRoute: CardioEquipmentRoute,
+  CartRoute: CartRoute,
   CommercialGymEquipmentRoute: CommercialGymEquipmentRouteWithChildren,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
@@ -626,6 +667,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeGymEquipmentRoute: HomeGymEquipmentRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ReturnsAndRefundsRoute: ReturnsAndRefundsRoute,
+  ReviewsRoute: ReviewsRoute,
   SellYourEquipmentRoute: SellYourEquipmentRoute,
   ShippingInformationRoute: ShippingInformationRoute,
   ShopEquipmentRoute: ShopEquipmentRoute,
