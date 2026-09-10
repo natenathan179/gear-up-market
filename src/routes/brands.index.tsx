@@ -26,6 +26,8 @@ export const Route = createFileRoute("/brands/")({
 });
 
 function BrandsIndex() {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Brands" }]} />
