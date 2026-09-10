@@ -470,8 +470,8 @@ export const listings: Listing[] = [
     featured: true,
   }),
   L({
-    slug: "used-york-dumbbell-set-5-50-lbs",
-    title: "York Dumbbell Set 5–50 lbs",
+    slug: "used-rubber-hex-dumbbell-set-5-50-lbs",
+    title: "Rogue Hex Dumbbell Set 5–50 lbs",
     brand: "Rogue Fitness",
     brandSlug: "rogue-fitness",
     model: "Hex 5-50",
