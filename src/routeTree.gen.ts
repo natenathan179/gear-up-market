@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CardioEquipmentRouteImport } from './routes/cardio-equipment'
@@ -30,6 +31,7 @@ import { Route as ShopEquipmentRouteImport } from './routes/shop-equipment'
 import { Route as StrengthEquipmentRouteImport } from './routes/strength-equipment'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as BrandsSlugRouteImport } from './routes/brands.$slug'
 import { Route as CommercialGymEquipmentIndexRouteImport } from './routes/commercial-gym-equipment.index'
@@ -38,10 +40,15 @@ import { Route as EquipmentSlugRouteImport } from './routes/equipment.$slug'
 import { Route as FitnessEquipmentGuideIndexRouteImport } from './routes/fitness-equipment-guide.index'
 import { Route as FitnessEquipmentGuideSlugRouteImport } from './routes/fitness-equipment-guide.$slug'
 import { Route as GymEquipmentForSaleStateRouteImport } from './routes/gym-equipment-for-sale.$state'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -144,6 +151,11 @@ const UsedGymEquipmentRoute = UsedGymEquipmentRouteImport.update({
   path: '/used-gym-equipment',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -189,6 +201,11 @@ const GymEquipmentForSaleStateRoute =
     path: '/gym-equipment-for-sale/$state',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -212,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/strength-equipment': typeof StrengthEquipmentRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/admin/login': typeof AdminLoginRoute
   '/brands/$slug': typeof BrandsSlugRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
@@ -220,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -240,6 +259,7 @@ export interface FileRoutesByTo {
   '/strength-equipment': typeof StrengthEquipmentRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/admin/login': typeof AdminLoginRoute
   '/brands/$slug': typeof BrandsSlugRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
@@ -248,10 +268,12 @@ export interface FileRoutesByTo {
   '/brands': typeof BrandsIndexRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideIndexRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
@@ -272,6 +294,7 @@ export interface FileRoutesById {
   '/strength-equipment': typeof StrengthEquipmentRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/admin/login': typeof AdminLoginRoute
   '/brands/$slug': typeof BrandsSlugRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
@@ -280,6 +303,7 @@ export interface FileRoutesById {
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -305,6 +329,7 @@ export interface FileRouteTypes {
     | '/strength-equipment'
     | '/terms-and-conditions'
     | '/used-gym-equipment'
+    | '/admin/login'
     | '/brands/$slug'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
@@ -313,6 +338,7 @@ export interface FileRouteTypes {
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -333,6 +359,7 @@ export interface FileRouteTypes {
     | '/strength-equipment'
     | '/terms-and-conditions'
     | '/used-gym-equipment'
+    | '/admin/login'
     | '/brands/$slug'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
@@ -341,9 +368,11 @@ export interface FileRouteTypes {
     | '/brands'
     | '/commercial-gym-equipment'
     | '/fitness-equipment-guide'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/brands'
     | '/cardio-equipment'
@@ -364,6 +393,7 @@ export interface FileRouteTypes {
     | '/strength-equipment'
     | '/terms-and-conditions'
     | '/used-gym-equipment'
+    | '/admin/login'
     | '/brands/$slug'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
@@ -372,10 +402,12 @@ export interface FileRouteTypes {
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   BrandsRoute: typeof BrandsRouteWithChildren
   CardioEquipmentRoute: typeof CardioEquipmentRoute
@@ -396,6 +428,7 @@ export interface RootRouteChildren {
   StrengthEquipmentRoute: typeof StrengthEquipmentRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   EquipmentSlugRoute: typeof EquipmentSlugRoute
   GymEquipmentForSaleStateRoute: typeof GymEquipmentForSaleStateRoute
 }
@@ -407,6 +440,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -549,6 +589,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsedGymEquipmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brands/': {
       id: '/brands/'
       path: '/'
@@ -605,8 +652,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GymEquipmentForSaleStateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface BrandsRouteChildren {
   BrandsSlugRoute: typeof BrandsSlugRoute
@@ -654,6 +719,7 @@ const FitnessEquipmentGuideRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   BrandsRoute: BrandsRouteWithChildren,
   CardioEquipmentRoute: CardioEquipmentRoute,
@@ -674,6 +740,7 @@ const rootRouteChildren: RootRouteChildren = {
   StrengthEquipmentRoute: StrengthEquipmentRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   UsedGymEquipmentRoute: UsedGymEquipmentRoute,
+  AdminLoginRoute: AdminLoginRoute,
   EquipmentSlugRoute: EquipmentSlugRoute,
   GymEquipmentForSaleStateRoute: GymEquipmentForSaleStateRoute,
 }
