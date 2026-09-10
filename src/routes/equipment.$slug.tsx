@@ -1,14 +1,50 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Heart, MapPin, MessageSquare, ShieldCheck, Truck } from "lucide-react";
+import { useState } from "react";
+import { MapPin, MessageSquare, ShieldCheck, ShoppingCart, Truck } from "lucide-react";
+import { toast } from "sonner";
 import { Breadcrumbs, ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
-import { categoryBySlug, listingBySlug, listings } from "@/data/catalog";
+import { InquiryModal } from "@/components/site/InquiryModal";
+import { categoryBySlug } from "@/data/catalog";
+import { productsQueryOptions } from "@/lib/queries";
+import { useCart } from "@/lib/cart";
+import type { Product } from "@/lib/product-utils";
 
 export const Route = createFileRoute("/equipment/$slug")({
-  loader: ({ params }) => {
-    const listing = listingBySlug(params.slug);
+  loader: async ({ params, context }) => {
+    const products = await context.queryClient.ensureQueryData(productsQueryOptions);
+    const listing = products.find((p) => p.slug === params.slug);
     if (!listing) throw notFound();
-    return { listing };
+    const related = products
+      .filter(
+        (p) =>
+          p.slug !== listing.slug &&
+          (p.category === listing.category || p.brandSlug === listing.brandSlug),
+      )
+      .slice(0, 4);
+    return { listing, related };
   },
+  errorComponent: () => (
+    <div className="mx-auto max-w-3xl px-4 py-20 text-center">
+      <h1 className="font-display text-2xl font-bold">We could not load this product</h1>
+      <p className="mt-3 text-sm text-muted-foreground">
+        Please refresh the page, or browse all equipment.
+      </p>
+      <Link to="/shop-equipment" className="mt-6 inline-block bg-primary px-5 py-3 text-sm font-bold uppercase text-primary-foreground">
+        Shop equipment
+      </Link>
+    </div>
+  ),
+  notFoundComponent: () => (
+    <div className="mx-auto max-w-3xl px-4 py-20 text-center">
+      <h1 className="font-display text-2xl font-bold">Product not found</h1>
+      <p className="mt-3 text-sm text-muted-foreground">
+        This listing may have sold. Browse current equipment instead.
+      </p>
+      <Link to="/shop-equipment" className="mt-6 inline-block bg-primary px-5 py-3 text-sm font-bold uppercase text-primary-foreground">
+        Shop equipment
+      </Link>
+    </div>
+  ),
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
@@ -16,7 +52,7 @@ export const Route = createFileRoute("/equipment/$slug")({
     const l = loaderData.listing;
     const isUsed = l.condition !== "New";
     const title = `${l.title} for Sale | Gym Equipment Marketplace`;
-    const description = `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Full specifications, shipping and seller details.`;
+    const description = `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Full specifications, shipping, warranty and seller details.`;
     return {
       meta: [
         { title },
@@ -25,6 +61,7 @@ export const Route = createFileRoute("/equipment/$slug")({
         { property: "og:description", content: description },
         { property: "og:type", content: "product" },
         { property: "og:url", content: `/equipment/${params.slug}` },
+        { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
@@ -72,12 +109,12 @@ export const Route = createFileRoute("/equipment/$slug")({
 });
 
 function ListingPage() {
-  const { listing } = Route.useLoaderData();
+  const { listing, related } = Route.useLoaderData() as { listing: Product; related: Product[] };
   const category = categoryBySlug(listing.category);
-  const related = listings
-    .filter((l) => l.slug !== listing.slug && (l.category === listing.category || l.brandSlug === listing.brandSlug))
-    .slice(0, 4);
   const isUsed = listing.condition !== "New";
+  const cart = useCart();
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
 
   const faqs = [
     {
@@ -87,17 +124,15 @@ function ListingPage() {
           ? "Yes. This unit is commercial-grade and rated for continuous use in a staffed gym, studio or facility."
           : "This unit is built for home use. For a staffed gym floor, look at the commercial equipment category instead.",
     },
-    {
-      q: "How is it shipped?",
-      a: listing.shipping,
-    },
-    {
-      q: "What warranty is included?",
-      a: listing.warranty,
-    },
+    { q: "How is it shipped?", a: listing.shipping },
+    { q: "What warranty is included?", a: listing.warranty },
     {
       q: "Can I inspect it before buying?",
-      a: `Inspections can usually be arranged with the seller in ${listing.city}, ${listing.state}. Use Contact Seller to ask.`,
+      a: `Inspections can usually be arranged with the seller in ${listing.city}, ${listing.state}. Use Enquire Now to ask.`,
+    },
+    {
+      q: "How do I buy this item?",
+      a: "Send an enquiry or add it to your cart and request a quote. We confirm availability, freight cost and payment options by email — nothing is charged online.",
     },
   ];
 
@@ -115,12 +150,27 @@ function ListingPage() {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <img
-              src={listing.image}
+              src={listing.images[activeImage] ?? listing.image}
               alt={`${listing.title} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale in ${listing.city}, ${listing.state}`}
               width={800}
               height={600}
-              className="w-full border border-border object-cover"
+              className="aspect-4/3 w-full border border-border object-cover"
             />
+            {listing.images.length > 1 && (
+              <div className="mt-3 grid grid-cols-5 gap-2">
+                {listing.images.map((src, index) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setActiveImage(index)}
+                    aria-label={`View photo ${index + 1} of ${listing.title}`}
+                    className={`border ${index === activeImage ? "border-primary" : "border-border"}`}
+                  >
+                    <img src={src} alt="" className="aspect-4/3 w-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -141,26 +191,36 @@ function ListingPage() {
               <Row label="Category" value={category?.name ?? listing.category} />
               <Row label="Type" value={listing.subcategory} />
               <Row label="Use" value={listing.usage} />
+              <Row label="Muscle group" value={listing.muscleGroup} />
+              <Row label="Resistance" value={listing.resistance} />
               <Row label="Location" value={`${listing.city}, ${listing.state}`} />
               <Row label="Availability" value={listing.available ? "In stock" : "Sold"} />
             </dl>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="/contact"
+              <button
+                type="button"
+                onClick={() => setInquiryOpen(true)}
                 className="inline-flex items-center gap-2 bg-primary px-5 py-3 text-sm font-bold tracking-wide uppercase text-primary-foreground transition-colors hover:bg-primary/90"
               >
-                <MessageSquare className="size-4" /> Contact Seller
-              </a>
-              <Link
-                to="/contact"
+                <MessageSquare className="size-4" /> Enquire Now
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  cart.add(listing);
+                  toast.success(`${listing.title} added to your cart.`);
+                }}
                 className="inline-flex items-center gap-2 border border-border px-5 py-3 text-sm font-bold tracking-wide uppercase transition-colors hover:bg-secondary"
               >
-                Request a Quote
-              </Link>
-              <button className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary">
-                <Heart className="size-4" /> Save
+                <ShoppingCart className="size-4" /> Add to Cart
               </button>
+              <Link
+                to="/cart"
+                className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"
+              >
+                View cart
+              </Link>
             </div>
 
             <div className="mt-8 border border-border p-5">
@@ -172,7 +232,8 @@ function ListingPage() {
                 {listing.seller.type} · Selling since {listing.seller.since}
               </p>
               <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-                <Stars rating={listing.seller.rating} /> {listing.seller.rating} ({listing.seller.reviews} reviews)
+                <Stars rating={listing.seller.rating} /> {listing.seller.rating} (
+                {listing.seller.reviews} reviews)
               </div>
               <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
                 <MapPin className="size-3.5" /> {listing.city}, {listing.state}
@@ -191,6 +252,12 @@ function ListingPage() {
           <section>
             <SectionHeading title="Description" as="h2" />
             <p className="text-sm leading-relaxed text-muted-foreground">{listing.description}</p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              This {listing.condition.toLowerCase()} {listing.brand} {listing.model} is listed in{" "}
+              {listing.city}, {listing.state} and is suited to {listing.usage.toLowerCase()} use. It
+              targets {listing.muscleGroup.toLowerCase()} training with {listing.resistance.toLowerCase()}{" "}
+              resistance. Freight, liftgate and inside delivery can all be quoted before you commit.
+            </p>
           </section>
           <section>
             <SectionHeading title="Specifications" as="h2" />
@@ -221,15 +288,23 @@ function ListingPage() {
           </dl>
         </section>
 
-        <section className="mt-12">
-          <SectionHeading title="Related Equipment" as="h2" />
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {related.map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-          </div>
-        </section>
+        {related.length > 0 && (
+          <section className="mt-12">
+            <SectionHeading title="Related Equipment" as="h2" />
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {related.map((l) => (
+                <ListingCard key={l.slug} listing={l} />
+              ))}
+            </div>
+          </section>
+        )}
       </article>
+
+      <InquiryModal
+        open={inquiryOpen}
+        onOpenChange={setInquiryOpen}
+        subject={{ kind: "product", product: listing }}
+      />
     </>
   );
 }

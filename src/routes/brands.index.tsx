@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
-import { brands, listings } from "@/data/catalog";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { brands } from "@/data/catalog";
+import { productsQueryOptions } from "@/lib/queries";
 
 const title = "Gym Equipment Brands | Gym Equipment Marketplace";
 const description =
@@ -24,6 +26,8 @@ export const Route = createFileRoute("/brands/")({
 });
 
 function BrandsIndex() {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Brands" }]} />
@@ -35,7 +39,7 @@ function BrandsIndex() {
       <section className="mx-auto max-w-7xl px-4 py-10">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {brands.map((b) => {
-            const count = listings.filter((l) => l.brandSlug === b.slug).length;
+            const count = products.filter((l) => l.brandSlug === b.slug).length;
             return (
               <li key={b.slug} className="border border-border bg-card p-5">
                 <h2 className="font-display text-lg font-bold text-foreground">

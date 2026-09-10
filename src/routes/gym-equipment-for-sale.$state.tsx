@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/components/site/Bits";
-import { listings, locationBySlug, locations } from "@/data/catalog";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { locationBySlug, locations } from "@/data/catalog";
+import { productsQueryOptions } from "@/lib/queries";
 
 export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
   loader: ({ params }) => {
@@ -34,7 +36,8 @@ export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
 
 function LocationPageView() {
   const { location } = Route.useLoaderData();
-  const local = listings.filter((l) => l.stateSlug === location.slug);
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const local = products.filter((l) => l.stateSlug === location.slug);
 
   return (
     <>

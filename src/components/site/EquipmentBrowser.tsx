@@ -1,12 +1,15 @@
 import { useMemo, useState } from "react";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { ListingCard } from "@/components/site/Bits";
-import { brands, conditions, listings, type Listing } from "@/data/catalog";
+import { brands, conditions } from "@/data/catalog";
+import { productsQueryOptions } from "@/lib/queries";
+import type { Product } from "@/lib/product-utils";
 
 interface Props {
   initialQuery?: string;
   lockCategory?: string;
   onlyUsed?: boolean;
-  pool?: Listing[];
+  pool?: Product[];
 }
 
 const priceBands = [
@@ -18,12 +21,15 @@ const priceBands = [
 ];
 
 export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, pool }: Props) {
+  const { data: allProducts } = useSuspenseQuery(productsQueryOptions);
+
   const base = useMemo(() => {
-    let items = pool ?? listings;
+    let items = pool ?? allProducts;
     if (lockCategory) items = items.filter((l) => l.category === lockCategory);
     if (onlyUsed) items = items.filter((l) => l.condition !== "New");
     return items;
-  }, [pool, lockCategory, onlyUsed]);
+  }, [pool, allProducts, lockCategory, onlyUsed]);
+
 
   const [q, setQ] = useState(initialQuery);
   const [brand, setBrand] = useState("");

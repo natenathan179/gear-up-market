@@ -14,6 +14,7 @@ import {
   Dumbbell,
 } from "lucide-react";
 import { businessInfo, categories } from "@/data/catalog";
+import { useCart } from "@/lib/cart";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -27,10 +28,12 @@ const navLinks = [
   { to: "/brands", label: "Brands" },
   { to: "/sell-your-equipment", label: "Sell Your Equipment" },
   { to: "/about", label: "About Us" },
+  { to: "/reviews", label: "Reviews" },
   { to: "/contact", label: "Contact" },
 ] as const;
 
 export function Header() {
+  const cart = useCart();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -57,14 +60,20 @@ export function Header() {
             </li>
           </ul>
           <ul className="flex items-center gap-4">
+            <li>
+              <Link to="/reviews" className="hidden items-center gap-1.5 hover:text-primary sm:flex">
+                <Heart className="size-3.5" /> Reviews
+              </Link>
+            </li>
             <li className="flex items-center gap-1.5">
-              <User className="size-3.5" /> Sign In / Register
+              <Link to="/admin/login" className="flex items-center gap-1.5 hover:text-primary">
+                <User className="size-3.5" /> Admin
+              </Link>
             </li>
-            <li className="hidden sm:block">
-              <Heart className="size-3.5" />
-            </li>
-            <li className="hidden sm:block">
-              <ShoppingCart className="size-3.5" />
+            <li>
+              <Link to="/cart" className="flex items-center gap-1.5 font-semibold hover:text-primary">
+                <ShoppingCart className="size-3.5" /> Cart ({cart.count})
+              </Link>
             </li>
           </ul>
         </div>

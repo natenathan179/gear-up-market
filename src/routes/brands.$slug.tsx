@@ -1,6 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/components/site/Bits";
-import { brandBySlug, brands, categories, listings } from "@/data/catalog";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { brandBySlug, brands, categories } from "@/data/catalog";
+import { productsQueryOptions } from "@/lib/queries";
 
 export const Route = createFileRoute("/brands/$slug")({
   loader: ({ params }) => {
@@ -48,7 +50,8 @@ export const Route = createFileRoute("/brands/$slug")({
 
 function BrandPage() {
   const { brand } = Route.useLoaderData();
-  const items = listings.filter((l) => l.brandSlug === brand.slug);
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const items = products.filter((l) => l.brandSlug === brand.slug);
   const newItems = items.filter((l) => l.condition === "New");
   const usedItems = items.filter((l) => l.condition !== "New");
 
