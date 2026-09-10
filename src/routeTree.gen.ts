@@ -10,33 +10,165 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CardioEquipmentRouteImport } from './routes/cardio-equipment'
+import { Route as CommercialGymEquipmentRouteImport } from './routes/commercial-gym-equipment'
+import { Route as FreeWeightsRouteImport } from './routes/free-weights'
+import { Route as GymAccessoriesRouteImport } from './routes/gym-accessories'
+import { Route as HomeGymEquipmentRouteImport } from './routes/home-gym-equipment'
+import { Route as ShopEquipmentRouteImport } from './routes/shop-equipment'
+import { Route as StrengthEquipmentRouteImport } from './routes/strength-equipment'
+import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
+import { Route as CommercialGymEquipmentIndexRouteImport } from './routes/commercial-gym-equipment.index'
+import { Route as CommercialGymEquipmentSolutionRouteImport } from './routes/commercial-gym-equipment.$solution'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CardioEquipmentRoute = CardioEquipmentRouteImport.update({
+  id: '/cardio-equipment',
+  path: '/cardio-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialGymEquipmentRoute = CommercialGymEquipmentRouteImport.update({
+  id: '/commercial-gym-equipment',
+  path: '/commercial-gym-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreeWeightsRoute = FreeWeightsRouteImport.update({
+  id: '/free-weights',
+  path: '/free-weights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GymAccessoriesRoute = GymAccessoriesRouteImport.update({
+  id: '/gym-accessories',
+  path: '/gym-accessories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeGymEquipmentRoute = HomeGymEquipmentRouteImport.update({
+  id: '/home-gym-equipment',
+  path: '/home-gym-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopEquipmentRoute = ShopEquipmentRouteImport.update({
+  id: '/shop-equipment',
+  path: '/shop-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrengthEquipmentRoute = StrengthEquipmentRouteImport.update({
+  id: '/strength-equipment',
+  path: '/strength-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UsedGymEquipmentRoute = UsedGymEquipmentRouteImport.update({
+  id: '/used-gym-equipment',
+  path: '/used-gym-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialGymEquipmentIndexRoute =
+  CommercialGymEquipmentIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => CommercialGymEquipmentRoute,
+  } as any)
+const CommercialGymEquipmentSolutionRoute =
+  CommercialGymEquipmentSolutionRouteImport.update({
+    id: '/$solution',
+    path: '/$solution',
+    getParentRoute: () => CommercialGymEquipmentRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cardio-equipment': typeof CardioEquipmentRoute
+  '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
+  '/free-weights': typeof FreeWeightsRoute
+  '/gym-accessories': typeof GymAccessoriesRoute
+  '/home-gym-equipment': typeof HomeGymEquipmentRoute
+  '/shop-equipment': typeof ShopEquipmentRoute
+  '/strength-equipment': typeof StrengthEquipmentRoute
+  '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
+  '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cardio-equipment': typeof CardioEquipmentRoute
+  '/free-weights': typeof FreeWeightsRoute
+  '/gym-accessories': typeof GymAccessoriesRoute
+  '/home-gym-equipment': typeof HomeGymEquipmentRoute
+  '/shop-equipment': typeof ShopEquipmentRoute
+  '/strength-equipment': typeof StrengthEquipmentRoute
+  '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
+  '/commercial-gym-equipment': typeof CommercialGymEquipmentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cardio-equipment': typeof CardioEquipmentRoute
+  '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
+  '/free-weights': typeof FreeWeightsRoute
+  '/gym-accessories': typeof GymAccessoriesRoute
+  '/home-gym-equipment': typeof HomeGymEquipmentRoute
+  '/shop-equipment': typeof ShopEquipmentRoute
+  '/strength-equipment': typeof StrengthEquipmentRoute
+  '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
+  '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cardio-equipment'
+    | '/commercial-gym-equipment'
+    | '/free-weights'
+    | '/gym-accessories'
+    | '/home-gym-equipment'
+    | '/shop-equipment'
+    | '/strength-equipment'
+    | '/used-gym-equipment'
+    | '/commercial-gym-equipment/$solution'
+    | '/commercial-gym-equipment/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cardio-equipment'
+    | '/free-weights'
+    | '/gym-accessories'
+    | '/home-gym-equipment'
+    | '/shop-equipment'
+    | '/strength-equipment'
+    | '/used-gym-equipment'
+    | '/commercial-gym-equipment/$solution'
+    | '/commercial-gym-equipment'
+  id:
+    | '__root__'
+    | '/'
+    | '/cardio-equipment'
+    | '/commercial-gym-equipment'
+    | '/free-weights'
+    | '/gym-accessories'
+    | '/home-gym-equipment'
+    | '/shop-equipment'
+    | '/strength-equipment'
+    | '/used-gym-equipment'
+    | '/commercial-gym-equipment/$solution'
+    | '/commercial-gym-equipment/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CardioEquipmentRoute: typeof CardioEquipmentRoute
+  CommercialGymEquipmentRoute: typeof CommercialGymEquipmentRouteWithChildren
+  FreeWeightsRoute: typeof FreeWeightsRoute
+  GymAccessoriesRoute: typeof GymAccessoriesRoute
+  HomeGymEquipmentRoute: typeof HomeGymEquipmentRoute
+  ShopEquipmentRoute: typeof ShopEquipmentRoute
+  StrengthEquipmentRoute: typeof StrengthEquipmentRoute
+  UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +180,105 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cardio-equipment': {
+      id: '/cardio-equipment'
+      path: '/cardio-equipment'
+      fullPath: '/cardio-equipment'
+      preLoaderRoute: typeof CardioEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-gym-equipment': {
+      id: '/commercial-gym-equipment'
+      path: '/commercial-gym-equipment'
+      fullPath: '/commercial-gym-equipment'
+      preLoaderRoute: typeof CommercialGymEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/free-weights': {
+      id: '/free-weights'
+      path: '/free-weights'
+      fullPath: '/free-weights'
+      preLoaderRoute: typeof FreeWeightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gym-accessories': {
+      id: '/gym-accessories'
+      path: '/gym-accessories'
+      fullPath: '/gym-accessories'
+      preLoaderRoute: typeof GymAccessoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home-gym-equipment': {
+      id: '/home-gym-equipment'
+      path: '/home-gym-equipment'
+      fullPath: '/home-gym-equipment'
+      preLoaderRoute: typeof HomeGymEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop-equipment': {
+      id: '/shop-equipment'
+      path: '/shop-equipment'
+      fullPath: '/shop-equipment'
+      preLoaderRoute: typeof ShopEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strength-equipment': {
+      id: '/strength-equipment'
+      path: '/strength-equipment'
+      fullPath: '/strength-equipment'
+      preLoaderRoute: typeof StrengthEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/used-gym-equipment': {
+      id: '/used-gym-equipment'
+      path: '/used-gym-equipment'
+      fullPath: '/used-gym-equipment'
+      preLoaderRoute: typeof UsedGymEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-gym-equipment/': {
+      id: '/commercial-gym-equipment/'
+      path: '/'
+      fullPath: '/commercial-gym-equipment/'
+      preLoaderRoute: typeof CommercialGymEquipmentIndexRouteImport
+      parentRoute: typeof CommercialGymEquipmentRoute
+    }
+    '/commercial-gym-equipment/$solution': {
+      id: '/commercial-gym-equipment/$solution'
+      path: '/$solution'
+      fullPath: '/commercial-gym-equipment/$solution'
+      preLoaderRoute: typeof CommercialGymEquipmentSolutionRouteImport
+      parentRoute: typeof CommercialGymEquipmentRoute
+    }
   }
 }
 
+interface CommercialGymEquipmentRouteChildren {
+  CommercialGymEquipmentSolutionRoute: typeof CommercialGymEquipmentSolutionRoute
+  CommercialGymEquipmentIndexRoute: typeof CommercialGymEquipmentIndexRoute
+}
+
+const CommercialGymEquipmentRouteChildren: CommercialGymEquipmentRouteChildren =
+  {
+    CommercialGymEquipmentSolutionRoute: CommercialGymEquipmentSolutionRoute,
+    CommercialGymEquipmentIndexRoute: CommercialGymEquipmentIndexRoute,
+  }
+
+const CommercialGymEquipmentRouteWithChildren =
+  CommercialGymEquipmentRoute._addFileChildren(
+    CommercialGymEquipmentRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CardioEquipmentRoute: CardioEquipmentRoute,
+  CommercialGymEquipmentRoute: CommercialGymEquipmentRouteWithChildren,
+  FreeWeightsRoute: FreeWeightsRoute,
+  GymAccessoriesRoute: GymAccessoriesRoute,
+  HomeGymEquipmentRoute: HomeGymEquipmentRoute,
+  ShopEquipmentRoute: ShopEquipmentRoute,
+  StrengthEquipmentRoute: StrengthEquipmentRoute,
+  UsedGymEquipmentRoute: UsedGymEquipmentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
