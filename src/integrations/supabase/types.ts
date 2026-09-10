@@ -14,7 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      products: {
+        Row: {
+          available: boolean
+          brand: string
+          brand_slug: string
+          category: string
+          city: string
+          condition: Database["public"]["Enums"]["product_condition"]
+          created_at: string
+          description: string
+          featured: boolean
+          id: string
+          images: string[]
+          model: string
+          muscle_group: string
+          price: number
+          resistance: string
+          seller: Json
+          shipping: string
+          slug: string
+          specs: Json
+          state: string
+          state_slug: string
+          subcategory: string
+          title: string
+          updated_at: string
+          usage: Database["public"]["Enums"]["product_usage"]
+          warranty: string
+        }
+        Insert: {
+          available?: boolean
+          brand?: string
+          brand_slug?: string
+          category: string
+          city?: string
+          condition?: Database["public"]["Enums"]["product_condition"]
+          created_at?: string
+          description?: string
+          featured?: boolean
+          id?: string
+          images?: string[]
+          model?: string
+          muscle_group?: string
+          price?: number
+          resistance?: string
+          seller?: Json
+          shipping?: string
+          slug: string
+          specs?: Json
+          state?: string
+          state_slug?: string
+          subcategory?: string
+          title: string
+          updated_at?: string
+          usage?: Database["public"]["Enums"]["product_usage"]
+          warranty?: string
+        }
+        Update: {
+          available?: boolean
+          brand?: string
+          brand_slug?: string
+          category?: string
+          city?: string
+          condition?: Database["public"]["Enums"]["product_condition"]
+          created_at?: string
+          description?: string
+          featured?: boolean
+          id?: string
+          images?: string[]
+          model?: string
+          muscle_group?: string
+          price?: number
+          resistance?: string
+          seller?: Json
+          shipping?: string
+          slug?: string
+          specs?: Json
+          state?: string
+          state_slug?: string
+          subcategory?: string
+          title?: string
+          updated_at?: string
+          usage?: Database["public"]["Enums"]["product_usage"]
+          warranty?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          avatar_url: string
+          created_at: string
+          id: string
+          location: string
+          name: string
+          product_title: string | null
+          published: boolean
+          quote: string
+          rating: number
+        }
+        Insert: {
+          avatar_url?: string
+          created_at?: string
+          id?: string
+          location?: string
+          name: string
+          product_title?: string | null
+          published?: boolean
+          quote: string
+          rating?: number
+        }
+        Update: {
+          avatar_url?: string
+          created_at?: string
+          id?: string
+          location?: string
+          name?: string
+          product_title?: string | null
+          published?: boolean
+          quote?: string
+          rating?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +145,13 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      product_condition:
+        | "New"
+        | "Excellent"
+        | "Very Good"
+        | "Good"
+        | "Refurbished"
+      product_usage: "Commercial" | "Home"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +278,15 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      product_condition: [
+        "New",
+        "Excellent",
+        "Very Good",
+        "Good",
+        "Refurbished",
+      ],
+      product_usage: ["Commercial", "Home"],
+    },
   },
 } as const
