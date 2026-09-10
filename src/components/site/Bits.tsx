@@ -17,7 +17,7 @@ export function SectionHeading({
   return (
     <div className="mb-6 flex items-end justify-between gap-4">
       <div>
-        <Tag className="font-display text-2xl font-extrabold tracking-tight text-charcoal sm:text-3xl">
+        <Tag className="font-display text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
           {title}
         </Tag>
         <span className="mt-2 block h-1 w-14 bg-primary" />
@@ -52,7 +52,7 @@ export function Breadcrumbs({ items }: { items: { label: string; to?: string }[]
                 {item.label}
               </Link>
             ) : (
-              <span className="font-medium text-charcoal">{item.label}</span>
+              <span className="font-medium text-foreground">{item.label}</span>
             )}
           </li>
         ))}
@@ -114,7 +114,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
       </div>
       <div className="flex flex-1 flex-col p-3">
         <p className="text-xs text-muted-foreground">{listing.brand}</p>
-        <h3 className="mt-0.5 text-sm leading-snug font-bold text-charcoal">
+        <h3 className="mt-0.5 text-sm leading-snug font-bold text-foreground">
           <Link to="/equipment/$slug" params={{ slug: listing.slug }} className="hover:text-primary">
             {listing.title}
           </Link>

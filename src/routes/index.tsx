@@ -126,7 +126,7 @@ function Home() {
                 className="aspect-4/3 w-full object-cover"
               />
               <div className="p-3">
-                <h3 className="text-sm font-bold text-charcoal">{c.name}</h3>
+                <h3 className="text-sm font-bold text-foreground">{c.name}</h3>
                 <p className="mt-1 text-xs text-muted-foreground">{c.blurb}</p>
                 <Link
                   to={`/${c.slug}` as never}
@@ -237,7 +237,7 @@ function Home() {
             {steps.map((s) => (
               <li key={s.n} className="border border-border bg-card p-5">
                 <span className="font-display block text-3xl font-extrabold text-primary">{s.n}</span>
-                <h3 className="mt-2 text-sm font-bold text-charcoal">{s.t}</h3>
+                <h3 className="mt-2 text-sm font-bold text-foreground">{s.t}</h3>
                 <p className="mt-1 text-xs text-muted-foreground">{s.d}</p>
               </li>
             ))}
@@ -293,7 +293,7 @@ function Home() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {guides.slice(0, 4).map((g) => (
             <article key={g.slug} className="border border-border bg-card p-5">
-              <h3 className="text-sm font-bold text-charcoal">
+              <h3 className="text-sm font-bold text-foreground">
                 <Link to="/fitness-equipment-guide/$slug" params={{ slug: g.slug }} className="hover:text-primary">
                   {g.title}
                 </Link>
@@ -315,7 +315,7 @@ function Home() {
             {reviews.map((r) => (
               <figure key={r.name} className="border border-border bg-card p-5">
                 <Stars rating={r.rating} />
-                <blockquote className="mt-3 text-sm text-charcoal">“{r.quote}”</blockquote>
+                <blockquote className="mt-3 text-sm text-foreground">“{r.quote}”</blockquote>
                 <figcaption className="mt-3 text-xs text-muted-foreground">
                   {r.name} – {r.location}
                 </figcaption>
@@ -330,7 +330,7 @@ function Home() {
         <dl className="grid gap-4 md:grid-cols-2">
           {faqs.slice(0, 4).map((f) => (
             <div key={f.q} className="border border-border p-5">
-              <dt className="text-sm font-bold text-charcoal">{f.q}</dt>
+              <dt className="text-sm font-bold text-foreground">{f.q}</dt>
               <dd className="mt-2 text-sm text-muted-foreground">{f.a}</dd>
             </div>
           ))}

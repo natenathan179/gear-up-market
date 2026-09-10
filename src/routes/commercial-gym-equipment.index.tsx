@@ -24,7 +24,7 @@ function CommercialIndex() {
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {solutions.map((s) => (
               <li key={s.slug} className="border border-border bg-card p-5">
-                <h3 className="text-sm font-bold text-charcoal">
+                <h3 className="text-sm font-bold text-foreground">
                   <Link
                     to="/commercial-gym-equipment/$solution"
                     params={{ solution: s.slug }}

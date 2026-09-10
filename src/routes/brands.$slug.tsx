@@ -118,12 +118,12 @@ function BrandPage() {
         <dl className="grid gap-4 md:grid-cols-2">
           {brand.faqs.map((f) => (
             <div key={f.q} className="border border-border p-5">
-              <dt className="text-sm font-bold text-charcoal">{f.q}</dt>
+              <dt className="text-sm font-bold text-foreground">{f.q}</dt>
               <dd className="mt-2 text-sm text-muted-foreground">{f.a}</dd>
             </div>
           ))}
         </dl>
-        <h2 className="font-display mt-10 text-lg font-bold text-charcoal">Other Brands</h2>
+        <h2 className="font-display mt-10 text-lg font-bold text-foreground">Other Brands</h2>
         <ul className="mt-3 flex flex-wrap gap-2 text-sm">
           {brands
             .filter((b) => b.slug !== brand.slug)

@@ -173,7 +173,7 @@ function SellPage() {
 
           <aside className="space-y-6">
             <div className="border border-border bg-secondary p-6">
-              <h2 className="font-display text-lg font-bold text-charcoal">Why Sell Here?</h2>
+              <h2 className="font-display text-lg font-bold text-foreground">Why Sell Here?</h2>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>Buyers arrive searching for your exact brand and model</li>
                 <li>Sell single machines or a whole facility</li>
@@ -182,7 +182,7 @@ function SellPage() {
               </ul>
             </div>
             <div className="border border-border p-6">
-              <h2 className="font-display text-lg font-bold text-charcoal">What Sells Fastest</h2>
+              <h2 className="font-display text-lg font-bold text-foreground">What Sells Fastest</h2>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>Commercial cardio in working order</li>
                 <li>Plate-loaded and selectorized strength machines</li>

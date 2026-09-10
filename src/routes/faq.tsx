@@ -50,7 +50,7 @@ function Faq() {
         <dl className="space-y-6">
           {faqs.map((f) => (
             <div key={f.q} className="border-b border-border pb-6">
-              <dt className="text-base font-bold text-charcoal">{f.q}</dt>
+              <dt className="text-base font-bold text-foreground">{f.q}</dt>
               <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.a}</dd>
             </div>
           ))}

@@ -38,7 +38,7 @@ function BrandsIndex() {
             const count = listings.filter((l) => l.brandSlug === b.slug).length;
             return (
               <li key={b.slug} className="border border-border bg-card p-5">
-                <h2 className="font-display text-lg font-bold text-charcoal">
+                <h2 className="font-display text-lg font-bold text-foreground">
                   <Link to="/brands/$slug" params={{ slug: b.slug }} className="hover:text-primary">
                     {b.name}
                   </Link>

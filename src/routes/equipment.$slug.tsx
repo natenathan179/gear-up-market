@@ -127,7 +127,7 @@ function ListingPage() {
             <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">
               {listing.brand}
             </p>
-            <h1 className="font-display mt-2 text-3xl font-extrabold tracking-tight text-charcoal">
+            <h1 className="font-display mt-2 text-3xl font-extrabold tracking-tight text-foreground">
               {listing.title} – {isUsed ? "Used" : "New"} Gym Equipment
             </h1>
             <p className="mt-4 text-3xl font-extrabold text-primary">
@@ -154,7 +154,7 @@ function ListingPage() {
               </a>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 border border-charcoal px-5 py-3 text-sm font-bold tracking-wide uppercase transition-colors hover:bg-secondary"
+                className="inline-flex items-center gap-2 border border-border px-5 py-3 text-sm font-bold tracking-wide uppercase transition-colors hover:bg-secondary"
               >
                 Request a Quote
               </Link>
@@ -164,7 +164,7 @@ function ListingPage() {
             </div>
 
             <div className="mt-8 border border-border p-5">
-              <h2 className="font-display text-sm font-bold tracking-wide uppercase text-charcoal">
+              <h2 className="font-display text-sm font-bold tracking-wide uppercase text-foreground">
                 Seller Information
               </h2>
               <p className="mt-2 text-sm font-semibold">{listing.seller.name}</p>
@@ -214,7 +214,7 @@ function ListingPage() {
           <dl className="grid gap-4 md:grid-cols-2">
             {faqs.map((f) => (
               <div key={f.q} className="border border-border p-5">
-                <dt className="text-sm font-bold text-charcoal">{f.q}</dt>
+                <dt className="text-sm font-bold text-foreground">{f.q}</dt>
                 <dd className="mt-2 text-sm text-muted-foreground">{f.a}</dd>
               </div>
             ))}
@@ -238,7 +238,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <dt className="text-xs text-muted-foreground uppercase">{label}</dt>
-      <dd className="font-semibold text-charcoal">{value}</dd>
+      <dd className="font-semibold text-foreground">{value}</dd>
     </div>
   );
 }

@@ -74,7 +74,7 @@ function GuideArticle() {
       />
       <article className="mx-auto max-w-3xl px-4 py-12">
         <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">Buying Guide</p>
-        <h1 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-charcoal sm:text-4xl">
+        <h1 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
           {guide.title}
         </h1>
         <p className="mt-2 text-xs text-muted-foreground">{guide.readTime}</p>
@@ -82,7 +82,7 @@ function GuideArticle() {
 
         {guide.body.map((section) => (
           <section key={section.heading} className="mt-10">
-            <h2 className="font-display text-xl font-bold text-charcoal">{section.heading}</h2>
+            <h2 className="font-display text-xl font-bold text-foreground">{section.heading}</h2>
             {section.paragraphs.map((p) => (
               <p key={p.slice(0, 30)} className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 {p}
@@ -92,7 +92,7 @@ function GuideArticle() {
         ))}
 
         <section className="mt-12 border-t border-border pt-8">
-          <h2 className="font-display text-lg font-bold text-charcoal">Shop Related Equipment</h2>
+          <h2 className="font-display text-lg font-bold text-foreground">Shop Related Equipment</h2>
           <ul className="mt-3 flex flex-wrap gap-2 text-sm">
             {guide.related.map((slug) => {
               const category = categoryBySlug(slug);
@@ -143,7 +143,7 @@ function GuideArticle() {
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {more.map((g) => (
               <li key={g.slug} className="border border-border bg-card p-5">
-                <h3 className="text-sm font-bold text-charcoal">
+                <h3 className="text-sm font-bold text-foreground">
                   <Link to="/fitness-equipment-guide/$slug" params={{ slug: g.slug }} className="hover:text-primary">
                     {g.title}
                   </Link>
