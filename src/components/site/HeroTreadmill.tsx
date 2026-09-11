@@ -5,7 +5,7 @@ import * as THREE from "three";
 
 const MODEL_URL = "/models/runner.glb";
 
-const TARGET_HEIGHT = 1.7;
+const TARGET_HEIGHT = 1.6;
 
 function Runner() {
   const group = useRef<THREE.Group>(null);
@@ -35,14 +35,14 @@ function Runner() {
       action.reset().setEffectiveTimeScale(1.35).fadeIn(0.3).play();
     }
     if (group.current) {
-      group.current.position.y = 0.16 + yOffset + Math.sin(state.clock.elapsedTime * 9) * 0.02;
+      group.current.position.y = 0.15 + yOffset * 0.62 + Math.sin(state.clock.elapsedTime * 9) * 0.02;
     }
   });
 
   return (
     <group
       ref={group}
-      position={[0, 0.16 + yOffset, -0.1]}
+      position={[0, 0.15 + yOffset * 0.62, -0.1]}
       rotation={[0, Math.PI, 0]}
       scale={scale}
     >
@@ -81,12 +81,12 @@ function Treadmill() {
     <group>
       {/* deck base */}
       <mesh position={[0, 0.07, 0]} castShadow receiveShadow>
-        <boxGeometry args={[1.15, 0.14, 2.5]} />
+        <boxGeometry args={[1.35, 0.14, 2.7]} />
         <meshStandardMaterial color={dark} metalness={0.6} roughness={0.45} />
       </mesh>
       {/* belt */}
       <mesh ref={beltRef} position={[0, 0.145, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[0.85, 2.3]} />
+        <planeGeometry args={[1.02, 2.5]} />
         <meshStandardMaterial map={beltTexture} roughness={0.9} metalness={0.1} />
       </mesh>
       {/* side rails */}
