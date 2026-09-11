@@ -161,7 +161,7 @@ export default function HeroTreadmill() {
     <Canvas
       shadows
       dpr={[1, 1.8]}
-      camera={{ position: [3.6, 1.5, -3.3], fov: 40 }}
+      camera={{ position: [4.5, 1.45, -1.7], fov: 38 }}
       gl={{ antialias: true, alpha: true }}
       className="!absolute inset-0"
     >
