@@ -145,7 +145,7 @@ function Rig() {
   useFrame((state) => {
     if (!group.current) return;
     const t = state.clock.elapsedTime;
-    group.current.rotation.y = -0.25 + Math.sin(t * 0.25) * 0.18;
+    group.current.rotation.y = -0.35 + Math.sin(t * 0.25) * 0.14;
   });
   return (
     <group ref={group} position={[0, -1.15, 0]}>
@@ -161,7 +161,7 @@ export default function HeroTreadmill() {
     <Canvas
       shadows
       dpr={[1, 1.8]}
-      camera={{ position: [4.5, 1.45, -1.7], fov: 38 }}
+      camera={{ position: [5.0, 1.35, 0.8], fov: 38 }}
       gl={{ antialias: true, alpha: true }}
       className="!absolute inset-0"
     >
