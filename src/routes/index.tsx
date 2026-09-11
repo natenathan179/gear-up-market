@@ -78,30 +78,37 @@ function Home() {
           className="absolute inset-0 size-full object-cover opacity-45"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-24">
-          <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">
-            Gym Equipment Marketplace
-          </p>
-          <h1 className="font-display mt-4 max-w-2xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl">
-            Buy &amp; Sell New and Used Gym Equipment
-          </h1>
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-charcoal-foreground/85 sm:text-base">
-            Shop quality gym equipment for home gyms, commercial fitness centers, training
-            facilities and more. Find cardio machines, strength equipment, free weights and gym
-            accessories from trusted sellers — all in one place.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              to="/shop-equipment"
-              className="inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-bold tracking-wide uppercase text-primary-foreground transition-colors hover:bg-primary/90"
-            >
-              Shop Gym Equipment <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              to="/sell-your-equipment"
-              className="inline-flex items-center gap-2 border border-white/40 px-6 py-3 text-sm font-bold tracking-wide uppercase transition-colors hover:bg-white/10"
-            >
-              Sell Your Equipment
-            </Link>
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr]">
+            <div className="order-2 lg:order-1">
+              <HeroScene />
+            </div>
+            <div className="order-1 lg:order-2">
+              <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">
+                Gym Equipment Marketplace
+              </p>
+              <h1 className="font-display mt-4 max-w-2xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl">
+                Buy &amp; Sell New and Used Gym Equipment
+              </h1>
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-charcoal-foreground/85 sm:text-base">
+                Shop quality gym equipment for home gyms, commercial fitness centers, training
+                facilities and more. Find cardio machines, strength equipment, free weights and gym
+                accessories from trusted sellers — all in one place.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  to="/shop-equipment"
+                  className="inline-flex items-center gap-2 bg-primary px-6 py-3 text-sm font-bold tracking-wide uppercase text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  Shop Gym Equipment <ArrowRight className="size-4" />
+                </Link>
+                <Link
+                  to="/sell-your-equipment"
+                  className="inline-flex items-center gap-2 border border-white/40 px-6 py-3 text-sm font-bold tracking-wide uppercase transition-colors hover:bg-white/10"
+                >
+                  Sell Your Equipment
+                </Link>
+              </div>
+            </div>
           </div>
           <ul className="mt-14 grid gap-6 border-t border-white/15 pt-6 sm:grid-cols-2 lg:grid-cols-4">
             {trustBadges.map((b) => (
