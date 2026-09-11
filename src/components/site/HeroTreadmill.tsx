@@ -5,10 +5,12 @@ import * as THREE from "three";
 
 const MODEL_URL = "/models/runner.glb";
 
+const TARGET_HEIGHT = 1.7;
+
 function Runner() {
   const group = useRef<THREE.Group>(null);
   const { scene, animations } = useGLTF(MODEL_URL);
-  const cloned = useMemo(() => {
+  const { cloned, scale, yOffset } = useMemo(() => {
     const s = scene.clone(true);
     s.traverse((o) => {
       const m = o as THREE.Mesh;
@@ -17,7 +19,12 @@ function Runner() {
         m.receiveShadow = true;
       }
     });
-    return s;
+    s.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(s);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const k = size.y > 0 ? TARGET_HEIGHT / size.y : 1;
+    return { cloned: s, scale: k, yOffset: -box.min.y * k };
   }, [scene]);
   const { actions } = useAnimations(animations, group);
 
@@ -28,12 +35,17 @@ function Runner() {
       action.reset().setEffectiveTimeScale(1.35).fadeIn(0.3).play();
     }
     if (group.current) {
-      group.current.position.y = 0.16 + Math.sin(state.clock.elapsedTime * 9) * 0.02;
+      group.current.position.y = 0.16 + yOffset + Math.sin(state.clock.elapsedTime * 9) * 0.02;
     }
   });
 
   return (
-    <group ref={group} position={[0, 0.16, -0.15]} rotation={[0, -0.35, 0]}>
+    <group
+      ref={group}
+      position={[0, 0.16 + yOffset, -0.1]}
+      rotation={[0, -0.35, 0]}
+      scale={scale}
+    >
       <primitive object={cloned} />
     </group>
   );
