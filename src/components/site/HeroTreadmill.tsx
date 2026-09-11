@@ -43,7 +43,7 @@ function Runner() {
     <group
       ref={group}
       position={[0, 0.16 + yOffset, -0.1]}
-      rotation={[0, -0.35, 0]}
+      rotation={[0, Math.PI, 0]}
       scale={scale}
     >
       <primitive object={cloned} />
@@ -148,7 +148,7 @@ function Rig() {
     group.current.rotation.y = -0.25 + Math.sin(t * 0.25) * 0.18;
   });
   return (
-    <group ref={group} position={[0, -0.95, 0]}>
+    <group ref={group} position={[0, -1.15, 0]}>
       <Treadmill />
       <Runner />
       <ContactShadows position={[0, 0.01, 0]} opacity={0.6} scale={7} blur={2.6} far={4} />
@@ -161,7 +161,7 @@ export default function HeroTreadmill() {
     <Canvas
       shadows
       dpr={[1, 1.8]}
-      camera={{ position: [3.1, 1.6, 3.4], fov: 42 }}
+      camera={{ position: [3.6, 1.5, -3.3], fov: 40 }}
       gl={{ antialias: true, alpha: true }}
       className="!absolute inset-0"
     >
