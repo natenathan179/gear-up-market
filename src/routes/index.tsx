@@ -81,7 +81,7 @@ function Home() {
         <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-24">
           <div>
             <div>
-              <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">3
+              <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">
                 Gym Equipment Marketplace
               </p>
               <h1 className="font-display mt-4 max-w-2xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl">
