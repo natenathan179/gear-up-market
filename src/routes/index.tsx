@@ -79,12 +79,9 @@ function Home() {
           className="absolute inset-0 size-full object-cover opacity-45"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-24">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr]">
-            <div className="order-2 lg:order-1">
-              <HeroScene />
-            </div>
-            <div className="order-1 lg:order-2">
-              <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">
+          <div>
+            <div>
+              <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">3
                 Gym Equipment Marketplace
               </p>
               <h1 className="font-display mt-4 max-w-2xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl">
