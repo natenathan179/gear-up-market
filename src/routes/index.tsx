@@ -3,7 +3,7 @@ import { BadgeCheck, CreditCard, Truck, Headphones, ArrowRight } from "lucide-re
 import heroImg from "@/assets/hero-gym.jpg";
 import sellImg from "@/assets/sell-banner.jpg";
 import { ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
-import { HeroScene } from "@/components/site/HeroScene";
+
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, categories, faqs, guides } from "@/data/catalog";
 import { productsQueryOptions, reviewsQueryOptions } from "@/lib/queries";
