@@ -3,7 +3,7 @@ import { BadgeCheck, CreditCard, Truck, Headphones, ArrowRight } from "lucide-re
 import heroImg from "@/assets/hero-gym.jpg";
 import sellImg from "@/assets/sell-banner.jpg";
 import { ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
-import { HeroScene } from "@/components/site/HeroScene";
+
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, categories, faqs, guides } from "@/data/catalog";
 import { productsQueryOptions, reviewsQueryOptions } from "@/lib/queries";
@@ -79,11 +79,8 @@ function Home() {
           className="absolute inset-0 size-full object-cover opacity-45"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-24">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr]">
-            <div className="order-2 lg:order-1">
-              <HeroScene />
-            </div>
-            <div className="order-1 lg:order-2">
+          <div>
+            <div>
               <p className="text-xs font-bold tracking-[0.25em] text-primary uppercase">
                 Gym Equipment Marketplace
               </p>
