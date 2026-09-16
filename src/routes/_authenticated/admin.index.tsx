@@ -97,6 +97,14 @@ function AdminDashboard() {
           >
             <Star className="size-4" /> Reviews
           </Link>
+          <Button
+            variant="outline"
+            onClick={deleteSelected}
+            disabled={selected.length === 0 || deleting}
+          >
+            <Trash2 className="mr-2 size-4" />
+            {deleting ? "Deleting…" : `Delete selected${selected.length ? ` (${selected.length})` : ""}`}
+          </Button>
           <Button variant="outline" onClick={signOut}>
             <LogOut className="mr-2 size-4" /> Sign out
           </Button>
