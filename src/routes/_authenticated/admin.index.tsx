@@ -135,13 +135,22 @@ function AdminDashboard() {
           <tbody>
             {isLoading && (
               <tr>
-                <td colSpan={6} className="px-3 py-6 text-center text-muted-foreground">
+                <td colSpan={7} className="px-3 py-6 text-center text-muted-foreground">
                   Loading products…
                 </td>
               </tr>
             )}
             {products.map((product) => (
               <tr key={product.id} className="border-t border-border">
+                <td className="px-3 py-2">
+                  <input
+                    type="checkbox"
+                    aria-label={`Select ${product.title}`}
+                    className="size-4 accent-primary"
+                    checked={selected.includes(product.id)}
+                    onChange={() => toggleOne(product.id)}
+                  />
+                </td>
                 <td className="px-3 py-2">
                   <div className="flex items-center gap-3">
                     <img
