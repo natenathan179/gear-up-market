@@ -115,6 +115,15 @@ function AdminDashboard() {
         <table className="w-full text-sm">
           <thead className="bg-secondary text-left text-xs uppercase">
             <tr>
+              <th className="px-3 py-2">
+                <input
+                  type="checkbox"
+                  aria-label="Select all products"
+                  className="size-4 accent-primary"
+                  checked={allSelected}
+                  onChange={toggleAll}
+                />
+              </th>
               <th className="px-3 py-2">Product</th>
               <th className="px-3 py-2">Category</th>
               <th className="px-3 py-2">Condition</th>
