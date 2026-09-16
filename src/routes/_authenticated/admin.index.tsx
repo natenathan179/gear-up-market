@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { LogOut, Plus, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,33 @@ function AdminDashboard() {
   const { data: products = [], isLoading } = useQuery(productsQueryOptions);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [selected, setSelected] = useState<string[]>([]);
+  const [deleting, setDeleting] = useState(false);
+
+  const allSelected = products.length > 0 && selected.length === products.length;
+
+  function toggleAll() {
+    setSelected(allSelected ? [] : products.map((p) => p.id));
+  }
+
+  function toggleOne(id: string) {
+    setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  }
+
+  async function deleteSelected() {
+    if (selected.length === 0) return;
+    if (!window.confirm(`Delete ${selected.length} product(s)? This cannot be undone.`)) return;
+    setDeleting(true);
+    const { error } = await supabase.from("products").delete().in("id", selected);
+    setDeleting(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success(`${selected.length} product(s) deleted.`);
+    setSelected([]);
+    await queryClient.invalidateQueries({ queryKey: ["products"] });
+  }
 
   async function signOut() {
     await queryClient.cancelQueries();
@@ -69,6 +97,14 @@ function AdminDashboard() {
           >
             <Star className="size-4" /> Reviews
           </Link>
+          <Button
+            variant="outline"
+            onClick={deleteSelected}
+            disabled={selected.length === 0 || deleting}
+          >
+            <Trash2 className="mr-2 size-4" />
+            {deleting ? "Deleting…" : `Delete selected${selected.length ? ` (${selected.length})` : ""}`}
+          </Button>
           <Button variant="outline" onClick={signOut}>
             <LogOut className="mr-2 size-4" /> Sign out
           </Button>
@@ -79,6 +115,15 @@ function AdminDashboard() {
         <table className="w-full text-sm">
           <thead className="bg-secondary text-left text-xs uppercase">
             <tr>
+              <th className="px-3 py-2">
+                <input
+                  type="checkbox"
+                  aria-label="Select all products"
+                  className="size-4 accent-primary"
+                  checked={allSelected}
+                  onChange={toggleAll}
+                />
+              </th>
               <th className="px-3 py-2">Product</th>
               <th className="px-3 py-2">Category</th>
               <th className="px-3 py-2">Condition</th>
@@ -90,13 +135,22 @@ function AdminDashboard() {
           <tbody>
             {isLoading && (
               <tr>
-                <td colSpan={6} className="px-3 py-6 text-center text-muted-foreground">
+                <td colSpan={7} className="px-3 py-6 text-center text-muted-foreground">
                   Loading products…
                 </td>
               </tr>
             )}
             {products.map((product) => (
               <tr key={product.id} className="border-t border-border">
+                <td className="px-3 py-2">
+                  <input
+                    type="checkbox"
+                    aria-label={`Select ${product.title}`}
+                    className="size-4 accent-primary"
+                    checked={selected.includes(product.id)}
+                    onChange={() => toggleOne(product.id)}
+                  />
+                </td>
                 <td className="px-3 py-2">
                   <div className="flex items-center gap-3">
                     <img
