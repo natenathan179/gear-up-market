@@ -28,6 +28,33 @@ function AdminDashboard() {
   const { data: products = [], isLoading } = useQuery(productsQueryOptions);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [selected, setSelected] = useState<string[]>([]);
+  const [deleting, setDeleting] = useState(false);
+
+  const allSelected = products.length > 0 && selected.length === products.length;
+
+  function toggleAll() {
+    setSelected(allSelected ? [] : products.map((p) => p.id));
+  }
+
+  function toggleOne(id: string) {
+    setSelected((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+  }
+
+  async function deleteSelected() {
+    if (selected.length === 0) return;
+    if (!window.confirm(`Delete ${selected.length} product(s)? This cannot be undone.`)) return;
+    setDeleting(true);
+    const { error } = await supabase.from("products").delete().in("id", selected);
+    setDeleting(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success(`${selected.length} product(s) deleted.`);
+    setSelected([]);
+    await queryClient.invalidateQueries({ queryKey: ["products"] });
+  }
 
   async function signOut() {
     await queryClient.cancelQueries();
