@@ -63,7 +63,7 @@ const steps = [
 function Home() {
   const { data: products } = useSuspenseQuery(productsQueryOptions);
   const { data: allReviews } = useSuspenseQuery(reviewsQueryOptions);
-  const featured = products.filter((l) => l.featured).slice(0, 8);
+  const featured = products.filter((l) => l.featured).slice(0, 6);
   const used = products.filter((l) => l.condition !== "New").slice(0, 6);
   const commercial = products.filter((l) => l.usage === "Commercial").slice(0, 4);
   const reviews = allReviews.slice(0, 6);
