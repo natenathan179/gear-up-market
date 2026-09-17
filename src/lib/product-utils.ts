@@ -45,7 +45,7 @@ export async function signImagePaths(
   paths: string[],
 ): Promise<Map<string, string>> {
   const signed = new Map<string, string>();
-  const storagePaths = [...new Set(paths)].filter((p) => p && !p.startsWith("http"));
+  const storagePaths = [...new Set(paths)].filter((p) => p && !p.startsWith("http") && !p.startsWith("/"));
   if (storagePaths.length === 0) return signed;
   try {
     const { data } = await client.storage
@@ -92,7 +92,7 @@ export function parseSeller(seller: unknown): Product["seller"] {
 
 export function rowToProduct(row: ProductRow, signed: Map<string, string>): Product {
   const images = (row.images ?? []).map((path) =>
-    path.startsWith("http") ? path : (signed.get(path) ?? ""),
+    path.startsWith("http") || path.startsWith("/") ? path : (signed.get(path) ?? ""),
   );
   const usable = images.filter(Boolean);
   return {
