@@ -8,7 +8,7 @@ import { businessInfo } from "@/data/catalog";
 import accessoriesImg from "@/assets/cat-accessories.webp";
 import { canonicalUrl } from "@/lib/seo";
 
-const title = "Contact Gym Equipment Marketplace";
+const title = "Contact Us | Gym Equipment Marketplace";
 const description =
   "Contact Gym Equipment Marketplace about buying or selling gym equipment, shipping, quotes or seller support. Call, email or send us a message.";
 

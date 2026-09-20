@@ -19,7 +19,7 @@ export const Route = createFileRoute("/blog/$slug")({
       return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.post;
-    const title = `${p.seoTitle} | Gym Equipment Marketplace`;
+    const title = p.seoTitle;
     return {
       meta: [
         { title },

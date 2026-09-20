@@ -52,7 +52,7 @@ export const Route = createFileRoute("/equipment/$slug")({
     }
     const l = loaderData.listing;
     const isUsed = l.condition !== "New";
-    const title = `${l.title} for Sale | Gym Equipment Marketplace`;
+    const title = `${l.title} for Sale`;
     const description = `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Full specifications, shipping, warranty and seller details.`;
     return {
       meta: [

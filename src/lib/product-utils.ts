@@ -103,6 +103,15 @@ export function parseSeller(seller: unknown): Product["seller"] {
   };
 }
 
+// Imported product titles carry a redundant " – Commercial X Machine"-style
+// tail that duplicates the category/subcategory already shown elsewhere on
+// the page (breadcrumbs, filters, schema). Strip it so the title is usable
+// as-is for H1s, cards and <title> without blowing past SEO length limits.
+function cleanProductTitle(title: string): string {
+  const core = title.split(" – ")[0] ?? title;
+  return core.replace(/ for Sale$/, "").trim();
+}
+
 export function rowToProduct(row: ProductRow, signed: Map<string, string>): Product {
   const images = (row.images ?? []).map((path) =>
     path.startsWith("http") || path.startsWith("/")
@@ -113,7 +122,7 @@ export function rowToProduct(row: ProductRow, signed: Map<string, string>): Prod
   return {
     id: row.id,
     slug: row.slug,
-    title: row.title,
+    title: cleanProductTitle(row.title),
     brand: row.brand,
     brandSlug: row.brand_slug,
     model: row.model,

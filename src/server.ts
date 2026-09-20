@@ -2,6 +2,19 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { SITE_URL } from "./lib/seo";
+
+const CANONICAL_HOST = new URL(SITE_URL).host;
+
+// www and bare-domain both route to this Worker; without a redirect, search
+// engines crawl and index both as separate copies of every page, doubling
+// duplicate-content and on-page SEO warnings across the whole site.
+function canonicalHostRedirect(request: Request): Response | undefined {
+  const url = new URL(request.url);
+  if (url.host === CANONICAL_HOST) return undefined;
+  url.host = CANONICAL_HOST;
+  return Response.redirect(url, 301);
+}
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -46,6 +59,8 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const redirect = canonicalHostRedirect(request);
+    if (redirect) return redirect;
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);

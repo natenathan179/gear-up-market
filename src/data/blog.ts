@@ -397,7 +397,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "commercial-gym-equipment-for-sale-guide",
     title: "Commercial Gym Equipment for Sale: A Buyer's Guide for Gyms & Fitness Studios",
-    seoTitle: "Commercial Gym Equipment for Sale | Buyer's Guide for Gyms & Studios",
+    seoTitle: "Commercial Gym Equipment for Sale | Buyer's Guide",
     metaDescription:
       "Buying commercial gym equipment for a gym, studio or fitness center? Learn what makes equipment commercial-grade, how to source packages, and how to buy with confidence.",
     excerpt:
@@ -965,7 +965,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "cardio-equipment-for-sale-guide",
     title: "Cardio Equipment for Sale: Treadmills, Bikes, Ellipticals & Rowers Compared",
-    seoTitle: "Cardio Equipment for Sale | Treadmills, Bikes, Ellipticals & Rowers",
+    seoTitle: "Cardio Equipment for Sale | Treadmills & Bikes",
     metaDescription:
       "Comparing cardio equipment for sale? See how treadmills, exercise bikes, ellipticals and rowing machines differ, plus what works best for home, garage and budget-friendly setups.",
     excerpt:
@@ -1176,7 +1176,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "strength-training-weightlifting-equipment-for-sale",
     title: "Strength Training & Weightlifting Equipment for Sale: What to Look For",
-    seoTitle: "Strength Training & Weightlifting Equipment for Sale | Buyer's Guide",
+    seoTitle: "Strength & Weightlifting Equipment for Sale Guide",
     metaDescription:
       "Buying strength training or weightlifting equipment? Learn the difference between selectorized, plate-loaded and free-weight setups so you choose the right gear.",
     excerpt:
@@ -1351,7 +1351,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "best-home-gym-equipment-for-muscle-and-strength",
     title: "Best Home Gym Equipment for Building Muscle, Strength & Full-Body Fitness",
-    seoTitle: "Best Home Gym Equipment for Muscle, Strength & Full-Body Workouts",
+    seoTitle: "Best Home Gym Equipment for Muscle & Strength",
     metaDescription:
       "Want to build muscle and strength at home? Here's the equipment that actually earns its space — free weights, racks, benches and full-body machines — in priority order.",
     excerpt:
@@ -1909,7 +1909,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rogue-fitness-equipment-for-sale",
     title: "Rogue Fitness Equipment for Sale: Racks, Barbells & Home Gym Packages",
-    seoTitle: "Rogue Fitness Equipment for Sale | Racks, Barbells & Home Gym Packages",
+    seoTitle: "Rogue Fitness Equipment for Sale | Racks & Barbells",
     metaDescription:
       "Shopping for Rogue Fitness equipment? See what Rogue is known for — racks, barbells, rigs and conditioning gear built for garage gyms — and how to buy it new, used or as part of a home gym package.",
     excerpt:
@@ -2488,7 +2488,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "best-dumbbells-weight-sets-for-home-gym",
     title: "Best Dumbbells & Weight Sets for a Home Gym: Adjustable vs. Fixed",
-    seoTitle: "Best Dumbbells & Weight Sets for a Home Gym | Adjustable vs. Fixed",
+    seoTitle: "Best Dumbbells & Weight Sets for a Home Gym",
     metaDescription:
       "Shopping for dumbbells or a weight set for sale? Compare adjustable vs. fixed dumbbells, figure out how much weight range you need, and see where to buy new or used sets safely.",
     excerpt:
@@ -3441,7 +3441,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "shoulder-machines-at-the-gym-types-and-benefits",
     title: "Shoulder Machines at the Gym: Types, Benefits & How to Choose the Right One",
-    seoTitle: "Shoulder Machines at the Gym | Types, Benefits & How to Choose",
+    seoTitle: "Shoulder Machines at the Gym | Types & Benefits",
     metaDescription:
       "Not sure which shoulder machine to use? See how a shoulder press machine, lateral raise machine and rear delt machine each work, whether machines are effective for shoulder training, and how to choose one.",
     excerpt:
@@ -3627,7 +3627,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "chest-shoulder-arm-machine-workout-guide",
     title: "Chest, Shoulder & Arm Machine Workout: How to Structure a Push-Day Session",
-    seoTitle: "Chest, Shoulder & Arm Machine Workout | How to Structure a Push Day",
+    seoTitle: "Chest, Shoulder & Arm Machine Workout Guide",
     metaDescription:
       "Building a chest, shoulder and arm workout using gym machines? See a sensible machine order, how many exercises to include, and which equipment covers each muscle group.",
     excerpt:
@@ -4186,7 +4186,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "bicep-tricep-machine-workout-guide",
     title: "Bicep & Tricep Machine Workout: How to Train Arms at the Gym",
-    seoTitle: "Bicep & Tricep Machine Workout | How to Train Arms at the Gym",
+    seoTitle: "Bicep & Tricep Machine Workout Guide",
     metaDescription:
       "Planning an arm day with bicep and tricep machines? See why these two opposing muscle groups pair so well, a sensible machine order, and how to structure the session.",
     excerpt:
@@ -4369,7 +4369,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "shrug-machines-and-trapezius-training-equipment",
     title: "Shrug Machines & Trapezius Training: Smith Machine, Plate-Loaded & Alternatives",
-    seoTitle: "Shrug Machine Guide | Trapezius Training Equipment & Alternatives",
+    seoTitle: "Shrug Machine Guide | Trapezius Training",
     metaDescription:
       "Looking for a shrug machine or the best way to train traps? Compare dedicated shrug machines, Smith machine shrugs, and dumbbell or barbell alternatives, plus what to check before buying.",
     excerpt:
@@ -4560,7 +4560,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "lateral-raise-machine-for-sale",
     title: "Lateral Raise Machine for Sale: Standing vs. Seated, and Machine vs. Dumbbell",
-    seoTitle: "Lateral Raise Machine for Sale | Standing vs. Seated, Machine vs. Dumbbell",
+    seoTitle: "Lateral Raise Machine for Sale | Buyer's Guide",
     metaDescription:
       "Shopping for a lateral raise machine? Compare standing vs. seated designs, machine vs. dumbbell lateral raises, and what to check before buying, including rear lateral raise machines.",
     excerpt:
@@ -4742,7 +4742,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "leg-and-hip-machines-for-sale",
     title: "Leg & Hip Machines for Sale: V-Squat, Calf Raise, Abductor/Adductor & More",
-    seoTitle: "Leg & Hip Machines for Sale | V-Squat, Calf Raise, Abductor/Adductor",
+    seoTitle: "Leg & Hip Machines for Sale | Buyer's Guide",
     metaDescription:
       "Shopping for leg machines? Compare V-squat, hack squat, belt squat, calf raise and hip abductor/adductor machines, what each targets, and what to check before buying.",
     excerpt:
@@ -4933,7 +4933,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "leg-extension-and-leg-curl-machines",
     title: "Leg Extension & Leg Curl Machines: Seated, Prone, Standing & Combo Options",
-    seoTitle: "Leg Extension & Leg Curl Machines | Seated, Prone & Combo Guide",
+    seoTitle: "Leg Extension & Leg Curl Machines Guide",
     metaDescription:
       "Shopping for a leg extension or leg curl (hamstring) machine? Compare seated, prone, standing and combo designs, plate-loaded vs. selectorized, and what to check before buying.",
     excerpt:
@@ -5101,7 +5101,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "plate-loaded-machines-for-sale",
     title: "Plate-Loaded Machines: How They Work and How They Compare to Weight Stacks",
-    seoTitle: "Plate-Loaded Machines for Sale | Plate-Loaded vs. Weight Stack Guide",
+    seoTitle: "Plate-Loaded Machines for Sale | Buyer's Guide",
     metaDescription:
       "Shopping for plate-loaded machines? Learn how plate-loaded strength equipment works, how it compares to selectorized weight-stack machines, and what to check before buying used.",
     excerpt:
@@ -5468,7 +5468,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "technogym-equipment-for-sale",
     title: "Technogym Equipment for Sale: Strength Machines, Cable Stations & More",
-    seoTitle: "Technogym Equipment for Sale | Strength Machines & Cable Stations",
+    seoTitle: "Technogym Equipment for Sale | Strength Machines",
     metaDescription:
       "Shopping for Technogym equipment? See what Technogym is known for — commercial strength machines, cable stations and cardio lines — and how to buy Technogym gear new or used.",
     excerpt:
@@ -5843,7 +5843,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "life-fitness-gym-equipment-for-sale",
     title: "Life Fitness Gym Equipment for Sale: Commercial Strength Machines",
-    seoTitle: "Life Fitness Gym Equipment for Sale | Commercial Strength Machines",
+    seoTitle: "Life Fitness Gym Equipment for Sale | Guide",
     metaDescription:
       "Shopping for Life Fitness gym equipment? See what Life Fitness is known for — commercial strength machines and cardio lines — and how to buy Life Fitness gear new or used.",
     excerpt:
@@ -6025,7 +6025,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "matrix-gym-equipment-for-sale",
     title: "Matrix Gym Equipment for Sale: Commercial Strength & Cardio Machines",
-    seoTitle: "Matrix Gym Equipment for Sale | Commercial Strength & Cardio Machines",
+    seoTitle: "Matrix Gym Equipment for Sale | Strength & Cardio",
     metaDescription:
       "Shopping for Matrix gym equipment? See what Matrix Fitness is known for — commercial strength machines and cardio lines — and how to buy Matrix gear new or used.",
     excerpt:
@@ -6574,7 +6574,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "best-gym-equipment-brands-for-a-commercial-gym",
     title: "Best Gym Equipment Brands for a Commercial Gym",
-    seoTitle: "Best Gym Equipment Brands for a Commercial Gym | Buying Guide",
+    seoTitle: "Best Gym Equipment Brands for a Commercial Gym | Guide",
     metaDescription:
       "Which gym equipment brand is best for a commercial gym? Compare Life Fitness, Precor, Technogym, Cybex, Matrix and Hammer Strength by facility type, parts support and duty cycle.",
     excerpt:

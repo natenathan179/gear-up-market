@@ -17,7 +17,7 @@ export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
       return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     }
     const state = loaderData.location.state;
-    const title = `Gym Equipment for Sale in ${state} | Gym Equipment Marketplace`;
+    const title = `Used Gym Equipment for Sale in ${state}`;
     const description = `Buy new and used gym equipment in ${state}. Browse listings from verified sellers with local delivery, pickup and freight across ${state}.`;
     return {
       meta: [

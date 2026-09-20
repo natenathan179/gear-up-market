@@ -17,7 +17,7 @@ export const Route = createFileRoute("/brands/$slug")({
       return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     }
     const name = loaderData.brand.name;
-    const title = `${name} Gym Equipment for Sale | Gym Equipment Marketplace`;
+    const title = `Used ${name} Equipment for Sale`;
     const description = `Shop new and used ${name} gym equipment for sale. Compare popular ${name} models, condition, price and location from verified sellers.`;
     return {
       meta: [
