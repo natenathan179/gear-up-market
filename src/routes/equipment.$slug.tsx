@@ -8,6 +8,7 @@ import { categoryBySlug } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@/lib/product-utils";
+import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: async ({ params, context }) => {
@@ -65,7 +66,7 @@ export const Route = createFileRoute("/equipment/$slug")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: `/equipment/${params.slug}` }],
+      links: [{ rel: "canonical", href: canonicalUrl(`/equipment/${params.slug}`) }],
       scripts: [
         {
           type: "application/ld+json",

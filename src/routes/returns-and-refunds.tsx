@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import accessoriesImg from "@/assets/cat-accessories.webp";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Returns & Refunds | Gym Equipment Marketplace";
 const description =
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/returns-and-refunds")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/returns-and-refunds" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/returns-and-refunds") }],
   }),
   component: Page,
 });

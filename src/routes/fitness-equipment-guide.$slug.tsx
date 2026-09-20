@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, SectionHeading } from "@/components/site/Bits";
 import { brandBySlug, categoryBySlug, guideBySlug, guides } from "@/data/catalog";
 import { blogPostBySlug } from "@/data/blog";
+import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/fitness-equipment-guide/$slug")({
   loader: ({ params }) => {
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/fitness-equipment-guide/$slug")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: g.description },
       ],
-      links: [{ rel: "canonical", href: `/fitness-equipment-guide/${params.slug}` }],
+      links: [{ rel: "canonical", href: canonicalUrl(`/fitness-equipment-guide/${params.slug}`) }],
       scripts: [
         {
           type: "application/ld+json",

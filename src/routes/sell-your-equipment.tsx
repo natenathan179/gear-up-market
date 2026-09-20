@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { brands, categories } from "@/data/catalog";
 import weightsImg from "@/assets/cat-weights.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Sell Your Gym Equipment | Gym Equipment Marketplace";
 const description =
@@ -22,7 +23,7 @@ export const Route = createFileRoute("/sell-your-equipment")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/sell-your-equipment" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/sell-your-equipment") }],
   }),
   component: SellPage,
 });

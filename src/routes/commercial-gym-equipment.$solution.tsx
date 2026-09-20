@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { solutionBySlug, solutions } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import commercialImg from "@/assets/cat-commercial.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/commercial-gym-equipment/$solution")({
   loader: ({ params }) => {
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/commercial-gym-equipment/$solution")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: `/commercial-gym-equipment/${params.solution}` }],
+      links: [{ rel: "canonical", href: canonicalUrl(`/commercial-gym-equipment/${params.solution}`) }],
     };
   },
   component: SolutionPage,

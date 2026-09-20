@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { faqs } from "@/data/catalog";
 import homeImg from "@/assets/cat-home.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Frequently Asked Questions | Gym Equipment Marketplace";
 const description =
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/faq")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/faq" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/faq") }],
     scripts: [
       {
         type: "application/ld+json",

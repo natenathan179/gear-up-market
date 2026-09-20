@@ -6,6 +6,7 @@ import { BlogSidebar } from "@/components/site/BlogSidebar";
 import { blogPosts, formatBlogDate, pickPostCoverImage } from "@/data/blog";
 import { productsQueryOptions } from "@/lib/queries";
 import heroImg from "@/assets/hero-gym.webp";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Blog – Gym Equipment Buying Advice | Gym Equipment Marketplace";
 const description =
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/blog/")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/blog" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/blog") }],
   }),
   component: BlogIndex,
 });

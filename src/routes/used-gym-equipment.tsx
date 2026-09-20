@@ -3,6 +3,7 @@ import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits"
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import { brands, guides } from "@/data/catalog";
 import usedImg from "@/assets/cat-weights.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Used Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/used-gym-equipment")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/used-gym-equipment" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/used-gym-equipment") }],
     scripts: [
       {
         type: "application/ld+json",

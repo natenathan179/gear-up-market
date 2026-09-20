@@ -3278,7 +3278,7 @@ export const blogPosts: BlogPost[] = [
             ["Cable Crossover", "Cables pulled from high or low anchor points", "Chest through a longer, adjustable range of motion"],
           ],
         },
-        cta: { label: "Shop Chest Machines", to: "/shop-equipment", search: { q: "Chest" } },
+        cta: { label: "Shop Chest Machines", to: "/strength-equipment" },
       },
       {
         heading: "Are Chest Machines Effective?",
@@ -3462,7 +3462,7 @@ export const blogPosts: BlogPost[] = [
             ["Rear Delt / Reverse Fly Machine", "Arms sweep backward against pads", "Rear shoulders and upper back"],
           ],
         },
-        cta: { label: "Shop Shoulder Machines", to: "/shop-equipment", search: { q: "Shoulder" } },
+        cta: { label: "Shop Shoulder Machines", to: "/strength-equipment" },
       },
       {
         heading: "Are Shoulder Machines Safe and Effective?",
@@ -3825,7 +3825,7 @@ export const blogPosts: BlogPost[] = [
             ["Cable Curl (Functional Trainer)", "Cable pulled from a low anchor point", "Biceps with constant tension through the full range"],
           ],
         },
-        cta: { label: "Shop Bicep Machines", to: "/shop-equipment", search: { q: "Bicep" } },
+        cta: { label: "Shop Bicep Machines", to: "/strength-equipment" },
       },
       {
         heading: "Are Bicep Machines Worth It?",
@@ -4017,7 +4017,7 @@ export const blogPosts: BlogPost[] = [
             ["Arm Extension Machine", "Seated pressing-style extension, similar setup to a chest press", "Triceps, with a guided fixed path"],
           ],
         },
-        cta: { label: "Shop Tricep Machines", to: "/shop-equipment", search: { q: "Tricep" } },
+        cta: { label: "Shop Tricep Machines", to: "/strength-equipment" },
       },
       {
         heading: "How to Use a Tricep Extension Machine",
@@ -4384,7 +4384,7 @@ export const blogPosts: BlogPost[] = [
         paragraphs: [
           "A shrug machine loads the trapezius — the muscle running from the base of the neck across the top of the shoulders — through a vertical elevating motion, guided along a fixed path rather than a free bar. Some dedicated machines combine a shrug station with a deadlift-style pulling motion in one frame, letting the same equipment cover both a hip-hinge pull and a straight-up shrug without changing setups.",
         ],
-        cta: { label: "Shop Shrug & Trapezius Machines", to: "/shop-equipment", search: { q: "Shrug" } },
+        cta: { label: "Shop Shrug & Trapezius Machines", to: "/strength-equipment" },
       },
       {
         heading: "Smith Machine Shrugs: A Practical Alternative",
@@ -4575,7 +4575,7 @@ export const blogPosts: BlogPost[] = [
         paragraphs: [
           "The lateral raise is one of the easiest exercises to unintentionally cheat — swinging the torso or using momentum to heave a dumbbell up shifts the work off the side deltoid and onto the traps and lower back. A lateral raise machine fixes the arm path and resistance angle, making it far harder to substitute momentum for actual shoulder work, which is exactly why it's a common addition even on floors that already have dumbbells.",
         ],
-        cta: { label: "Shop Lateral Raise Machines", to: "/shop-equipment", search: { q: "Lateral" } },
+        cta: { label: "Shop Lateral Raise Machines", to: "/strength-equipment" },
       },
       {
         heading: "Standing vs. Seated Lateral Raise Machines",
@@ -4764,7 +4764,7 @@ export const blogPosts: BlogPost[] = [
             ["Hip Abductor / Adductor", "Legs pushed outward (abductor) or squeezed inward (adductor)", "Outer and inner thigh muscles"],
           ],
         },
-        cta: { label: "Shop Leg Machines", to: "/shop-equipment", search: { q: "Leg" } },
+        cta: { label: "Shop Leg Machines", to: "/strength-equipment" },
       },
       {
         heading: "What About Leg Extension and Leg Curl Machines?",
@@ -4948,7 +4948,7 @@ export const blogPosts: BlogPost[] = [
         paragraphs: [
           "A leg extension machine isolates the quadriceps on the front of the thigh through a knee-straightening motion, while a leg curl machine — also called a hamstring curl machine — isolates the hamstrings on the back of the thigh through a knee-bending motion. They're often discussed together because they're frequently built as a combo unit or placed side by side on a commercial floor, but they train opposing muscle groups.",
         ],
-        cta: { label: "Shop Leg Extension & Curl Machines", to: "/shop-equipment", search: { q: "Leg Extension" } },
+        cta: { label: "Shop Leg Extension & Curl Machines", to: "/strength-equipment" },
       },
       {
         heading: "Seated, Prone, Standing and Single-Leg Leg Curl Machines",
@@ -5147,7 +5147,7 @@ export const blogPosts: BlogPost[] = [
           "Seated tricep and glute drive machines",
           "Plate-loaded Smith machines",
         ],
-        cta: { label: "Shop Plate-Loaded Machines", to: "/shop-equipment", search: { q: "Plate Loaded" } },
+        cta: { label: "Shop Plate-Loaded Machines", to: "/strength-equipment" },
       },
       {
         heading: "Why Gyms and Serious Lifters Choose Plate-Loaded Equipment",

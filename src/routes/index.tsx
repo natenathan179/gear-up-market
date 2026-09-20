@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, categories, faqs, guides } from "@/data/catalog";
 import { productsQueryOptions, reviewsQueryOptions } from "@/lib/queries";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Gym Equipment Marketplace – Buy New & Used Gym Equipment";
 const description =
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: description },
     ],
     links: [
-      { rel: "canonical", href: "/" },
+      { rel: "canonical", href: canonicalUrl("/") },
       { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
     ],
     scripts: [

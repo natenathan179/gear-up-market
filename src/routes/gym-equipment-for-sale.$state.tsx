@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { locationBySlug, locations } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import locationImg from "@/assets/cat-weights.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
   loader: ({ params }) => {
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: `/gym-equipment-for-sale/${params.state}` }],
+      links: [{ rel: "canonical", href: canonicalUrl(`/gym-equipment-for-sale/${params.state}`) }],
     };
   },
   component: LocationPageView,

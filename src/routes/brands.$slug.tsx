@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { brandBySlug, brands, categories, type Brand } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import brandImg from "@/assets/cat-strength.avif";
+import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/brands/$slug")({
   loader: ({ params }) => {
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/brands/$slug")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: `/brands/${params.slug}` }],
+      links: [{ rel: "canonical", href: canonicalUrl(`/brands/${params.slug}`) }],
       scripts: [
         {
           type: "application/ld+json",

@@ -5,6 +5,7 @@ import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { InquiryModal } from "@/components/site/InquiryModal";
 import { useCart } from "@/lib/cart";
 import cardioImg from "@/assets/cat-cardio.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Your Cart & Quote Request | Gym Equipment Marketplace";
 const description =
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/cart")({
       { name: "twitter:description", content: description },
       { name: "robots", content: "noindex, follow" },
     ],
-    links: [{ rel: "canonical", href: "/cart" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/cart") }],
   }),
   component: CartPage,
 });

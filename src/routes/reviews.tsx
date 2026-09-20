@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Breadcrumbs, PageHeader, SectionHeading, Stars } from "@/components/site/Bits";
 import { reviewsQueryOptions } from "@/lib/queries";
 import strengthImg from "@/assets/cat-strength.avif";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Customer Reviews – Gym Equipment Marketplace Ratings";
 const description =
@@ -39,7 +40,7 @@ export const Route = createFileRoute("/reviews")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: "/reviews" }],
+      links: [{ rel: "canonical", href: canonicalUrl("/reviews") }],
       scripts: [
         {
           type: "application/ld+json",

@@ -6,6 +6,7 @@ import { Mail, Phone, Clock } from "lucide-react";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { businessInfo } from "@/data/catalog";
 import accessoriesImg from "@/assets/cat-accessories.webp";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Contact Gym Equipment Marketplace";
 const description =
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/contact")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/contact") }],
   }),
   component: Contact,
 });

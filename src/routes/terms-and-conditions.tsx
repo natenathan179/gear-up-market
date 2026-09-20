@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import commercialImg from "@/assets/cat-commercial.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Terms & Conditions | Gym Equipment Marketplace";
 const description =
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/terms-and-conditions")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/terms-and-conditions" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/terms-and-conditions") }],
   }),
   component: Page,
 });

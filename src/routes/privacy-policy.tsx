@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import heroImg from "@/assets/hero-gym.webp";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Privacy Policy | Gym Equipment Marketplace";
 const description =
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/privacy-policy")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/privacy-policy" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/privacy-policy") }],
   }),
   component: Page,
 });

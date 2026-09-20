@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import shopImg from "@/assets/cat-commercial.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Shop Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
@@ -10,7 +11,7 @@ const description =
 
 export const Route = createFileRoute("/shop-equipment")({
   validateSearch: z.object({ q: z.string().optional() }),
-  head: () => ({
+  head: ({ match }) => ({
     meta: [
       { title },
       { name: "description", content: description },
@@ -20,8 +21,11 @@ export const Route = createFileRoute("/shop-equipment")({
       { property: "og:url", content: "/shop-equipment" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
+      // Search-filtered results are near-duplicates of the unfiltered page;
+      // keep them crawlable (for internal link equity) but out of the index.
+      ...(match.search.q ? [{ name: "robots", content: "noindex, follow" }] : []),
     ],
-    links: [{ rel: "canonical", href: "/shop-equipment" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/shop-equipment") }],
   }),
   component: ShopPage,
 });

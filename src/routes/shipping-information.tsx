@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import homeImg from "@/assets/cat-home.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Shipping Information | Gym Equipment Marketplace";
 const description =
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/shipping-information")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/shipping-information" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/shipping-information") }],
   }),
   component: Page,
 });

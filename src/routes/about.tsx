@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { brands, categories, locations } from "@/data/catalog";
 import heroImg from "@/assets/hero-gym.webp";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "About Us | Buy & Sell New and Used Gym Equipment | Gym Equipment Marketplace";
 const description =
@@ -42,7 +43,7 @@ export const Route = createFileRoute("/about")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/about") }],
     scripts: [
       {
         type: "application/ld+json",

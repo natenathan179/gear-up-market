@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { guides } from "@/data/catalog";
 import guideImg from "@/assets/cat-cardio.jpg";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Fitness Equipment Guide – Buying Advice | Gym Equipment Marketplace";
 const description =
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/fitness-equipment-guide/")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/fitness-equipment-guide" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/fitness-equipment-guide") }],
   }),
   component: GuideIndex,
 });

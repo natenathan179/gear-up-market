@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import { brands, categories, guides, type Category } from "@/data/catalog";
+import { canonicalUrl } from "@/lib/seo";
 
 export function CategoryPage({ category }: { category: Category }) {
   const others = categories.filter((c) => c.slug !== category.slug);
@@ -107,7 +108,7 @@ export function categoryHead(slug: string, title: string, description: string) {
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: `/${slug}` }],
+    links: [{ rel: "canonical", href: canonicalUrl(`/${slug}`) }],
     scripts: [
       {
         type: "application/ld+json",

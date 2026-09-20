@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, type Brand } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import brandsImg from "@/assets/cat-strength.avif";
+import { canonicalUrl } from "@/lib/seo";
 
 const title = "Gym Equipment Brands | Compare Life Fitness, Precor, Technogym & More";
 const description =
@@ -50,7 +51,7 @@ export const Route = createFileRoute("/brands/")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/brands" }],
+    links: [{ rel: "canonical", href: canonicalUrl("/brands") }],
     scripts: [
       {
         type: "application/ld+json",

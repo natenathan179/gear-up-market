@@ -6,6 +6,7 @@ import { BlogSidebar } from "@/components/site/BlogSidebar";
 import { brandBySlug, categoryBySlug, guideBySlug, locationBySlug, solutionBySlug } from "@/data/catalog";
 import { blogPostBySlug, formatBlogDate, pickPostCoverImage, type BlogProductShowcase } from "@/data/blog";
 import { productsQueryOptions } from "@/lib/queries";
+import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: p.metaDescription },
       ],
-      links: [{ rel: "canonical", href: `/blog/${params.slug}` }],
+      links: [{ rel: "canonical", href: canonicalUrl(`/blog/${params.slug}`) }],
       scripts: [
         {
           type: "application/ld+json",
