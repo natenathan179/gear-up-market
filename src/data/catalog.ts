@@ -1370,6 +1370,76 @@ export const locations: LocationPage[] = [
     blurb:
       "New York sellers frequently list equipment from corporate and residential building gyms. Inside delivery and elevator access should always be confirmed before purchase in the city.",
   },
+  {
+    slug: "illinois",
+    state: "Illinois",
+    cities: ["Chicago", "Aurora", "Naperville", "Rockford"],
+    blurb:
+      "Chicago's mix of corporate wellness centers and boutique studios keeps a steady stream of cardio and cross-training equipment on the market, and local sellers are experienced coordinating loading-dock and freight-elevator delivery across the city.",
+  },
+  {
+    slug: "arizona",
+    state: "Arizona",
+    cities: ["Phoenix", "Tucson", "Mesa", "Scottsdale"],
+    blurb:
+      "Phoenix and the surrounding Valley have one of the fastest-growing home gym markets in the Southwest, driven by new-build garage gyms, so strength racks and squat stands turn over quickly here at strong resale value.",
+  },
+  {
+    slug: "georgia",
+    state: "Georgia",
+    cities: ["Atlanta", "Augusta", "Columbus", "Savannah"],
+    blurb:
+      "Atlanta's mix of corporate offices and residential complexes keeps a steady supply of lightly used free weights and dumbbell sets on the market, with most sellers offering delivery throughout the metro area.",
+  },
+  {
+    slug: "nevada",
+    state: "Nevada",
+    cities: ["Las Vegas", "Reno", "Henderson", "North Las Vegas"],
+    blurb:
+      "Las Vegas hotels, casinos and resort spas refresh commercial cardio equipment on a predictable cycle, so well-maintained treadmills and ellipticals with light commercial hours are common finds here.",
+  },
+  {
+    slug: "colorado",
+    state: "Colorado",
+    cities: ["Denver", "Colorado Springs", "Aurora", "Fort Collins"],
+    blurb:
+      "Denver's active, outdoors-oriented population supports a strong market for strength equipment, from squat racks to plate-loaded machines, with sellers used to shipping around the Front Range and into the mountains.",
+  },
+  {
+    slug: "washington",
+    state: "Washington",
+    cities: ["Seattle", "Spokane", "Tacoma", "Bellevue"],
+    blurb:
+      "Seattle's tech-company campuses regularly upgrade their on-site fitness centers, putting newer commercial-grade strength machines up for sale well before they show real wear.",
+  },
+  {
+    slug: "massachusetts",
+    state: "Massachusetts",
+    cities: ["Boston", "Worcester", "Springfield", "Cambridge"],
+    blurb:
+      "Boston's dense concentration of colleges and gyms keeps cardio equipment like rowers and bikes moving, and sellers here are accustomed to navigating tight city delivery and walk-up access.",
+  },
+  {
+    slug: "north-carolina",
+    state: "North Carolina",
+    cities: ["Charlotte", "Raleigh", "Greensboro", "Durham"],
+    blurb:
+      "Charlotte's growing fitness and wellness sector regularly lists refurbished strength machines at a fraction of new prices, with dealers offering delivery throughout the Piedmont region.",
+  },
+  {
+    slug: "tennessee",
+    state: "Tennessee",
+    cities: ["Nashville", "Memphis", "Knoxville", "Chattanooga"],
+    blurb:
+      "Nashville's boutique fitness boom has created a steady supply of full commercial gym packages as studios upgrade or relocate, making it one of the best markets for buying multiple pieces from a single seller.",
+  },
+  {
+    slug: "pennsylvania",
+    state: "Pennsylvania",
+    cities: ["Philadelphia", "Pittsburgh", "Allentown", "Erie"],
+    blurb:
+      "Philadelphia gyms and training facilities regularly refresh flooring and accessories alongside larger equipment upgrades, so gym flooring, mats and storage racks are consistently available here at low prices.",
+  },
 ];
 
 export const locationBySlug = (slug: string) => locations.find((l) => l.slug === slug);
