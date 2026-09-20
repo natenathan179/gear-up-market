@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BadgeCheck, CreditCard, Truck, Headphones, ArrowRight } from "lucide-react";
 import heroImg from "@/assets/hero-gym.webp";
 import sellImg from "@/assets/sell-banner.jpg";
 import { ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, categories, faqs, guides } from "@/data/catalog";
@@ -24,7 +26,10 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -60,14 +65,89 @@ const steps = [
   { n: "5", t: "Get Delivered", d: "Freight, local delivery or pickup." },
 ];
 
-function Home() {
-  const { data: products } = useSuspenseQuery(productsQueryOptions);
-  const { data: allReviews } = useSuspenseQuery(reviewsQueryOptions);
-  const featured = products.filter((l) => l.featured).slice(0, 6);
-  const used = products.filter((l) => l.condition !== "New").slice(0, 6);
-  const commercial = products.filter((l) => l.usage === "Commercial").slice(0, 4);
-  const reviews = allReviews.slice(0, 6);
+function ListingGridSkeleton({ count }: { count: number }) {
+  return (
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+      {Array.from({ length: count }).map((_, i) => (
+        <Skeleton key={i} className="aspect-3/4 w-full" />
+      ))}
+    </div>
+  );
+}
 
+function FeaturedEquipmentSection() {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const featured = products.filter((l) => l.featured).slice(0, 6);
+  return (
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+      {featured.map((l) => (
+        <ListingCard key={l.slug} listing={l} />
+      ))}
+    </div>
+  );
+}
+
+function UsedEquipmentSection() {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const used = products.filter((l) => l.condition !== "New").slice(0, 6);
+  return (
+    <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+      {used.map((l) => (
+        <ListingCard key={l.slug} listing={l} />
+      ))}
+    </div>
+  );
+}
+
+function CommercialListingsSection() {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const commercial = products.filter((l) => l.usage === "Commercial").slice(0, 4);
+  return (
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {commercial.map((l) => (
+        <ListingCard key={l.slug} listing={l} />
+      ))}
+    </div>
+  );
+}
+
+function CustomerReviewsSection() {
+  const { data: allReviews } = useSuspenseQuery(reviewsQueryOptions);
+  const reviews = allReviews.slice(0, 6);
+  return (
+    <>
+      <p className="-mt-2 mb-6 text-xs text-muted-foreground">
+        Feedback from buyers who bought equipment through the marketplace.{" "}
+        <Link to="/reviews" className="font-semibold text-primary hover:underline">
+          Read all {allReviews.length} reviews
+        </Link>
+      </p>
+      <div className="grid gap-4 md:grid-cols-3">
+        {reviews.map((r) => (
+          <figure key={r.id} className="border border-border bg-card p-5">
+            <div className="flex items-center gap-3">
+              <img
+                src={r.avatarUrl}
+                alt={`${r.name}, verified buyer`}
+                loading="lazy"
+                width={44}
+                height={44}
+                className="size-11 rounded-full object-cover"
+              />
+              <Stars rating={r.rating} />
+            </div>
+            <blockquote className="mt-3 text-sm text-foreground">“{r.quote}”</blockquote>
+            <figcaption className="mt-3 text-xs text-muted-foreground">
+              {r.name} – {r.location}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function Home() {
   return (
     <>
       <section className="relative bg-charcoal-deep text-charcoal-foreground">
@@ -76,6 +156,8 @@ function Home() {
           alt="Commercial gym floor lined with dumbbells, benches and strength machines"
           width={1920}
           height={1080}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 size-full object-cover opacity-45"
         />
         <div className="relative mx-auto max-w-7xl px-4 py-16 lg:py-24">
@@ -152,11 +234,9 @@ function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pb-12">
         <SectionHeading title="Featured Equipment" href="/shop-equipment" linkLabel="View All Products" />
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-          {featured.map((l) => (
-            <ListingCard key={l.slug} listing={l} />
-          ))}
-        </div>
+        <Suspense fallback={<ListingGridSkeleton count={6} />}>
+          <FeaturedEquipmentSection />
+        </Suspense>
       </section>
 
       <section className="bg-secondary py-12">
@@ -170,11 +250,9 @@ function Home() {
             Pre-owned and refurbished commercial machines at a fraction of new prices — inspected,
             described honestly and sold by verified sellers.
           </p>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-            {used.map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-          </div>
+          <Suspense fallback={<ListingGridSkeleton count={6} />}>
+            <UsedEquipmentSection />
+          </Suspense>
         </div>
       </section>
 
@@ -215,11 +293,9 @@ function Home() {
               </li>
             </ul>
           </div>
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {commercial.map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-          </div>
+          <Suspense fallback={<ListingGridSkeleton count={4} />}>
+            <CommercialListingsSection />
+          </Suspense>
         </div>
       </section>
 
@@ -323,33 +399,17 @@ function Home() {
       <section className="bg-secondary py-12">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeading title="What Our Customers Say" />
-          <p className="-mt-2 mb-6 text-xs text-muted-foreground">
-            Feedback from buyers who bought equipment through the marketplace.{" "}
-            <Link to="/reviews" className="font-semibold text-primary hover:underline">
-              Read all {allReviews.length} reviews
-            </Link>
-          </p>
-          <div className="grid gap-4 md:grid-cols-3">
-            {reviews.map((r) => (
-              <figure key={r.id} className="border border-border bg-card p-5">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={r.avatarUrl}
-                    alt={`${r.name}, verified buyer`}
-                    loading="lazy"
-                    width={44}
-                    height={44}
-                    className="size-11 rounded-full object-cover"
-                  />
-                  <Stars rating={r.rating} />
-                </div>
-                <blockquote className="mt-3 text-sm text-foreground">“{r.quote}”</blockquote>
-                <figcaption className="mt-3 text-xs text-muted-foreground">
-                  {r.name} – {r.location}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <Suspense
+            fallback={
+              <div className="grid gap-4 md:grid-cols-3">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <Skeleton key={i} className="h-40 w-full" />
+                ))}
+              </div>
+            }
+          >
+            <CustomerReviewsSection />
+          </Suspense>
         </div>
       </section>
 
