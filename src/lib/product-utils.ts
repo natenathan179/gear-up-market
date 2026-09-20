@@ -5,6 +5,19 @@ import { categoryImage } from "@/lib/catalog-images";
 export const PRODUCT_BUCKET = "product-images";
 export const SIGNED_URL_TTL = 60 * 60 * 24 * 7;
 
+const LOVABLE_ASSET_PREFIX = "/__l5e/assets-v1/";
+
+// Images uploaded via Lovable's editor are stored as paths relative to
+// Lovable's own preview host; that host is only proxied by the Vite dev
+// server, not by the deployed app, so they must be resolved to an absolute
+// URL to load in production.
+function resolveLovableAssetPath(path: string): string {
+  if (!path.startsWith(LOVABLE_ASSET_PREFIX)) return path;
+  const previewHost =
+    import.meta.env["VITE_LOVABLE_PREVIEW_HOST"] ?? process.env["LOVABLE_PREVIEW_HOST"];
+  return previewHost ? `https://${previewHost}${path}` : path;
+}
+
 export type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 export type ReviewRow = Database["public"]["Tables"]["reviews"]["Row"];
 
@@ -92,7 +105,9 @@ export function parseSeller(seller: unknown): Product["seller"] {
 
 export function rowToProduct(row: ProductRow, signed: Map<string, string>): Product {
   const images = (row.images ?? []).map((path) =>
-    path.startsWith("http") || path.startsWith("/") ? path : (signed.get(path) ?? ""),
+    path.startsWith("http") || path.startsWith("/")
+      ? resolveLovableAssetPath(path)
+      : (signed.get(path) ?? ""),
   );
   const usable = images.filter(Boolean);
   return {
