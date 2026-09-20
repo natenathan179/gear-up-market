@@ -1,8 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { brandBySlug, brands, categories } from "@/data/catalog";
+import { brandBySlug, brands, categories, type Brand } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
+import brandImg from "@/assets/cat-strength.avif";
 
 export const Route = createFileRoute("/brands/$slug")({
   loader: ({ params }) => {
@@ -48,17 +49,33 @@ export const Route = createFileRoute("/brands/$slug")({
   component: BrandPage,
 });
 
+const bestForCopy: Record<Brand["bestFor"], { label: string; className: string }> = {
+  Commercial: { label: "Best for Commercial", className: "bg-charcoal text-charcoal-foreground" },
+  Home: { label: "Best for Home", className: "bg-primary text-primary-foreground" },
+  Both: { label: "Best for Home & Commercial", className: "bg-secondary text-foreground border border-border" },
+};
+
 function BrandPage() {
   const { brand } = Route.useLoaderData();
   const { data: products } = useSuspenseQuery(productsQueryOptions);
   const items = products.filter((l) => l.brandSlug === brand.slug);
   const newItems = items.filter((l) => l.condition === "New");
   const usedItems = items.filter((l) => l.condition !== "New");
+  const bestFor = bestForCopy[brand.bestFor];
 
   return (
     <>
       <Breadcrumbs items={[{ label: "Brands", to: "/brands" }, { label: brand.name }]} />
-      <PageHeader eyebrow="Brand" h1={`${brand.name} Gym Equipment for Sale`} intro={brand.intro} />
+      <PageHeader eyebrow="Brand" h1={`${brand.name} Gym Equipment for Sale`} intro={brand.intro} image={brandImg} />
+
+      <section className="mx-auto max-w-7xl px-4 pt-8">
+        <div className="flex flex-wrap items-center gap-3 border border-border bg-card p-5">
+          <span className={`inline-block px-2.5 py-1 text-xs font-bold tracking-wide uppercase ${bestFor.className}`}>
+            {bestFor.label}
+          </span>
+          <p className="text-sm text-muted-foreground">{brand.bestForNote}</p>
+        </div>
+      </section>
 
       {newItems.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-10">
@@ -142,6 +159,11 @@ function BrandPage() {
               </li>
             ))}
         </ul>
+        <p className="mt-4 text-sm text-muted-foreground">
+          <Link to="/brands" className="text-primary hover:underline">
+            Compare all brands and see which is best for home or commercial use →
+          </Link>
+        </p>
       </section>
     </>
   );

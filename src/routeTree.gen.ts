@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BrandsRouteImport } from './routes/brands'
 import { Route as CardioEquipmentRouteImport } from './routes/cardio-equipment'
 import { Route as CartRouteImport } from './routes/cart'
@@ -32,6 +33,8 @@ import { Route as StrengthEquipmentRouteImport } from './routes/strength-equipme
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as BrandsSlugRouteImport } from './routes/brands.$slug'
 import { Route as CommercialGymEquipmentIndexRouteImport } from './routes/commercial-gym-equipment.index'
@@ -56,6 +59,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BrandsRoute = BrandsRouteImport.update({
@@ -158,6 +166,16 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 const BrandsIndexRoute = BrandsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -224,6 +242,7 @@ const AuthenticatedAdminProductsIdRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
   '/cart': typeof CartRoute
@@ -244,11 +263,13 @@ export interface FileRoutesByFullPath {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
   '/admin/login': typeof AdminLoginRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
+  '/blog/': typeof BlogIndexRoute
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
@@ -276,11 +297,13 @@ export interface FileRoutesByTo {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
   '/admin/login': typeof AdminLoginRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
+  '/blog': typeof BlogIndexRoute
   '/brands': typeof BrandsIndexRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideIndexRoute
@@ -293,6 +316,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
   '/cart': typeof CartRoute
@@ -313,11 +337,13 @@ export interface FileRoutesById {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
   '/admin/login': typeof AdminLoginRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
+  '/blog/': typeof BlogIndexRoute
   '/brands/': typeof BrandsIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
@@ -330,6 +356,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/blog'
     | '/brands'
     | '/cardio-equipment'
     | '/cart'
@@ -350,11 +377,13 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/used-gym-equipment'
     | '/admin/login'
+    | '/blog/$slug'
     | '/brands/$slug'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
     | '/gym-equipment-for-sale/$state'
+    | '/blog/'
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
@@ -382,11 +411,13 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/used-gym-equipment'
     | '/admin/login'
+    | '/blog/$slug'
     | '/brands/$slug'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
     | '/gym-equipment-for-sale/$state'
+    | '/blog'
     | '/brands'
     | '/commercial-gym-equipment'
     | '/fitness-equipment-guide'
@@ -398,6 +429,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/blog'
     | '/brands'
     | '/cardio-equipment'
     | '/cart'
@@ -418,11 +450,13 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/used-gym-equipment'
     | '/admin/login'
+    | '/blog/$slug'
     | '/brands/$slug'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
     | '/gym-equipment-for-sale/$state'
+    | '/blog/'
     | '/brands/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
@@ -435,6 +469,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  BlogRoute: typeof BlogRouteWithChildren
   BrandsRoute: typeof BrandsRouteWithChildren
   CardioEquipmentRoute: typeof CardioEquipmentRoute
   CartRoute: typeof CartRoute
@@ -480,6 +515,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brands': {
@@ -622,6 +664,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
     '/brands/': {
       id: '/brands/'
       path: '/'
@@ -717,6 +773,18 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 interface BrandsRouteChildren {
   BrandsSlugRoute: typeof BrandsSlugRoute
   BrandsIndexRoute: typeof BrandsIndexRoute
@@ -765,6 +833,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  BlogRoute: BlogRouteWithChildren,
   BrandsRoute: BrandsRouteWithChildren,
   CardioEquipmentRoute: CardioEquipmentRoute,
   CartRoute: CartRoute,

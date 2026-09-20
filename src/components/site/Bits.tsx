@@ -65,14 +65,24 @@ export function PageHeader({
   h1,
   intro,
   eyebrow,
+  image,
 }: {
   h1: string;
   intro: string;
   eyebrow?: string;
+  image?: string;
 }) {
   return (
-    <div className="bg-charcoal py-12 text-charcoal-foreground">
-      <div className="mx-auto max-w-7xl px-4">
+    <div className="relative overflow-hidden bg-charcoal py-12 text-charcoal-foreground">
+      {image && (
+        <img
+          src={image}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 size-full object-cover opacity-45"
+        />
+      )}
+      <div className="relative mx-auto max-w-7xl px-4">
         {eyebrow && (
           <p className="mb-3 text-xs font-bold tracking-[0.2em] text-primary uppercase">{eyebrow}</p>
         )}

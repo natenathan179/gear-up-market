@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Dumbbell, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { brands, businessInfo, categories, locations } from "@/data/catalog";
+import logoMark from "@/assets/logo-mark.png";
 
 export function Footer() {
   return (
@@ -8,9 +9,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-2">
-            <span className="flex size-9 items-center justify-center rounded-sm bg-primary text-primary-foreground">
-              <Dumbbell className="size-4" />
-            </span>
+            <img src={logoMark} alt="Gym Equipment Marketplace" className="size-9 rounded-sm" />
             <span className="font-display leading-none">
               <span className="block text-base font-extrabold tracking-tight uppercase text-charcoal-foreground">
                 Gym Equipment
@@ -39,6 +38,7 @@ export function Footer() {
         </FooterCol>
 
         <FooterCol title="Resources">
+          <FooterLink to="/blog" label="Blog" />
           <FooterLink to="/fitness-equipment-guide" label="Fitness Equipment Guide" />
           <FooterLink to="/sell-your-equipment" label="Sell Your Equipment" />
           <FooterLink to="/shipping-information" label="Shipping Information" />

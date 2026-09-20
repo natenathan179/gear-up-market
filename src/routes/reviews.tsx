@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Breadcrumbs, PageHeader, SectionHeading, Stars } from "@/components/site/Bits";
 import { reviewsQueryOptions } from "@/lib/queries";
+import strengthImg from "@/assets/cat-strength.avif";
 
 const title = "Customer Reviews – Gym Equipment Marketplace Ratings";
 const description =
@@ -82,6 +83,7 @@ function ReviewsPage() {
         eyebrow="Customer Feedback"
         h1="Gym Equipment Marketplace Reviews"
         intro="Buyers use this marketplace to source commercial treadmills, strength machines, racks and free weights — new, refurbished and used. Below is the feedback they have left about equipment condition, freight delivery, seller communication and after-sale support."
+        image={strengthImg}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10">

@@ -4,6 +4,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { InquiryModal } from "@/components/site/InquiryModal";
 import { useCart } from "@/lib/cart";
+import cardioImg from "@/assets/cat-cardio.jpg";
 
 const title = "Your Cart & Quote Request | Gym Equipment Marketplace";
 const description =
@@ -39,6 +40,7 @@ function CartPage() {
         eyebrow="Quote Basket"
         h1="Your Equipment Cart"
         intro="Add as many machines as you need and send one quote request. Our team replies with availability, combined freight cost and payment options within one business day."
+        image={cardioImg}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10">

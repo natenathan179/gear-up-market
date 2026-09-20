@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, SectionHeading } from "@/components/site/Bits";
 import { brandBySlug, categoryBySlug, guideBySlug, guides } from "@/data/catalog";
+import { blogPostBySlug } from "@/data/blog";
 
 export const Route = createFileRoute("/fitness-equipment-guide/$slug")({
   loader: ({ params }) => {
@@ -97,6 +98,7 @@ function GuideArticle() {
             {guide.related.map((slug) => {
               const category = categoryBySlug(slug);
               const brand = brandBySlug(slug);
+              const post = blogPostBySlug(slug);
               if (category) {
                 return (
                   <li key={slug}>
@@ -118,6 +120,19 @@ function GuideArticle() {
                       className="inline-block border border-border px-3 py-2 font-medium hover:border-primary hover:text-primary"
                     >
                       {brand.name}
+                    </Link>
+                  </li>
+                );
+              }
+              if (post) {
+                return (
+                  <li key={slug}>
+                    <Link
+                      to="/blog/$slug"
+                      params={{ slug: post.slug }}
+                      className="inline-block border border-border px-3 py-2 font-medium hover:border-primary hover:text-primary"
+                    >
+                      {post.title}
                     </Link>
                   </li>
                 );

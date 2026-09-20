@@ -60,7 +60,8 @@ async function main() {
   const accessToken = await signIn();
   console.error("Signed in OK.");
 
-  const products = JSON.parse(readFileSync(path.join(DIR, "strength-machines.seed.json"), "utf8"));
+  const seedFile = process.argv[2] || "strength-machines.seed.json";
+  const products = JSON.parse(readFileSync(path.join(DIR, seedFile), "utf8"));
   const rows = products.map(({ meta_description, image_alt, ...rest }) => rest);
 
   const batches = chunk(rows, 20);

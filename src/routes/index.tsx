@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BadgeCheck, CreditCard, Truck, Headphones, ArrowRight } from "lucide-react";
-import heroImg from "@/assets/hero-gym.jpg";
+import heroImg from "@/assets/hero-gym.webp";
 import sellImg from "@/assets/sell-banner.jpg";
 import { ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
 
@@ -225,19 +225,24 @@ function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pb-12">
         <SectionHeading title="Shop by Brand" href="/brands" linkLabel="View All Brands" />
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-          {brands.map((b) => (
-            <li key={b.slug}>
-              <Link
-                to="/brands/$slug"
-                params={{ slug: b.slug }}
-                className="flex h-16 items-center justify-center border border-border bg-card px-2 text-center text-xs font-bold tracking-wide uppercase transition-colors hover:border-primary hover:text-primary"
-              >
-                {b.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div
+          className="flex overflow-hidden"
+          style={{ maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)" }}
+        >
+          <ul className="animate-marquee-left flex shrink-0 items-center gap-3 pr-3">
+            {[...brands, ...brands].map((b, i) => (
+              <li key={`${b.slug}-${i}`} className="shrink-0">
+                <Link
+                  to="/brands/$slug"
+                  params={{ slug: b.slug }}
+                  className="flex h-16 w-40 items-center justify-center border border-border bg-card px-2 text-center text-xs font-bold tracking-wide uppercase transition-colors hover:border-primary hover:text-primary"
+                >
+                  {b.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="bg-secondary py-12">

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
+import homeImg from "@/assets/cat-home.jpg";
 
 const title = "Shipping Information | Gym Equipment Marketplace";
 const description =
@@ -53,6 +54,7 @@ function Page() {
         eyebrow="Buyer Support"
         h1="Shipping Information"
         intro="Gym equipment is heavy freight, not parcel post. Here is how delivery works on the marketplace and what to arrange before your equipment ships."
+        image={homeImg}
       />
       <section className="mx-auto max-w-3xl px-4 py-12">
         {sections.map((s) => (

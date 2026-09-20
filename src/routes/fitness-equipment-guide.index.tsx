@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { guides } from "@/data/catalog";
+import guideImg from "@/assets/cat-cardio.jpg";
 
 const title = "Fitness Equipment Guide – Buying Advice | Gym Equipment Marketplace";
 const description =
@@ -31,6 +32,7 @@ function GuideIndex() {
         eyebrow="Resource Center"
         h1="Fitness Equipment Guide"
         intro="Buying advice written for people spending real money on equipment — what to buy, what to pay, what to check, and when used beats new."
+        image={guideImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-10">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

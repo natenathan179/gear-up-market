@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import { brands, guides } from "@/data/catalog";
+import usedImg from "@/assets/cat-weights.jpg";
 
 const title = "Used Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
@@ -45,6 +46,7 @@ function UsedPage() {
         eyebrow="Pre-Owned & Refurbished"
         h1="Used Gym Equipment for Sale"
         intro="Buy used gym equipment from gyms, studios, hotels and private sellers across the United States. Every listing states its true condition, from lightly used to fully refurbished commercial machines, so you know exactly what you are buying."
+        image={usedImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-10">
         <EquipmentBrowser onlyUsed />

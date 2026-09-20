@@ -1,9 +1,9 @@
-import strengthImg from "@/assets/cat-strength.jpg";
+import strengthImg from "@/assets/cat-strength.avif";
 import cardioImg from "@/assets/cat-cardio.jpg";
 import homeImg from "@/assets/cat-home.jpg";
 import commercialImg from "@/assets/cat-commercial.jpg";
 import weightsImg from "@/assets/cat-weights.jpg";
-import accessoriesImg from "@/assets/cat-accessories.jpg";
+import accessoriesImg from "@/assets/cat-accessories.webp";
 
 const byCategory: Record<string, string> = {
   "strength-equipment": strengthImg,

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { brands, categories } from "@/data/catalog";
+import weightsImg from "@/assets/cat-weights.jpg";
 
 const title = "Sell Your Gym Equipment | Gym Equipment Marketplace";
 const description =
@@ -85,6 +86,7 @@ function SellPage() {
         eyebrow="Marketplace Sellers"
         h1="Sell Your Gym Equipment"
         intro="Turn your unused gym equipment into cash. Tell us what you have and we will help you list it in front of buyers searching for exactly that machine — gyms, studios, hotels, schools and home buyers across the country."
+        image={weightsImg}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10">

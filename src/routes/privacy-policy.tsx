@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
+import heroImg from "@/assets/hero-gym.webp";
 
 const title = "Privacy Policy | Gym Equipment Marketplace";
 const description =
@@ -49,7 +50,12 @@ function Page() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Privacy Policy" }]} />
-      <PageHeader eyebrow="Legal" h1="Privacy Policy" intro="How we handle the information you share with Gym Equipment Marketplace." />
+      <PageHeader
+        eyebrow="Legal"
+        h1="Privacy Policy"
+        intro="How we handle the information you share with Gym Equipment Marketplace."
+        image={heroImg}
+      />
       <section className="mx-auto max-w-3xl px-4 py-12">
         {sections.map((s) => (
           <div key={s.h} className="mb-8">

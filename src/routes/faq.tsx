@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { faqs } from "@/data/catalog";
+import homeImg from "@/assets/cat-home.jpg";
 
 const title = "Frequently Asked Questions | Gym Equipment Marketplace";
 const description =
@@ -45,6 +46,7 @@ function Faq() {
         eyebrow="Help"
         h1="Frequently Asked Questions"
         intro="How buying and selling works on Gym Equipment Marketplace, plus the practical questions about condition, freight and warranty that come up most."
+        image={homeImg}
       />
       <section className="mx-auto max-w-3xl px-4 py-12">
         <dl className="space-y-6">

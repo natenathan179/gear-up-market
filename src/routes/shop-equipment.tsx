@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
+import shopImg from "@/assets/cat-commercial.jpg";
 
 const title = "Shop Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
@@ -34,6 +35,7 @@ function ShopPage() {
         eyebrow="Gym Equipment Marketplace"
         h1="Gym Equipment for Sale"
         intro="Search every listing on the marketplace by product name, brand, equipment type or model number, then narrow by condition, price, location and whether the machine is built for commercial or home use."
+        image={shopImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-10">
         <EquipmentBrowser initialQuery={q ?? ""} />

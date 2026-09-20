@@ -8,7 +8,12 @@ export function CategoryPage({ category }: { category: Category }) {
   return (
     <>
       <Breadcrumbs items={[{ label: "Shop Equipment", to: "/shop-equipment" }, { label: category.name }]} />
-      <PageHeader eyebrow="Gym Equipment Marketplace" h1={category.h1} intro={category.intro} />
+      <PageHeader
+        eyebrow="Gym Equipment Marketplace"
+        h1={category.h1}
+        intro={category.intro}
+        image={category.image}
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         <SectionHeading title={`Shop ${category.name} by Type`} as="h2" />

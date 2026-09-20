@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Mail, Phone, Clock } from "lucide-react";
 import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { businessInfo } from "@/data/catalog";
+import accessoriesImg from "@/assets/cat-accessories.webp";
 
 const title = "Contact Gym Equipment Marketplace";
 const description =
@@ -61,6 +62,7 @@ function Contact() {
         eyebrow="Contact"
         h1="Contact Gym Equipment Marketplace"
         intro="Questions about a listing, a quote, freight, or selling your own equipment? Our team is here Monday to Friday."
+        image={accessoriesImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr]">

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
+import commercialImg from "@/assets/cat-commercial.jpg";
 
 const title = "Terms & Conditions | Gym Equipment Marketplace";
 const description =
@@ -53,7 +54,12 @@ function Page() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Terms & Conditions" }]} />
-      <PageHeader eyebrow="Legal" h1="Terms & Conditions" intro="The rules for using Gym Equipment Marketplace as a buyer or a seller." />
+      <PageHeader
+        eyebrow="Legal"
+        h1="Terms & Conditions"
+        intro="The rules for using Gym Equipment Marketplace as a buyer or a seller."
+        image={commercialImg}
+      />
       <section className="mx-auto max-w-3xl px-4 py-12">
         {sections.map((s) => (
           <div key={s.h} className="mb-8">

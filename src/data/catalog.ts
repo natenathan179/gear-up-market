@@ -1,9 +1,9 @@
-import strengthImg from "@/assets/cat-strength.jpg";
+import strengthImg from "@/assets/cat-strength.avif";
 import cardioImg from "@/assets/cat-cardio.jpg";
 import homeImg from "@/assets/cat-home.jpg";
 import commercialImg from "@/assets/cat-commercial.jpg";
 import weightsImg from "@/assets/cat-weights.jpg";
-import accessoriesImg from "@/assets/cat-accessories.jpg";
+import accessoriesImg from "@/assets/cat-accessories.webp";
 
 export type Condition = "New" | "Excellent" | "Very Good" | "Good" | "Refurbished";
 
@@ -176,6 +176,9 @@ export interface Brand {
   intro: string;
   popularModels: string[];
   faqs: { q: string; a: string }[];
+  /** Where this brand's equipment is the strongest fit, based on its actual product focus. */
+  bestFor: "Commercial" | "Home" | "Both";
+  bestForNote: string;
 }
 
 export const brands: Brand[] = [
@@ -185,6 +188,9 @@ export const brands: Brand[] = [
     intro:
       "Life Fitness is one of the most widely used commercial fitness brands in the world, found in health clubs, hotels and corporate gyms. Its cardio and strength lines are built for high-traffic use, which is why used Life Fitness equipment holds up well on the secondary market.",
     popularModels: ["Treadmill 95T", "Integrity Series Treadmill", "Multi Gym G7", "Signature Leg Press"],
+    bestFor: "Commercial",
+    bestForNote:
+      "Built for high-traffic health clubs, hotels and corporate gyms — a well-maintained used unit also holds up well in a home gym that wants commercial-grade durability.",
     faqs: [
       {
         q: "Is used Life Fitness equipment reliable?",
@@ -202,6 +208,9 @@ export const brands: Brand[] = [
     intro:
       "Precor built its reputation on elliptical cross trainers and low-impact cardio. Its EFX line is a fixture in commercial gyms, and refurbished Precor cardio is a popular way to equip a facility on a smaller budget.",
     popularModels: ["EFX 885", "EFX 546i", "TRM 833 Treadmill", "Discovery Series Racks"],
+    bestFor: "Commercial",
+    bestForNote:
+      "The EFX elliptical line and refurbished cardio are common picks for facilities equipping a floor on a smaller budget.",
     faqs: [
       {
         q: "What is Precor best known for?",
@@ -215,6 +224,9 @@ export const brands: Brand[] = [
     intro:
       "Technogym is an Italian premium fitness brand used in luxury clubs, hotels and boutique studios. Its Excite and Selection lines combine design-led styling with connected training features.",
     popularModels: ["Excite Run", "Excite Bike", "Selection Pro Leg Press", "Skillmill"],
+    bestFor: "Commercial",
+    bestForNote:
+      "Design-led equipment built for luxury clubs, hotels and boutique studios where appearance and presentation matter as much as function.",
     faqs: [
       {
         q: "Is Technogym worth buying used?",
@@ -228,6 +240,9 @@ export const brands: Brand[] = [
     intro:
       "Cybex is known for biomechanically researched strength machines and the Arc Trainer. Its selectorized lines are common in university, hospital and commercial gym settings.",
     popularModels: ["Arc Trainer 770A", "Eagle Chest Press", "VR3 Lat Pulldown", "Bravo Functional Trainer"],
+    bestFor: "Commercial",
+    bestForNote:
+      "Biomechanically researched strength machines and the Arc Trainer are common fixtures in university, hospital and commercial gym settings.",
     faqs: [
       { q: "What is the Cybex Arc Trainer?", a: "A low-impact cardio machine that combines an elliptical-style path with adjustable incline and resistance." },
     ],
@@ -238,6 +253,9 @@ export const brands: Brand[] = [
     intro:
       "Matrix Fitness supplies cardio, strength and functional equipment to gyms, hotels and multi-family facilities, with a strong reputation for durable consoles and quiet drives.",
     popularModels: ["Exercise Bike IC7", "T7x Treadmill", "Ultra Series Leg Press", "Versa Functional Trainer"],
+    bestFor: "Commercial",
+    bestForNote:
+      "Compact, quiet cardio and durable strength machines suit staffed gyms as well as unstaffed apartment and hotel fitness rooms.",
     faqs: [
       { q: "Is Matrix good for apartment gyms?", a: "Yes — the cardio line is compact, quiet and simple to service, which suits unstaffed apartment and hotel gyms." },
     ],
@@ -248,6 +266,9 @@ export const brands: Brand[] = [
     intro:
       "Hammer Strength plate-loaded machines are a staple of serious training floors. Built heavy and simple, they are among the most durable machines on the used market.",
     popularModels: ["Iso-Lateral Chest Press", "Ground Base Squat", "Plate Loaded Row", "HD Elite Rack"],
+    bestFor: "Commercial",
+    bestForNote:
+      "Heavy, plate-loaded machines built for serious training floors — the large footprint and commercial focus make it a better fit for gyms than most home spaces.",
     faqs: [
       { q: "Why is Hammer Strength popular used?", a: "Plate-loaded machines have no electronics and few wear parts, so a twenty-year-old unit can still perform like new after new pads and paint." },
     ],
@@ -258,6 +279,9 @@ export const brands: Brand[] = [
     intro:
       "NordicTrack focuses on home cardio — treadmills, bikes and rowers with interactive training. A good entry point for a home gym at a lower price than commercial machines.",
     popularModels: ["Commercial 1750 Treadmill", "S22i Studio Bike", "RW900 Rower", "Elite Elliptical"],
+    bestFor: "Home",
+    bestForNote:
+      "Home-grade cardio despite the 'Commercial' model names — a strong, lower-cost entry point for a household setup rather than a staffed gym floor.",
     faqs: [
       { q: "Is NordicTrack commercial grade?", a: "No. The machines are home-grade despite the 'Commercial' model names, and are best suited to household use rather than a staffed gym floor." },
     ],
@@ -268,6 +292,9 @@ export const brands: Brand[] = [
     intro:
       "Rogue builds racks, rigs, barbells and conditioning gear for strength-focused gyms and garage setups. Its equipment retains value strongly on the used market.",
     popularModels: ["R-3 Power Rack", "Ohio Bar", "Monster Lite Rig", "Adjustable Bench 3.0"],
+    bestFor: "Both",
+    bestForNote:
+      "Simple, overbuilt racks and barbells that show up equally in garage gyms and commercial strength-training floors — a rare brand that fits both settings well.",
     faqs: [
       { q: "Does Rogue equipment hold value?", a: "Rogue racks and bars typically resell for a high percentage of retail because they are simple, heavily built and always in demand." },
     ],
@@ -1150,7 +1177,13 @@ export const guides: Guide[] = [
         ],
       },
     ],
-    related: ["life-fitness", "precor", "hammer-strength"],
+    related: [
+      "life-fitness",
+      "precor",
+      "hammer-strength",
+      "best-gym-equipment-brands-for-a-home-gym",
+      "best-gym-equipment-brands-for-a-commercial-gym",
+    ],
   },
   {
     slug: "how-to-build-a-commercial-gym",

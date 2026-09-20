@@ -3,6 +3,7 @@ import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/componen
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { locationBySlug, locations } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
+import locationImg from "@/assets/cat-weights.jpg";
 
 export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
   loader: ({ params }) => {
@@ -46,6 +47,7 @@ function LocationPageView() {
         eyebrow="Local Inventory"
         h1={`Gym Equipment for Sale in ${location.state}`}
         intro={location.blurb}
+        image={locationImg}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10">

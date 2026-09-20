@@ -11,10 +11,10 @@ import {
   Truck,
   ShieldCheck,
   Lock,
-  Dumbbell,
 } from "lucide-react";
 import { businessInfo, categories } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
+import logoMark from "@/assets/logo-mark.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -26,6 +26,7 @@ const navLinks = [
   { to: "/strength-equipment", label: "Strength" },
   { to: "/gym-accessories", label: "Accessories" },
   { to: "/brands", label: "Brands" },
+  { to: "/blog", label: "Blog" },
   { to: "/sell-your-equipment", label: "Sell Your Equipment" },
   { to: "/about", label: "About Us" },
   { to: "/reviews", label: "Reviews" },
@@ -82,9 +83,7 @@ export function Header() {
       <div className="bg-background">
         <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-4">
           <Link to="/" className="flex shrink-0 items-center gap-2">
-            <span className="flex size-10 items-center justify-center rounded-sm bg-primary text-primary-foreground">
-              <Dumbbell className="size-5" />
-            </span>
+            <img src={logoMark} alt="Gym Equipment Marketplace" className="size-10 rounded-sm" />
             <span className="font-display leading-none">
               <span className="block text-lg font-extrabold tracking-tight text-foreground uppercase">
                 Gym Equipment

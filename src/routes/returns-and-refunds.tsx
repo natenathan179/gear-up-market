@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs, PageHeader } from "@/components/site/Bits";
+import accessoriesImg from "@/assets/cat-accessories.webp";
 
 const title = "Returns & Refunds | Gym Equipment Marketplace";
 const description =
@@ -53,6 +54,7 @@ function Page() {
         eyebrow="Buyer Support"
         h1="Returns & Refunds"
         intro="What to expect when equipment needs to go back, and how return terms differ between dealers, refurbishers and private sellers."
+        image={accessoriesImg}
       />
       <section className="mx-auto max-w-3xl px-4 py-12">
         {sections.map((s) => (

@@ -3,6 +3,7 @@ import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/componen
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { solutionBySlug, solutions } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
+import commercialImg from "@/assets/cat-commercial.jpg";
 
 export const Route = createFileRoute("/commercial-gym-equipment/$solution")({
   loader: ({ params }) => {
@@ -46,7 +47,7 @@ function SolutionPage() {
           { label: solution.name },
         ]}
       />
-      <PageHeader eyebrow="Commercial Solutions" h1={solution.h1} intro={solution.intro} />
+      <PageHeader eyebrow="Commercial Solutions" h1={solution.h1} intro={solution.intro} image={commercialImg} />
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         <SectionHeading title="What to Look For" as="h2" />
