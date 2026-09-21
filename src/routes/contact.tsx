@@ -54,7 +54,8 @@ function Contact() {
     toast.success("Thanks — your message has been sent. We reply within one business day.");
   };
 
-  const field = "h-11 w-full border border-border bg-background px-3 text-sm outline-none focus:border-primary";
+  const field =
+    "h-11 w-full border border-border bg-background px-3 text-base outline-none focus:border-primary md:text-sm";
 
   return (
     <>
@@ -107,7 +108,7 @@ function Contact() {
                 rows={6}
                 maxLength={1000}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="w-full border border-border bg-background p-3 text-sm outline-none focus:border-primary"
+                className="w-full border border-border bg-background p-3 text-base outline-none focus:border-primary md:text-sm"
               />
               {errors["message"] && <span className="mt-1 block text-xs text-primary">{errors["message"]}</span>}
             </label>

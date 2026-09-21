@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Lock,
 } from "lucide-react";
-import { businessInfo, categories } from "@/data/catalog";
+import { businessInfo } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
 import logoMark from "@/assets/logo-mark.png";
 
@@ -105,7 +105,7 @@ export function Header() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search gym equipment, brands, models…"
-              className="h-11 w-full rounded-l-sm border border-border border-r-0 px-4 text-sm outline-none focus:border-primary"
+              className="h-11 w-full rounded-l-sm border border-border border-r-0 px-4 text-base outline-none focus:border-primary md:text-sm"
             />
             <button
               type="submit"
@@ -127,7 +127,7 @@ export function Header() {
 
           <button
             onClick={() => setOpen((v) => !v)}
-            className="ml-auto text-foreground md:hidden"
+            className="-mr-2.5 ml-auto p-2.5 text-foreground md:hidden"
             aria-label="Toggle menu"
           >
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
@@ -158,9 +158,13 @@ export function Header() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search gym equipment…"
                 aria-label="Search gym equipment"
-                className="h-10 w-full rounded-l-sm px-3 text-sm text-foreground"
+                className="h-11 w-full rounded-l-sm px-3 text-base text-foreground"
               />
-              <button className="flex h-10 w-12 items-center justify-center rounded-r-sm bg-primary">
+              <button
+                type="submit"
+                aria-label="Search"
+                className="flex h-11 w-12 items-center justify-center rounded-r-sm bg-primary"
+              >
                 <Search className="size-4" />
               </button>
             </form>
@@ -175,9 +179,6 @@ export function Header() {
                     {l.label}
                   </Link>
                 </li>
-              ))}
-              {categories.map((c) => (
-                <li key={c.slug} className="hidden" />
               ))}
             </ul>
           </div>

@@ -78,7 +78,8 @@ function SellPage() {
     toast.success("Thanks! Your equipment details were received. Our team will be in touch.");
   };
 
-  const field = "h-11 w-full border border-border bg-background px-3 text-sm outline-none focus:border-primary";
+  const field =
+    "h-11 w-full border border-border bg-background px-3 text-base outline-none focus:border-primary md:text-sm";
 
   return (
     <>
@@ -160,7 +161,7 @@ function SellPage() {
                 onChange={set("notes")}
                 rows={4}
                 maxLength={1000}
-                className="w-full border border-border bg-background p-3 text-sm outline-none focus:border-primary"
+                className="w-full border border-border bg-background p-3 text-base outline-none focus:border-primary md:text-sm"
               />
             </Field>
             <button

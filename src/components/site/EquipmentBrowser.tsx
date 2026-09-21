@@ -65,7 +65,7 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
   }, [base, q, brand, condition, state, usage, band, sort]);
 
   const selectClass =
-    "h-10 w-full border border-border bg-background px-2 text-sm outline-none focus:border-primary";
+    "h-11 w-full border border-border bg-background px-2 text-base outline-none focus:border-primary md:h-10 md:text-sm";
 
   return (
     <div className="grid gap-8 lg:grid-cols-[260px_1fr]">

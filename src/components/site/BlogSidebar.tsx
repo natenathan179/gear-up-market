@@ -40,7 +40,7 @@ export function BlogSidebar({ excludeSlug, promo }: { excludeSlug?: string; prom
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search posts…"
-          className="h-10 w-full border border-border border-r-0 bg-background px-3 text-sm outline-none focus:border-primary"
+          className="h-11 w-full border border-border border-r-0 bg-background px-3 text-base outline-none focus:border-primary md:h-10 md:text-sm"
         />
         <button
           type="submit"
