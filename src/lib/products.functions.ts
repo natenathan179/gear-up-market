@@ -1,5 +1,4 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
 import {
   rowToProduct,
@@ -11,7 +10,12 @@ import {
   type Review,
 } from "@/lib/product-utils";
 
-function publicClient() {
+// `.functions.ts` files ship their full source to the client bundle (server
+// function bodies get stripped to RPC stubs, but top-level imports don't) —
+// dynamically importing the Supabase SDK here keeps its ~230KB (gzipped) out
+// of every storefront page load; it's only ever needed on the server anyway.
+async function publicClient() {
+  const { createClient } = await import("@supabase/supabase-js");
   const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"]!;
   const key =
     process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["VITE_SUPABASE_PUBLISHABLE_KEY"]!;
@@ -37,7 +41,7 @@ function publicClient() {
 // items. Use fetchProductDetail for a single product's full data.
 export const fetchProducts = createServerFn({ method: "GET" }).handler(
   async (): Promise<ProductSummary[]> => {
-    const supabase = publicClient();
+    const supabase = await publicClient();
     const { data, error } = await supabase
       .from("products")
       .select("*")
@@ -52,7 +56,7 @@ export const fetchProducts = createServerFn({ method: "GET" }).handler(
 export const fetchProductDetail = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }): Promise<{ listing: Product; related: ProductSummary[] } | null> => {
-    const supabase = publicClient();
+    const supabase = await publicClient();
     const { data: row, error } = await supabase
       .from("products")
       .select("*")
@@ -80,7 +84,7 @@ export const fetchProductDetail = createServerFn({ method: "GET" })
 
 export const fetchReviews = createServerFn({ method: "GET" }).handler(
   async (): Promise<Review[]> => {
-    const supabase = publicClient();
+    const supabase = await publicClient();
     const { data, error } = await supabase
       .from("reviews")
       .select("*")

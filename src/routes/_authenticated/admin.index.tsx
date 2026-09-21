@@ -4,8 +4,13 @@ import { useState } from "react";
 import { LogOut, Plus, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
 import { productsQueryOptions } from "@/lib/queries";
+
+// Dynamically imported so the Supabase SDK it pulls in only loads for admin
+// visitors, not for every storefront page — see _authenticated/route.tsx.
+async function getSupabase() {
+  return (await import("@/integrations/supabase/client")).supabase;
+}
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
@@ -45,6 +50,7 @@ function AdminDashboard() {
     if (selected.length === 0) return;
     if (!window.confirm(`Delete ${selected.length} product(s)? This cannot be undone.`)) return;
     setDeleting(true);
+    const supabase = await getSupabase();
     const { error } = await supabase.from("products").delete().in("id", selected);
     setDeleting(false);
     if (error) {
@@ -59,12 +65,14 @@ function AdminDashboard() {
   async function signOut() {
     await queryClient.cancelQueries();
     queryClient.clear();
+    const supabase = await getSupabase();
     await supabase.auth.signOut();
     navigate({ to: "/admin/login", replace: true });
   }
 
   async function deleteProduct(id: string, title: string) {
     if (!window.confirm(`Delete "${title}"? This cannot be undone.`)) return;
+    const supabase = await getSupabase();
     const { error } = await supabase.from("products").delete().eq("id", id);
     if (error) {
       toast.error(error.message);

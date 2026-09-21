@@ -5,7 +5,12 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { supabase } from "@/integrations/supabase/client";
+
+// Dynamically imported so the Supabase SDK it pulls in only loads for admin
+// visitors, not for every storefront page — see _authenticated/route.tsx.
+async function getSupabase() {
+  return (await import("@/integrations/supabase/client")).supabase;
+}
 
 export const Route = createFileRoute("/admin/login")({
   ssr: false,
@@ -35,7 +40,8 @@ function AdminLogin() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    void supabase.auth.getUser().then(({ data }) => {
+    void getSupabase().then(async (supabase) => {
+      const { data } = await supabase.auth.getUser();
       if (data.user) navigate({ to: "/admin", replace: true });
     });
   }, [navigate]);
@@ -43,6 +49,7 @@ function AdminLogin() {
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
     setBusy(true);
+    const supabase = await getSupabase();
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
     if (error) {

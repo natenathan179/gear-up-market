@@ -7,8 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
 import { PRODUCT_BUCKET, slugify } from "@/lib/product-utils";
+
+// Dynamically imported so the Supabase SDK it pulls in only loads for admin
+// visitors, not for every storefront page — see _authenticated/route.tsx.
+async function getSupabase() {
+  return (await import("@/integrations/supabase/client")).supabase;
+}
 
 export const Route = createFileRoute("/_authenticated/admin/products/$id")({
   head: () => ({
@@ -87,6 +92,7 @@ function ProductEditor() {
   useEffect(() => {
     if (isNew) return;
     void (async () => {
+      const supabase = await getSupabase();
       const { data, error } = await supabase.from("products").select("*").eq("id", id).maybeSingle();
       setLoading(false);
       if (error || !data) {
@@ -120,6 +126,7 @@ function ProductEditor() {
   useEffect(() => {
     if (images.length === 0) return;
     void (async () => {
+      const supabase = await getSupabase();
       const { data } = await supabase.storage
         .from(PRODUCT_BUCKET)
         .createSignedUrls(images, 60 * 60);
@@ -138,6 +145,7 @@ function ProductEditor() {
   async function handleUpload(files: FileList | null) {
     if (!files || files.length === 0) return;
     setUploading(true);
+    const supabase = await getSupabase();
     const uploaded: string[] = [];
     for (const file of Array.from(files)) {
       const ext = file.name.split(".").pop() ?? "jpg";
@@ -160,6 +168,7 @@ function ProductEditor() {
   }
 
   async function removeImage(path: string) {
+    const supabase = await getSupabase();
     await supabase.storage.from(PRODUCT_BUCKET).remove([path]);
     setImages((prev) => prev.filter((p) => p !== path));
   }
@@ -191,6 +200,7 @@ function ProductEditor() {
       images,
     };
 
+    const supabase = await getSupabase();
     const { error } = isNew
       ? await supabase.from("products").insert(payload)
       : await supabase.from("products").update(payload).eq("id", id);

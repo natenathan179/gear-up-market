@@ -7,7 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
+
+// Dynamically imported so the Supabase SDK it pulls in only loads for admin
+// visitors, not for every storefront page — see _authenticated/route.tsx.
+async function getSupabase() {
+  return (await import("@/integrations/supabase/client")).supabase;
+}
 
 export const Route = createFileRoute("/_authenticated/admin/reviews")({
   head: () => ({
@@ -29,6 +34,7 @@ export const Route = createFileRoute("/_authenticated/admin/reviews")({
 const adminReviewsQuery = {
   queryKey: ["admin-reviews"],
   queryFn: async () => {
+    const supabase = await getSupabase();
     const { data, error } = await supabase
       .from("reviews")
       .select("*")
@@ -59,6 +65,7 @@ function AdminReviews() {
   async function addReview(event: React.FormEvent) {
     event.preventDefault();
     setSaving(true);
+    const supabase = await getSupabase();
     const { error } = await supabase.from("reviews").insert({
       name: form.name,
       location: form.location,
@@ -79,6 +86,7 @@ function AdminReviews() {
   }
 
   async function togglePublished(id: string, published: boolean) {
+    const supabase = await getSupabase();
     const { error } = await supabase.from("reviews").update({ published: !published }).eq("id", id);
     if (error) {
       toast.error(error.message);
@@ -89,6 +97,7 @@ function AdminReviews() {
 
   async function removeReview(id: string) {
     if (!window.confirm("Delete this review?")) return;
+    const supabase = await getSupabase();
     const { error } = await supabase.from("reviews").delete().eq("id", id);
     if (error) {
       toast.error(error.message);
