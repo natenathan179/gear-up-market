@@ -303,10 +303,7 @@ function Home() {
 
       <section className="mx-auto max-w-7xl px-4 pb-12">
         <SectionHeading title="Shop by Brand" href="/brands" linkLabel="View All Brands" />
-        <div
-          className="flex overflow-hidden"
-          style={{ maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)" }}
-        >
+        <div className="fade-edges-x flex overflow-hidden">
           <ul className="animate-marquee-left flex shrink-0 items-center gap-3 pr-3">
             {[...brands, ...brands].map((b, i) => (
               <li key={`${b.slug}-${i}`} className="shrink-0">

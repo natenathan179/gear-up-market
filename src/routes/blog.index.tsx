@@ -50,11 +50,14 @@ function BlogIndex() {
     <>
       <Breadcrumbs items={[{ label: "Blog" }]} />
 
-      <div
-        className="relative bg-charcoal-deep bg-cover bg-center py-16 text-center text-charcoal-foreground"
-        style={{ backgroundImage: `linear-gradient(rgba(20,20,20,0.75), rgba(20,20,20,0.75)), url(${heroImg})` }}
-      >
-        <div className="mx-auto max-w-3xl px-4">
+      <div className="relative overflow-hidden bg-charcoal-deep py-16 text-center text-charcoal-foreground">
+        <img
+          src={heroImg}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 size-full object-cover opacity-25"
+        />
+        <div className="relative mx-auto max-w-3xl px-4">
           <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
             Gym Equipment Buying Advice
           </h1>
