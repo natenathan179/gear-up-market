@@ -149,6 +149,21 @@ export function rowToProduct(row: ProductRow, signed: Map<string, string>): Prod
   };
 }
 
+// Card/browse views (search, category grids, related products) only ever
+// render the fields below — never description, specs, warranty, shipping,
+// seller or the full image gallery. Serializing those into every listing on
+// every browse page bloats the page's SSR payload for no visible benefit, so
+// pages that list many products fetch this shape instead of the full Product.
+export type ProductSummary = Omit<
+  Product,
+  "description" | "specs" | "warranty" | "shipping" | "seller" | "images"
+>;
+
+export function toProductSummary(product: Product): ProductSummary {
+  const { description, specs, warranty, shipping, seller, images, ...summary } = product;
+  return summary;
+}
+
 export function rowToReview(row: ReviewRow): Review {
   return {
     id: row.id,

@@ -3,13 +3,13 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ListingCard } from "@/components/site/Bits";
 import { brands, conditions } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
-import type { Product } from "@/lib/product-utils";
+import type { ProductSummary } from "@/lib/product-utils";
 
 interface Props {
   initialQuery?: string;
   lockCategory?: string;
   onlyUsed?: boolean;
-  pool?: Product[];
+  pool?: ProductSummary[];
 }
 
 const priceBands = [

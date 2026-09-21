@@ -2,6 +2,14 @@ import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, Star } from "lucide-react";
 import type { Listing } from "@/data/catalog";
 
+// Only the fields ListingCard actually renders — deliberately narrower than
+// Listing/Product so lightweight list payloads (without description, specs,
+// seller, etc.) can be passed in without carrying that unused weight.
+type CardListing = Pick<
+  Listing,
+  "slug" | "title" | "brand" | "model" | "subcategory" | "condition" | "price" | "city" | "state" | "image"
+>;
+
 export function SectionHeading({
   title,
   href,
@@ -108,7 +116,7 @@ export function ConditionBadge({ condition }: { condition: string }) {
   );
 }
 
-export function ListingCard({ listing }: { listing: Listing }) {
+export function ListingCard({ listing }: { listing: CardListing }) {
   return (
     <article className="group flex flex-col border border-border bg-card transition-shadow hover:shadow-lg">
       <div className="relative bg-secondary">

@@ -5,24 +5,18 @@ import { toast } from "sonner";
 import { Breadcrumbs, ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
 import { InquiryModal } from "@/components/site/InquiryModal";
 import { categoryBySlug } from "@/data/catalog";
-import { productsQueryOptions } from "@/lib/queries";
+import { productDetailQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
-import type { Product } from "@/lib/product-utils";
+import type { Product, ProductSummary } from "@/lib/product-utils";
 import { absoluteUrl, canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: async ({ params, context }) => {
-    const products = await context.queryClient.ensureQueryData(productsQueryOptions);
-    const listing = products.find((p) => p.slug === params.slug);
-    if (!listing) throw notFound();
-    const related = products
-      .filter(
-        (p) =>
-          p.slug !== listing.slug &&
-          (p.category === listing.category || p.brandSlug === listing.brandSlug),
-      )
-      .slice(0, 4);
-    return { listing, related };
+    const detail = await context.queryClient.ensureQueryData(
+      productDetailQueryOptions(params.slug),
+    );
+    if (!detail) throw notFound();
+    return detail;
   },
   errorComponent: () => (
     <div className="mx-auto max-w-3xl px-4 py-20 text-center">
@@ -111,7 +105,10 @@ export const Route = createFileRoute("/equipment/$slug")({
 });
 
 function ListingPage() {
-  const { listing, related } = Route.useLoaderData() as { listing: Product; related: Product[] };
+  const { listing, related } = Route.useLoaderData() as {
+    listing: Product;
+    related: ProductSummary[];
+  };
   const category = categoryBySlug(listing.category);
   const isUsed = listing.condition !== "New";
   const cart = useCart();
