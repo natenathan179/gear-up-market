@@ -76,7 +76,7 @@ export function BlogSidebar({ excludeSlug, promo }: { excludeSlug?: string; prom
             <li key={p.slug} className="flex gap-3">
               <img
                 src={pickPostCoverImage(p, products)}
-                alt=""
+                alt={p.title}
                 className="size-14 shrink-0 rounded-xs object-cover"
               />
               <div>

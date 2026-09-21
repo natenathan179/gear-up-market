@@ -1176,7 +1176,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "strength-training-weightlifting-equipment-for-sale",
     title: "Strength Training & Weightlifting Equipment for Sale: What to Look For",
-    seoTitle: "Strength & Weightlifting Equipment for Sale Guide",
+    seoTitle: "Strength Training & Weightlifting Equipment for Sale",
     metaDescription:
       "Buying strength training equipment? Learn the difference between selectorized, plate-loaded and free-weight setups so you choose the right gear.",
     excerpt:

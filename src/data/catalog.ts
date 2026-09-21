@@ -102,7 +102,7 @@ export const categories: Category[] = [
     name: "Cardio Equipment",
     navLabel: "Cardio",
     blurb: "Treadmills, Bikes, Ellipticals and More",
-    h1: "Cardio Equipment for Sale – Treadmills, Bikes & Ellipticals",
+    h1: "Cardio Equipment for Sale – Treadmills & Bikes",
     intro:
       "Shop cardio machines for gyms, studios and home setups. Find commercial treadmills, exercise bikes, spin bikes, ellipticals, rowing machines, stair climbers and cross trainers in new, refurbished and used condition.",
     image: cardioImg,
@@ -309,7 +309,7 @@ export const categories: Category[] = [
     name: "Free Weights",
     navLabel: "Free Weights",
     blurb: "Dumbbells, Barbells, Plates and More",
-    h1: "Free Weights for Sale – Dumbbells, Barbells & Plates",
+    h1: "Free Weights for Sale – Dumbbells & Plates",
     intro:
       "Dumbbell sets, barbells, bumper plates, kettlebells, weight trees and storage racks. Buy new sets or save on used commercial free weights from gyms that are upgrading.",
     image: weightsImg,
@@ -1513,7 +1513,7 @@ export const solutions: Solution[] = [
   {
     slug: "hotel-gym-equipment",
     name: "Hotel Gym Equipment",
-    h1: "Hotel Gym Equipment",
+    h1: "Hotel Gym Equipment for Sale",
     intro:
       "Compact, quiet and low-maintenance equipment for hotel fitness suites, where guests expect a good machine and staff need minimal servicing.",
     points: [
@@ -1540,7 +1540,7 @@ export const solutions: Solution[] = [
   {
     slug: "school-gym-equipment",
     name: "School Gym Equipment",
-    h1: "School Gym Equipment",
+    h1: "School Gym Equipment for Sale",
     intro:
       "Durable equipment for school and university weight rooms, chosen for safety, supervision and heavy shared use.",
     points: [
@@ -1567,7 +1567,7 @@ export const solutions: Solution[] = [
   {
     slug: "apartment-gym-equipment",
     name: "Apartment Gym Equipment",
-    h1: "Apartment Gym Equipment",
+    h1: "Apartment Gym Equipment for Sale",
     intro:
       "Unstaffed resident gyms need machines that are simple, quiet and hard to break. These packages are built for multi-family buildings.",
     points: [
@@ -1594,7 +1594,7 @@ export const solutions: Solution[] = [
   {
     slug: "corporate-gym-equipment",
     name: "Corporate Gym Equipment",
-    h1: "Corporate Gym Equipment",
+    h1: "Corporate Gym Equipment for Sale",
     intro:
       "Workplace fitness rooms that get used at lunch and after work, specified for reliability and easy facilities management.",
     points: [
@@ -1621,7 +1621,7 @@ export const solutions: Solution[] = [
   {
     slug: "personal-training-equipment",
     name: "Personal Training Equipment",
-    h1: "Personal Training Studio Equipment",
+    h1: "Personal Training Equipment for Sale",
     intro:
       "High-versatility equipment for personal trainers working one-to-one or in small groups, where floor space is the constraint.",
     points: [
@@ -1648,7 +1648,7 @@ export const solutions: Solution[] = [
   {
     slug: "fitness-studio-equipment",
     name: "Fitness Studio Equipment",
-    h1: "Fitness Studio Equipment",
+    h1: "Fitness Studio Equipment for Sale",
     intro:
       "Boutique studio packages for cycling, HIIT, strength and small-group training, with a look that matches the brand.",
     points: [

@@ -70,17 +70,17 @@ function LocationPageView() {
 
   return (
     <>
-      <Breadcrumbs items={[{ label: `Gym Equipment in ${location.state}` }]} />
+      <Breadcrumbs items={[{ label: `Used Gym Equipment in ${location.state}` }]} />
       <PageHeader
         eyebrow="Local Inventory"
-        h1={`Gym Equipment for Sale in ${location.state}`}
+        h1={`Used Gym Equipment for Sale in ${location.state}`}
         intro={location.blurb}
         image={locationImg}
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         <SectionHeading
-          title={`Listings in ${location.state}`}
+          title={`Used Gym Equipment Listings in ${location.state}`}
           href="/shop-equipment"
           linkLabel="Browse Nationwide"
           as="h2"

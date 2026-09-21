@@ -78,7 +78,7 @@ function About() {
       <Breadcrumbs items={[{ label: "About Us" }]} />
       <PageHeader
         eyebrow="About Us"
-        h1="About Gym Equipment Marketplace"
+        h1="About Us: Buy & Sell New and Used Gym Equipment"
         intro="We connect people buying gym equipment with the gyms, dealers and owners selling it — new, refurbished and used, in one place, with honest condition reporting and real seller information."
         image={heroImg}
       />

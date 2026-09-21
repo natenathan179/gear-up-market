@@ -213,7 +213,7 @@ function Home() {
             <article key={c.slug} className="border border-border bg-card">
               <img
                 src={categoryThumb(c.slug)}
-                alt={`${c.name} for sale`}
+                alt={`${c.name} for sale – ${c.blurb}`}
                 loading="lazy"
                 width={800}
                 height={600}

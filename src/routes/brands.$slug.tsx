@@ -67,7 +67,12 @@ function BrandPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Brands", to: "/brands" }, { label: brand.name }]} />
-      <PageHeader eyebrow="Brand" h1={`${brand.name} Gym Equipment for Sale`} intro={brand.intro} image={brandImg} />
+      <PageHeader
+        eyebrow="Brand"
+        h1={`Used ${brand.name} Gym Equipment for Sale`}
+        intro={brand.intro}
+        image={brandImg}
+      />
 
       <section className="mx-auto max-w-7xl px-4 pt-8">
         <div className="flex flex-wrap items-center gap-3 border border-border bg-card p-5">

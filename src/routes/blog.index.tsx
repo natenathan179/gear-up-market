@@ -55,7 +55,9 @@ function BlogIndex() {
         style={{ backgroundImage: `linear-gradient(rgba(20,20,20,0.75), rgba(20,20,20,0.75)), url(${heroImg})` }}
       >
         <div className="mx-auto max-w-3xl px-4">
-          <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">Our Blog</h1>
+          <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Gym Equipment Buying Advice
+          </h1>
           <p className="mt-4 text-sm text-charcoal-foreground/80 sm:text-base">
             Tips, guides and buying advice to help you get the most out of your fitness equipment.
           </p>
