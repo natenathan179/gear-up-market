@@ -29,7 +29,6 @@ const navLinks = [
   { to: "/brands", label: "Brands" },
   { to: "/blog", label: "Blog" },
   { to: "/fitness-equipment-guide", label: "Equipment Guide" },
-  { to: "/sell-your-equipment", label: "Sell Your Equipment" },
   { to: "/about", label: "About Us" },
   { to: "/reviews", label: "Reviews" },
   { to: "/contact", label: "Contact" },
