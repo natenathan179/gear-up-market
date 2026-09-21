@@ -126,13 +126,16 @@ function cleanProductTitle(title: string): string {
   return core.replace(/ for Sale$/, "").trim();
 }
 
+function resolveImagePaths(paths: string[], signed: Map<string, string>): string[] {
+  return paths
+    .map((path) =>
+      path.startsWith("http") || path.startsWith("/") ? resolveLovableAssetPath(path) : (signed.get(path) ?? ""),
+    )
+    .filter(Boolean);
+}
+
 export function rowToProduct(row: ProductRow, signed: Map<string, string>): Product {
-  const images = (row.images ?? []).map((path) =>
-    path.startsWith("http") || path.startsWith("/")
-      ? resolveLovableAssetPath(path)
-      : (signed.get(path) ?? ""),
-  );
-  const usable = images.filter(Boolean);
+  const usable = resolveImagePaths(row.images ?? [], signed);
   return {
     id: row.id,
     slug: row.slug,
@@ -176,6 +179,62 @@ export type ProductSummary = Omit<
 export function toProductSummary(product: Product): ProductSummary {
   const { description, specs, warranty, shipping, seller, images, ...summary } = product;
   return summary;
+}
+
+// The exact set of columns rowToProductSummary reads — selecting only these
+// (instead of "*") keeps the summary query from pulling every row's
+// description/specs/warranty/shipping/seller across the wire just to throw
+// them away immediately after.
+export const PRODUCT_SUMMARY_COLUMNS =
+  "id,slug,title,brand,brand_slug,model,category,subcategory,condition,price,city,state,state_slug,usage,muscle_group,resistance,available,images,featured";
+
+export type ProductSummaryRow = Pick<
+  ProductRow,
+  | "id"
+  | "slug"
+  | "title"
+  | "brand"
+  | "brand_slug"
+  | "model"
+  | "category"
+  | "subcategory"
+  | "condition"
+  | "price"
+  | "city"
+  | "state"
+  | "state_slug"
+  | "usage"
+  | "muscle_group"
+  | "resistance"
+  | "available"
+  | "images"
+  | "featured"
+>;
+
+export function rowToProductSummary(row: ProductSummaryRow, signed: Map<string, string>): ProductSummary {
+  const usable = resolveImagePaths(row.images ?? [], signed);
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: cleanProductTitle(row.title),
+    brand: row.brand,
+    brandSlug: row.brand_slug,
+    model: row.model,
+    category: row.category,
+    subcategory: row.subcategory,
+    condition: row.condition as Condition,
+    price: Number(row.price),
+    city: row.city,
+    state: row.state,
+    stateSlug: row.state_slug,
+    usage: row.usage as Product["usage"],
+    muscleGroup: row.muscle_group,
+    resistance: row.resistance,
+    available: row.available,
+    image: usable[0] ?? categoryImage(row.category),
+    imagePaths: row.images ?? [],
+    featured: row.featured,
+  };
 }
 
 export function rowToReview(row: ReviewRow): Review {

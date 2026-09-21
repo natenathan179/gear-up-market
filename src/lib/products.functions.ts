@@ -1,10 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import type { Database } from "@/integrations/supabase/types";
 import {
+  PRODUCT_SUMMARY_COLUMNS,
   rowToProduct,
+  rowToProductSummary,
   rowToReview,
   signImagePaths,
-  toProductSummary,
   type Product,
   type ProductSummary,
   type Review,
@@ -39,17 +40,25 @@ async function publicClient() {
 // full row — including full descriptions, specs and every gallery image for
 // every product would bloat every page that lists more than a couple of
 // items. Use fetchProductDetail for a single product's full data.
+//
+// Selecting only PRODUCT_SUMMARY_COLUMNS instead of "*" matters here: the
+// description/specs/warranty/shipping/seller fields are the bulk of a row's
+// bytes and get discarded immediately after mapping, so selecting "*" made
+// Postgres and the network ship the whole catalog's worth of long-form text
+// on every browse-page load — this was adding several hundred ms to TTFB on
+// every page that lists products. Ordering by created_at doesn't require it
+// to be in the select list; PostgREST orders before projecting.
 export const fetchProducts = createServerFn({ method: "GET" }).handler(
   async (): Promise<ProductSummary[]> => {
     const supabase = await publicClient();
     const { data, error } = await supabase
       .from("products")
-      .select("*")
+      .select(PRODUCT_SUMMARY_COLUMNS)
       .order("created_at", { ascending: false });
     if (error || !data) return [];
     const firstImages = data.flatMap((row) => (row.images?.[0] ? [row.images[0]] : []));
     const signed = await signImagePaths(supabase, firstImages);
-    return data.map((row) => toProductSummary(rowToProduct(row, signed)));
+    return data.map((row) => rowToProductSummary(row, signed));
   },
 );
 
@@ -69,7 +78,7 @@ export const fetchProductDetail = createServerFn({ method: "GET" })
 
     const { data: relatedRows } = await supabase
       .from("products")
-      .select("*")
+      .select(PRODUCT_SUMMARY_COLUMNS)
       .or(`category.eq.${row.category},brand_slug.eq.${row.brand_slug}`)
       .neq("slug", slug)
       .order("created_at", { ascending: false })
@@ -77,7 +86,7 @@ export const fetchProductDetail = createServerFn({ method: "GET" })
     const candidates = relatedRows ?? [];
     const relatedFirstImages = candidates.flatMap((r) => (r.images?.[0] ? [r.images[0]] : []));
     const relatedSigned = await signImagePaths(supabase, relatedFirstImages);
-    const related = candidates.map((r) => toProductSummary(rowToProduct(r, relatedSigned)));
+    const related = candidates.map((r) => rowToProductSummary(r, relatedSigned));
 
     return { listing, related };
   });
