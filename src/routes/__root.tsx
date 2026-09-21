@@ -15,7 +15,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/lib/cart";
-import logoMark from "@/assets/logo-mark.png";
+import appleTouchIcon from "@/assets/apple-touch-icon.png";
 
 
 function NotFoundComponent() {
@@ -103,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-      { rel: "apple-touch-icon", href: logoMark },
+      { rel: "apple-touch-icon", href: appleTouchIcon },
     ],
     scripts: [
       {

@@ -85,7 +85,7 @@ export function Header() {
       <div className="bg-background">
         <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-4">
           <Link to="/" className="flex shrink-0 items-center gap-2">
-            <img src={logoMark} alt="Gym Equipment Marketplace" className="size-14 rounded-sm" />
+            <img src={logoMark} alt="Gym Equipment Marketplace" className="h-14 w-auto" />
             <span className="font-display leading-none">
               <span className="block text-lg font-extrabold tracking-tight text-foreground uppercase">
                 Gym Equipment
