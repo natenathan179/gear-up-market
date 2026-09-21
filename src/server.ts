@@ -6,13 +6,15 @@ import { SITE_URL } from "./lib/seo";
 
 const CANONICAL_HOST = new URL(SITE_URL).host;
 
-// www and bare-domain both route to this Worker; without a redirect, search
-// engines crawl and index both as separate copies of every page, doubling
-// duplicate-content and on-page SEO warnings across the whole site.
-function canonicalHostRedirect(request: Request): Response | undefined {
+// www, the bare domain and plain http all route to this Worker; without a
+// redirect, search engines crawl and index each as a separate copy of every
+// page (duplicate-content warnings), and plain http leaves visitors on an
+// unencrypted connection instead of landing on the canonical https URL.
+function canonicalUrlRedirect(request: Request): Response | undefined {
   const url = new URL(request.url);
-  if (url.host === CANONICAL_HOST) return undefined;
+  if (url.host === CANONICAL_HOST && url.protocol === "https:") return undefined;
   url.host = CANONICAL_HOST;
+  url.protocol = "https:";
   return Response.redirect(url, 301);
 }
 
@@ -59,7 +61,7 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
-    const redirect = canonicalHostRedirect(request);
+    const redirect = canonicalUrlRedirect(request);
     if (redirect) return redirect;
     try {
       const handler = await getServerEntry();
