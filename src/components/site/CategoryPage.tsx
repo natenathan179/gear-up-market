@@ -74,6 +74,23 @@ export function CategoryPage({ category }: { category: Category }) {
         </div>
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 pb-12">
+        <SectionHeading title="Popular Searches" as="h2" />
+        <ul className="flex flex-wrap gap-2 text-sm">
+          {category.keywords.map((k) => (
+            <li key={k}>
+              <Link
+                to="/shop-equipment"
+                search={{ q: k }}
+                className="inline-block border border-border px-3 py-2 font-medium hover:border-primary hover:text-primary"
+              >
+                {k}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 py-12">
         <FaqList faqs={category.faqs} title={`${category.name} FAQs`} />
       </section>
