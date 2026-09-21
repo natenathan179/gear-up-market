@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
+import { Breadcrumbs, FaqList, PageHeader, SectionHeading, faqSchema } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import { brands, guides } from "@/data/catalog";
 import usedImg from "@/assets/cat-weights.jpg";
@@ -8,6 +8,29 @@ import { canonicalUrl } from "@/lib/seo";
 const title = "Used Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
   "Shop used gym equipment for sale: used commercial gym equipment, refurbished machines and second hand fitness equipment. Filter by condition, brand, price and location.";
+
+const usedFaqs = [
+  {
+    q: "What's the difference between \"Refurbished\" and \"Used\" on a listing?",
+    a: "Refurbished equipment has been inspected, serviced and often re-covered by a refurbisher, and usually includes a short warranty. Used equipment is sold as-is directly from the previous owner, typically at a lower price with no warranty.",
+  },
+  {
+    q: "How do I know the true condition of a used machine before buying?",
+    a: "Check the condition grade and description on the listing, ask the seller for recent photos and a maintenance history, and request a short video of the machine running if you can't inspect it in person.",
+  },
+  {
+    q: "Is there a return policy on used equipment?",
+    a: "Return policies are set by the seller, not the marketplace, and vary by listing — refurbished equipment more often includes a parts-and-function guarantee than a private used sale does. Confirm the policy with the seller before you pay.",
+  },
+  {
+    q: "Can I negotiate the price on a used listing?",
+    a: "Yes — use Enquire Now to contact the seller directly. Many sellers are open to offers, especially on equipment that's been listed for a while or when buying multiple items at once.",
+  },
+  {
+    q: "How old is the equipment typically listed here?",
+    a: "It varies widely, from lightly used machines retired during a recent gym renovation to well-maintained equipment that's a decade or more old. The listing's condition grade matters more than age for how the equipment will perform.",
+  },
+];
 
 export const Route = createFileRoute("/used-gym-equipment")({
   head: () => ({
@@ -23,6 +46,7 @@ export const Route = createFileRoute("/used-gym-equipment")({
     ],
     links: [{ rel: "canonical", href: canonicalUrl("/used-gym-equipment") }],
     scripts: [
+      ...faqSchema(usedFaqs),
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -105,6 +129,10 @@ function UsedPage() {
               </li>
             ))}
         </ul>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12">
+        <FaqList faqs={usedFaqs} title="Used Gym Equipment FAQs" />
       </section>
     </>
   );

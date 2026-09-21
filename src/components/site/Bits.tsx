@@ -10,6 +10,41 @@ type CardListing = Pick<
   "slug" | "title" | "brand" | "model" | "subcategory" | "condition" | "price" | "city" | "state" | "image"
 >;
 
+export function FaqList({ faqs, title = "Frequently Asked Questions" }: { faqs: { q: string; a: string }[]; title?: string }) {
+  if (faqs.length === 0) return null;
+  return (
+    <div>
+      <SectionHeading title={title} as="h2" />
+      <dl className="max-w-3xl space-y-6">
+        {faqs.map((f) => (
+          <div key={f.q} className="border-b border-border pb-6">
+            <dt className="text-base font-bold text-foreground">{f.q}</dt>
+            <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+export function faqSchema(faqs: { q: string; a: string }[]) {
+  if (faqs.length === 0) return [];
+  return [
+    {
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }),
+    },
+  ];
+}
+
 export function SectionHeading({
   title,
   href,

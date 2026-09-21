@@ -9,6 +9,7 @@ export const Route = createFileRoute("/free-weights")({
     "free-weights",
     "Free Weights for Sale – Dumbbells & Plates | Gym Equipment Marketplace",
     "Shop free weights for sale: dumbbell sets, barbells, weight plates, bumper plates, kettlebells and storage racks, new and used.",
+    category.faqs,
   ),
   component: () => <CategoryPage category={category} />,
 });

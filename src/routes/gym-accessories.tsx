@@ -9,6 +9,7 @@ export const Route = createFileRoute("/gym-accessories")({
     "gym-accessories",
     "Gym Accessories for Sale | Gym Equipment Marketplace",
     "Shop gym accessories for sale: gym flooring, mats, resistance bands, lifting belts, medicine balls and storage for home and commercial gyms.",
+    category.faqs,
   ),
   component: () => <CategoryPage category={category} />,
 });

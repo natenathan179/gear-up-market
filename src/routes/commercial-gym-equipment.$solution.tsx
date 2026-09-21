@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/components/site/Bits";
+import { Breadcrumbs, FaqList, ListingCard, PageHeader, SectionHeading, faqSchema } from "@/components/site/Bits";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { solutionBySlug, solutions } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
@@ -30,6 +30,7 @@ export const Route = createFileRoute("/commercial-gym-equipment/$solution")({
         { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: canonicalUrl(`/commercial-gym-equipment/${params.solution}`) }],
+      scripts: faqSchema(loaderData.solution.faqs),
     };
   },
   component: SolutionPage,
@@ -73,6 +74,10 @@ function SolutionPage() {
             <ListingCard key={l.slug} listing={l} />
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12">
+        <FaqList faqs={solution.faqs} title={`${solution.name} FAQs`} />
       </section>
 
       <section className="bg-secondary py-10">

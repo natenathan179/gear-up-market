@@ -17,6 +17,8 @@ export interface Category {
   image: string;
   subcategories: string[];
   keywords: string[];
+  body: { heading: string; paragraphs: string[] }[];
+  faqs: { q: string; a: string }[];
 }
 
 export const categories: Category[] = [
@@ -50,6 +52,50 @@ export const categories: Category[] = [
       "gym strength machines",
       "weight training equipment",
     ],
+    body: [
+      {
+        heading: "Selectorized vs. Plate-Loaded Strength Machines",
+        paragraphs: [
+          "Selectorized machines use a weight stack and a pin, so a member can change resistance in seconds without loading plates — the reason they dominate high-traffic commercial floors and circuit-training rooms. They also take up a predictable, fixed footprint, which makes planning a gym layout easier.",
+          "Plate-loaded machines have almost no electronics and few moving parts beyond the pivot and cable, so they hold up for decades with basic upkeep and are the strength equipment category where buying used carries the least risk. Powerlifters and serious home-gym owners also prefer the free, natural bar path plate-loaded machines allow compared to a fixed selectorized cam.",
+        ],
+      },
+      {
+        heading: "Building a Strength Floor: Racks, Benches and Cable Stations",
+        paragraphs: [
+          "A power rack or squat rack is usually the anchor of any serious strength setup, since it covers squats, bench press, pull-ups and safety-bar work in one footprint. Pair it with an adjustable bench and a cable machine or functional trainer to cover presses, rows, curls and cable core work without needing a full row of single-purpose machines.",
+          "Commercial gyms typically add dedicated leg press, chest press, lat pulldown and shoulder press machines so several members can train different muscle groups at once without waiting on a single multi-station rig — the same logic that makes plate-loaded circuits efficient in busy facilities.",
+        ],
+      },
+      {
+        heading: "Buying Used Strength Equipment With Confidence",
+        paragraphs: [
+          "Strength machines are one of the safest categories to buy used because their failure points — cables, pulleys, upholstery and pads — are visible, inexpensive and easy to inspect before you buy. Ask for close-up photos of cable ends, weld joints and cam surfaces if you can't view the machine in person, and confirm the seller has inspected and serviced it rather than just wiping it down for photos.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What's the difference between selectorized and plate-loaded strength machines?",
+        a: "Selectorized machines use a pin and weight stack for fast, tool-free resistance changes, which suits high-traffic commercial floors. Plate-loaded machines have fewer parts to fail and a freer bar path, which is why used units hold their value well.",
+      },
+      {
+        q: "How much floor space does a power rack need?",
+        a: "Most standard power racks need roughly 4 to 5 feet of depth and width, plus 2 to 3 feet of clearance on the working side for pull-ups and safety-bar rep-outs. Commercial half-racks and squat stands can fit tighter spaces than a full four-post cage.",
+      },
+      {
+        q: "Is used strength equipment safe to buy?",
+        a: "Yes, provided you check the mechanical wear points: cables and pulleys for fraying, welds for cracking, and pads for structural (not just cosmetic) damage. Selectorized machines with clean, quiet weight stacks and plate-loaded machines with straight frames are both safe long-term buys.",
+      },
+      {
+        q: "What strength equipment is best for a home gym versus a commercial gym?",
+        a: "A home gym usually does best with a power rack, adjustable bench and a compact cable station or functional trainer to cover the most exercises in the smallest footprint. A commercial gym benefits from adding dedicated selectorized machines — leg press, chest press, lat pulldown — so multiple members can train at once.",
+      },
+      {
+        q: "How do I know if a cable machine's cables need replacing?",
+        a: "Look for visible fraying, flat spots or rust anywhere along the cable, and listen for grinding or catching as it runs through the pulleys. A machine that has been serviced recently will usually have this noted in the listing along with maintenance history.",
+      },
+    ],
   },
   {
     slug: "cardio-equipment",
@@ -77,6 +123,50 @@ export const categories: Category[] = [
       "gym cardio machines",
       "fitness cardio equipment",
     ],
+    body: [
+      {
+        heading: "Matching Cardio Equipment to Your Goals",
+        paragraphs: [
+          "Treadmills remain the most versatile cardio machine for walking, running and incline work, and commercial decks are built to handle heavier daily mileage than home-grade units. Ellipticals and cross trainers give a lower-impact option that's easier on the knees and hips, which is why they're popular in hotel and rehab-adjacent gyms.",
+          "Rowing machines and stair climbers deliver a higher-intensity, full-body workout in less floor space than a treadmill, making them a common addition once a facility's core cardio line is already covered. Spin bikes and exercise bikes round things out for group classes and low-impact interval training.",
+        ],
+      },
+      {
+        heading: "Commercial-Grade vs. Home Cardio",
+        paragraphs: [
+          "Commercial cardio equipment is built around a heavier frame, a more powerful motor and a belt or resistance system rated for continuous daily use across many users — that's why gyms, hotels and studios buy it even at a premium over home-grade machines. A well-maintained commercial treadmill or elliptical bought used often outperforms and outlasts a new home unit at a similar price.",
+          "Home cardio machines are built to a lighter duty cycle for one or two users, which keeps them more affordable and often foldable for smaller spaces, but they wear out faster under heavy or shared use.",
+        ],
+      },
+      {
+        heading: "What Affects a Cardio Machine's Resale Value",
+        paragraphs: [
+          "Belt and deck condition on a treadmill, drive-chain smoothness on an elliptical, and cable or chain integrity on a rowing machine are the details that separate a good used buy from a future repair bill. Ask sellers for the machine's service history and total run hours where available, and look closely at the deck for lifting damage.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What's the difference between a commercial and home treadmill?",
+        a: "Commercial treadmills use a heavier frame, a stronger motor and a thicker deck rated for continuous, multi-user use, while home treadmills are built for lighter, occasional use by one or two people. A used commercial treadmill often has more life left in it than a new home model at the same price.",
+      },
+      {
+        q: "How long do commercial treadmill belts and decks last?",
+        a: "A well-maintained commercial belt typically lasts several years of daily gym use before it needs replacing, and the deck can be flipped once to extend its life further. Ask sellers whether the belt has been replaced or the deck flipped, since both are inexpensive, common maintenance items.",
+      },
+      {
+        q: "Are ellipticals or treadmills better for joint-friendly cardio?",
+        a: "Ellipticals and cross trainers put less impact stress on the knees, hips and ankles than running on a treadmill, which is why they're common in hotel gyms and rehab settings. Treadmills still offer more variety, since they support walking, jogging and incline training in one machine.",
+      },
+      {
+        q: "What should I check before buying a used rowing machine?",
+        a: "Check the resistance mechanism (air, magnetic, water or chain-driven) for smooth, consistent resistance through the full stroke, inspect the seat rail for wear, and confirm the monitor or console powers on and reads correctly.",
+      },
+      {
+        q: "Do refurbished cardio machines come with a warranty?",
+        a: "Most refurbished commercial cardio comes with a short parts-and-function warranty from the refurbisher, typically 30 days, covering the motor, belt and console. Always confirm what's covered before buying, since warranty terms vary by seller.",
+      },
+    ],
   },
   {
     slug: "home-gym-equipment",
@@ -101,6 +191,49 @@ export const categories: Category[] = [
       "home fitness equipment",
       "home gym machines",
       "home weight equipment",
+    ],
+    body: [
+      {
+        heading: "Planning a Garage, Basement or Spare-Room Gym",
+        paragraphs: [
+          "Most home gyms start with a single anchor piece — a multi-gym, a power rack or an adjustable bench with a set of dumbbells — and grow from there as space and budget allow. A 10-by-10-foot area is enough for a rack, bench and a compact cardio machine, while a two-car garage can comfortably fit a full strength and cardio setup.",
+          "Standard household 15- or 20-amp circuits handle folding treadmills and most home cardio equipment without issue; only heavier commercial-grade machines occasionally call for a dedicated circuit, which is worth checking before you buy one for a house.",
+        ],
+      },
+      {
+        heading: "Multi-Gyms vs. Building Piece by Piece",
+        paragraphs: [
+          "A multi-gym packs presses, pulldowns and rows into one compact frame, which is the fastest way to cover several exercises in a small footprint without buying and arranging separate machines. Building piece by piece — a rack, a bench, adjustable dumbbells and a cable station — costs more upfront and takes more space, but gives more exercise variety and a setup that scales as your training changes.",
+        ],
+      },
+      {
+        heading: "New vs. Used for a Home Gym Budget",
+        paragraphs: [
+          "Home gym equipment sees far lighter use than the same machines in a commercial setting, so a used folding treadmill, bench or multi-gym from another household is usually in excellent condition relative to its price. Buying used commercial-grade equipment that's been retired from a gym is also a popular way to get professional durability into a home gym at a fraction of new pricing.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "How much space do I need for a home gym?",
+        a: "A single rack, bench and compact cardio machine fit comfortably in about 100 square feet, while a two-car garage can hold a full strength and cardio setup. Multi-gyms and folding equipment are the best options when space is tighter than that.",
+      },
+      {
+        q: "Is a multi-gym or separate machines better for a home gym?",
+        a: "A multi-gym covers the most exercises in the smallest footprint and is the simpler choice for a first home gym. Separate equipment — a rack, bench, dumbbells and cable station — costs more and takes more space but offers more exercise variety as your training progresses.",
+      },
+      {
+        q: "Can I run home gym equipment on standard household power?",
+        a: "Yes — folding treadmills, ellipticals and most home cardio machines run on a standard 15- or 20-amp household outlet. Only some heavier commercial-grade machines occasionally need a dedicated circuit, so check the machine's power requirements before buying.",
+      },
+      {
+        q: "What's the best starter equipment list for a home gym?",
+        a: "A power rack or multi-gym, an adjustable bench, a set of adjustable dumbbells and one cardio machine covers strength, conditioning and cardio in a compact setup. Accessories like a mat and resistance bands round it out affordably.",
+      },
+      {
+        q: "Is used home gym equipment worth buying?",
+        a: "Yes, in most cases. Home equipment sees lighter use than commercial equipment, so used dumbbells, benches, racks and folding treadmills from another household are typically in strong condition relative to their price.",
+      },
     ],
   },
   {
@@ -127,6 +260,49 @@ export const categories: Category[] = [
       "fitness center equipment",
       "gym equipment for commercial gyms",
     ],
+    body: [
+      {
+        heading: "Outfitting a Commercial Facility on Budget and Timeline",
+        paragraphs: [
+          "A new commercial gym floor typically mixes a cardio row (treadmills, bikes, ellipticals), a selectorized strength circuit, a free-weight and plate-loaded area, and a stretching or functional-training zone. Buying single machines lets you fill gaps in an existing floor, while a full gym package is usually faster and more cost-effective for a brand-new facility outfitting from scratch.",
+          "Sellers on the marketplace regularly source equipment from facility closures, gym remodels and hotel renovations, which is why complete packages and matched equipment sets show up here at well below new-equipment pricing.",
+        ],
+      },
+      {
+        heading: "New, Refurbished or Used: What Fits a Commercial Gym",
+        paragraphs: [
+          "New equipment makes sense for a flagship facility or a brand that needs matching finishes and the latest consoles. Refurbished equipment — inspected, serviced and often re-covered — gives most of that new-equipment feel with a warranty, at a lower price. Used equipment sourced directly from another facility is the most economical option and works well for plate-loaded and free-weight categories where wear parts are minimal.",
+        ],
+      },
+      {
+        heading: "Delivery, Installation and Warranty for Commercial Buyers",
+        paragraphs: [
+          "Commercial equipment is heavy and often needs a loading dock, freight elevator or liftgate truck to move — confirm these details with the seller before booking delivery, especially for full gym packages. Most sellers on the marketplace offer freight shipping nationwide and can arrange local delivery and installation for larger orders, and refurbished machines typically include a 30-day parts-and-function guarantee.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What's the typical cost to outfit a commercial gym floor?",
+        a: "Costs vary widely by facility size and equipment mix, but buying used or refurbished commercial equipment typically runs a fraction of new-equipment pricing for the same brands and models. Full gym packages sourced from facility closures often offer the best per-machine value.",
+      },
+      {
+        q: "Should a new gym buy new or used commercial equipment?",
+        a: "New equipment suits flagship facilities that want matching finishes and the newest consoles. Refurbished and used equipment cost significantly less and, for plate-loaded and free-weight categories especially, carry very little added risk since those machines have few parts that wear out.",
+      },
+      {
+        q: "Do commercial equipment purchases include installation?",
+        a: "Many sellers on the marketplace offer local delivery and installation for larger orders and full gym packages — this is arranged directly with the seller and should be confirmed before you buy, since it varies by listing and location.",
+      },
+      {
+        q: "How long does delivery take for a full gym package?",
+        a: "Local delivery is often available within days, while nationwide freight shipping for larger packages typically takes one to two weeks depending on distance and carrier scheduling. Confirm dock, liftgate and inside-delivery needs with the seller ahead of time to avoid delays.",
+      },
+      {
+        q: "What warranty coverage is typical on commercial equipment?",
+        a: "Refurbished commercial equipment commonly includes a 30-day parts-and-function guarantee from the refurbisher. Used equipment sold as-is generally carries no warranty, so inspection before purchase matters most in that case.",
+      },
+    ],
   },
   {
     slug: "free-weights",
@@ -146,6 +322,49 @@ export const categories: Category[] = [
       "Storage Racks",
     ],
     keywords: ["free weights", "dumbbells for sale", "used dumbbells", "weight plates", "barbells"],
+    body: [
+      {
+        heading: "Choosing Dumbbells, Barbells and Plates",
+        paragraphs: [
+          "A full dumbbell set covering a wide weight range takes significant floor space and budget, which is why many home and boutique-studio buyers choose adjustable dumbbells instead — one pair that covers a full range in a fraction of the footprint. Commercial gyms generally still prefer fixed-weight dumbbell racks, since they hold up to constant use and let multiple members train at once.",
+          "Barbells vary mainly in shaft whip, knurling and weight capacity: a general-purpose bar suits most home and commercial use, while dedicated powerlifting or Olympic-lift bars are worth the extra cost only if that's the specific training style.",
+        ],
+      },
+      {
+        heading: "Rubber, Iron and Bumper Plates: What's the Difference",
+        paragraphs: [
+          "Standard iron plates are the most affordable option and best suited to controlled lifts that aren't dropped, since bare iron chips and dents flooring. Rubber-coated iron plates add a protective coating for quieter, floor-safe use. Bumper plates are built to be dropped safely from overhead, which is essential for Olympic lifts and CrossFit-style training but adds cost over standard iron.",
+        ],
+      },
+      {
+        heading: "Why Used Free Weights Are a Smart Buy",
+        paragraphs: [
+          "Dumbbells, plates and barbells have no moving parts, motors or electronics to fail, which makes this category one of the lowest-risk places to buy used equipment on the entire marketplace. A used plate that's scuffed but accurately weighted performs identically to a new one, so the main things worth checking are accurate labeled weight and the condition of any rubber coating or knurling.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What's the difference between bumper plates and standard iron plates?",
+        a: "Bumper plates are made of dense rubber and built to be dropped safely from overhead lifts, while standard iron plates are more affordable but can chip or damage flooring if dropped. Choose bumper plates for Olympic lifting or CrossFit-style training, and iron plates for controlled lifts.",
+      },
+      {
+        q: "Do dumbbells and plates wear out?",
+        a: "Not mechanically — solid iron and rubber-coated weights have no moving parts, so a used set performs identically to new. The main wear to check for is chipped rubber coating, worn knurling on handles, or a label that no longer matches the actual weight.",
+      },
+      {
+        q: "How much weight should a starter free weight setup include?",
+        a: "A general home setup typically covers 5 to 50 pounds in dumbbells (or one adjustable pair covering that range), a standard barbell, and enough plates to load it to at least bodyweight. Commercial and serious home gyms usually extend dumbbell racks well past 100 pounds per hand.",
+      },
+      {
+        q: "Is it safe to buy used barbells?",
+        a: "Yes — check that the bar isn't visibly bent, that the sleeves spin smoothly, and that the knurling still has grip. A well-maintained used barbell performs the same as new for the vast majority of lifters.",
+      },
+      {
+        q: "What storage do I need for a free weight setup?",
+        a: "A basic weight tree or plate rack keeps plates organized and off the floor, and a dumbbell rack prevents rolling and protects flooring. Storage is optional for a small set but becomes worthwhile once a collection grows past a few pairs and a couple of bars.",
+      },
+    ],
   },
   {
     slug: "gym-accessories",
@@ -165,6 +384,44 @@ export const categories: Category[] = [
       "Storage",
     ],
     keywords: ["gym accessories", "gym flooring", "fitness accessories", "gym mats"],
+    body: [
+      {
+        heading: "Accessories That Actually Improve a Gym Floor",
+        paragraphs: [
+          "Flooring and mats protect both the equipment and the subfloor beneath it, making them the first accessory purchase for almost any home or commercial setup, especially anywhere free weights are dropped or set down. Lifting belts, resistance bands and medicine balls extend what a strength or functional-training area can do without adding another full machine.",
+        ],
+      },
+      {
+        heading: "Flooring: Rubber Rolls vs. Interlocking Tiles",
+        paragraphs: [
+          "Rubber rolls give a seamless, commercial-grade surface that's ideal for larger continuous areas like a full weight room, but they're heavier and harder to install or replace in sections. Interlocking tiles are faster to install, easier to replace one section at a time, and are the more practical choice for home gyms and smaller studio spaces.",
+        ],
+      },
+      {
+        heading: "Small Equipment Worth Buying New",
+        paragraphs: [
+          "Resistance bands, lifting belts and other accessories that directly contact skin or bear body weight are generally worth buying new for hygiene and safety, since wear on the material isn't always visible. Flooring, storage racks and medicine balls hold up well used and are a good place to save on a setup.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "What thickness of gym flooring do I need for free weights?",
+        a: "Areas where weights are set down or dropped generally call for 3/4 inch or thicker rubber flooring, while general walking and cardio areas do fine with 3/8 to 1/2 inch. Heavier drops from overhead lifts call for the thickest option available.",
+      },
+      {
+        q: "Should I buy used gym mats and flooring?",
+        a: "Yes — rubber flooring and mats have no moving parts and hold up well used, as long as there's no cracking, curling at the edges, or lingering odor. This makes flooring one of the better accessory categories to buy secondhand.",
+      },
+      {
+        q: "What accessories should every home gym have?",
+        a: "Flooring or mats to protect the subfloor, a lifting belt for heavier compound lifts, and a set of resistance bands for warm-ups and accessory work cover most of what a home gym needs beyond the main equipment.",
+      },
+      {
+        q: "How do I clean and maintain rubber gym flooring?",
+        a: "Sweep or vacuum regularly to remove grit that can wear the surface, and clean with a mild, non-solvent cleaner rather than harsh chemicals, which can dry out and crack rubber over time.",
+      },
+    ],
   },
 ];
 
@@ -1249,6 +1506,7 @@ export interface Solution {
   h1: string;
   intro: string;
   points: string[];
+  faqs: { q: string; a: string }[];
 }
 
 export const solutions: Solution[] = [
@@ -1264,6 +1522,20 @@ export const solutions: Solution[] = [
       "Full packages with delivery, installation and removal of old equipment",
       "Brand-consistent finishes for premium properties",
     ],
+    faqs: [
+      {
+        q: "What equipment do guests expect in a hotel fitness room?",
+        a: "A treadmill, an elliptical or cross trainer, a compact strength option like a functional trainer, and free weights up to about 50 pounds cover the vast majority of guest workouts in a small room.",
+      },
+      {
+        q: "How important is noise for hotel gym equipment?",
+        a: "Very — hotel fitness rooms are often near guest floors, so magnetic and belt-drive machines are preferred over louder mechanical or plate-loaded equipment that can transmit vibration and noise.",
+      },
+      {
+        q: "Can sellers handle full hotel gym installations?",
+        a: "Many sellers on the marketplace offer full-package delivery, installation and removal of old equipment for hotel properties, which is worth requesting when replacing an entire fitness room at once.",
+      },
+    ],
   },
   {
     slug: "school-gym-equipment",
@@ -1276,6 +1548,20 @@ export const solutions: Solution[] = [
       "Safety spotters and enclosed stacks",
       "Budget-friendly refurbished packages with warranty",
       "Purchase order and district billing supported by many sellers",
+    ],
+    faqs: [
+      {
+        q: "What equipment holds up best in a school weight room?",
+        a: "Plate-loaded machines and rack-based setups are the most common choice for schools, since they have few parts to fail under heavy, unsupervised student use and are easy to service.",
+      },
+      {
+        q: "Can schools and districts pay by purchase order?",
+        a: "Many sellers on the marketplace support purchase orders and district billing for education buyers — confirm this directly with the seller before finalizing an order.",
+      },
+      {
+        q: "Is refurbished equipment safe for student use?",
+        a: "Yes, provided the refurbisher has inspected and serviced safety-critical parts like cables, pulleys and stack enclosures, and the equipment carries a parts-and-function warranty.",
+      },
     ],
   },
   {
@@ -1290,6 +1576,20 @@ export const solutions: Solution[] = [
       "Low-maintenance selectorized stacks over loose plates",
       "Flooring and mirror packages available",
     ],
+    faqs: [
+      {
+        q: "What's the best equipment for an unstaffed apartment gym?",
+        a: "Compact cardio and a single functional trainer cover the widest range of resident workouts without needing supervision, since selectorized stacks are simpler and harder to misuse than loose plates.",
+      },
+      {
+        q: "Will equipment be too loud for units above or below the gym?",
+        a: "Selectorized machines and belt-drive cardio run quieter than plate-loaded equipment, which is why they're the preferred choice for gyms inside multi-family buildings.",
+      },
+      {
+        q: "Do sellers include flooring for apartment gym packages?",
+        a: "Flooring and mirror packages are available from many sellers alongside the equipment itself, which is worth bundling into one order for a new or renovated resident gym.",
+      },
+    ],
   },
   {
     slug: "corporate-gym-equipment",
@@ -1302,6 +1602,20 @@ export const solutions: Solution[] = [
       "Service contracts available through verified dealers",
       "Phased rollouts across multiple offices",
       "Equipment removal and resale when offices relocate",
+    ],
+    faqs: [
+      {
+        q: "What equipment mix works best for a corporate wellness room?",
+        a: "A balance of cardio (treadmills, bikes) and strength (a functional trainer or compact selectorized stack) covers the range of fitness levels found in a typical office, from lunchtime walkers to serious lifters.",
+      },
+      {
+        q: "Can we phase equipment purchases across multiple office locations?",
+        a: "Yes — many sellers work with businesses to roll out matching equipment packages across several offices over time rather than requiring one large order upfront.",
+      },
+      {
+        q: "What happens to equipment when an office relocates or downsizes?",
+        a: "Corporate fitness equipment can be resold through the marketplace when an office relocates or closes its fitness room, and some sellers also offer removal service as part of a new equipment order.",
+      },
     ],
   },
   {
@@ -1316,6 +1630,20 @@ export const solutions: Solution[] = [
       "Turf strips, sleds and conditioning tools",
       "Mobile-friendly kits for in-home training",
     ],
+    faqs: [
+      {
+        q: "What equipment gives a personal trainer the most exercise variety per square foot?",
+        a: "A functional trainer or cable machine covers the widest range of exercises in the smallest footprint, which is why it's usually the anchor piece for one-on-one and small-group training studios.",
+      },
+      {
+        q: "What should a mobile personal trainer carry for in-home sessions?",
+        a: "A set of adjustable dumbbells or kettlebells, resistance bands and a turf strip or sled cover most in-home programming without needing a vehicle full of equipment.",
+      },
+      {
+        q: "Is used equipment a good fit for a personal training studio on a budget?",
+        a: "Yes — a personal training studio typically sees lighter, more supervised use than a full commercial gym, so used functional trainers, benches and free weights hold up well and keep startup costs down.",
+      },
+    ],
   },
   {
     slug: "fitness-studio-equipment",
@@ -1328,6 +1656,20 @@ export const solutions: Solution[] = [
       "Matched dumbbell and kettlebell sets",
       "Rigs, storage and flooring",
       "Consistent finishes across the whole floor",
+    ],
+    faqs: [
+      {
+        q: "What equipment do boutique fitness studios typically need?",
+        a: "Studio cycles, rowers or skill machines for class-based training, plus a matched set of dumbbells and kettlebells for strength segments, cover most boutique studio formats.",
+      },
+      {
+        q: "Can we get matching finishes across all our studio equipment?",
+        a: "Many sellers can help source equipment with consistent finishes and branding across a studio floor, which matters more for boutique studios than for general commercial gyms.",
+      },
+      {
+        q: "Does a studio package include flooring and storage?",
+        a: "Rigs, storage and flooring are commonly bundled with studio equipment packages, since class-based studios need efficient storage between sessions more than a typical gym floor does.",
+      },
     ],
   },
 ];

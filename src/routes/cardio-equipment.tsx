@@ -9,6 +9,7 @@ export const Route = createFileRoute("/cardio-equipment")({
     "cardio-equipment",
     "Cardio Equipment for Sale – Treadmills & Bikes | Gym Equipment Marketplace",
     "Shop cardio equipment for sale: commercial treadmills, exercise bikes, spin bikes, ellipticals, rowing machines and stair climbers, new and used.",
+    category.faqs,
   ),
   component: () => <CategoryPage category={category} />,
 });

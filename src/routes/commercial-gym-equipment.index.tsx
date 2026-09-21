@@ -10,6 +10,7 @@ export const Route = createFileRoute("/commercial-gym-equipment/")({
     "commercial-gym-equipment",
     "Commercial Gym Equipment for Sale | Gym Equipment Marketplace",
     "Buy commercial gym equipment for gyms, hotels, schools and fitness centers. Full gym packages and single machines, new, refurbished and used, shipped nationwide.",
+    category.faqs,
   ),
   component: CommercialIndex,
 });

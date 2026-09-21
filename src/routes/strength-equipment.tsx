@@ -9,6 +9,7 @@ export const Route = createFileRoute("/strength-equipment")({
     "strength-equipment",
     "Strength Equipment for Sale – New & Used | Gym Equipment Marketplace",
     "Shop strength training equipment for sale: power racks, smith machines, cable machines, functional trainers, benches and plate loaded machines, new and used.",
+    category.faqs,
   ),
   component: () => <CategoryPage category={category} />,
 });

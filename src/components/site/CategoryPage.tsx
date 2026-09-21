@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
+import { Breadcrumbs, FaqList, PageHeader, SectionHeading, faqSchema } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import { brands, categories, guides, type Category } from "@/data/catalog";
 import { canonicalUrl } from "@/lib/seo";
@@ -38,6 +38,23 @@ export function CategoryPage({ category }: { category: Category }) {
         <EquipmentBrowser lockCategory={category.slug} />
       </section>
 
+      <section className="mx-auto max-w-7xl px-4 pb-12">
+        <div className="space-y-10">
+          {category.body.map((section) => (
+            <div key={section.heading}>
+              <h2 className="font-display text-xl font-bold text-foreground sm:text-2xl">
+                {section.heading}
+              </h2>
+              <div className="mt-3 max-w-3xl space-y-3 text-sm text-muted-foreground">
+                {section.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="bg-secondary py-12">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeading title="Shop by Brand" href="/brands" linkLabel="View All Brands" as="h2" />
@@ -55,6 +72,10 @@ export function CategoryPage({ category }: { category: Category }) {
             ))}
           </ul>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-12">
+        <FaqList faqs={category.faqs} title={`${category.name} FAQs`} />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12">
@@ -96,7 +117,12 @@ export function CategoryPage({ category }: { category: Category }) {
   );
 }
 
-export function categoryHead(slug: string, title: string, description: string) {
+export function categoryHead(
+  slug: string,
+  title: string,
+  description: string,
+  faqs: { q: string; a: string }[] = [],
+) {
   return () => ({
     meta: [
       { title },
@@ -121,6 +147,7 @@ export function categoryHead(slug: string, title: string, description: string) {
           ],
         }),
       },
+      ...faqSchema(faqs),
     ],
   });
 }

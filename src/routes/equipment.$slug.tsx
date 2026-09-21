@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, MessageSquare, ShieldCheck, ShoppingCart, Truck } from "lucide-react";
 import { toast } from "sonner";
-import { Breadcrumbs, ListingCard, SectionHeading, Stars } from "@/components/site/Bits";
+import { Breadcrumbs, FaqList, ListingCard, SectionHeading, Stars, faqSchema } from "@/components/site/Bits";
 import { InquiryModal } from "@/components/site/InquiryModal";
 import { categoryBySlug } from "@/data/catalog";
 import { productDetailQueryOptions } from "@/lib/queries";
@@ -98,24 +98,15 @@ export const Route = createFileRoute("/equipment/$slug")({
             ],
           }),
         },
+        ...faqSchema(productFaqs(l)),
       ],
     };
   },
   component: ListingPage,
 });
 
-function ListingPage() {
-  const { listing, related } = Route.useLoaderData() as {
-    listing: Product;
-    related: ProductSummary[];
-  };
-  const category = categoryBySlug(listing.category);
-  const isUsed = listing.condition !== "New";
-  const cart = useCart();
-  const [inquiryOpen, setInquiryOpen] = useState(false);
-  const [activeImage, setActiveImage] = useState(0);
-
-  const faqs = [
+function productFaqs(listing: Product) {
+  return [
     {
       q: `Is this ${listing.brand} ${listing.model} suitable for commercial use?`,
       a:
@@ -134,6 +125,19 @@ function ListingPage() {
       a: "Send an enquiry or add it to your cart and request a quote. We confirm availability, freight cost and payment options by email — nothing is charged online.",
     },
   ];
+}
+
+function ListingPage() {
+  const { listing, related } = Route.useLoaderData() as {
+    listing: Product;
+    related: ProductSummary[];
+  };
+  const category = categoryBySlug(listing.category);
+  const isUsed = listing.condition !== "New";
+  const cart = useCart();
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
+  const faqs = productFaqs(listing);
 
   return (
     <>
