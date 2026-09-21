@@ -9,7 +9,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-5">
         <div className="sm:col-span-2 lg:col-span-1">
           <div className="flex items-center gap-2">
-            <img src={logoMark} alt="Gym Equipment Marketplace" className="size-9 rounded-sm" />
+            <img src={logoMark} alt="Gym Equipment Marketplace" className="size-12 rounded-sm" />
             <span className="font-display leading-none">
               <span className="block text-base font-extrabold tracking-tight uppercase text-charcoal-foreground">
                 Gym Equipment
