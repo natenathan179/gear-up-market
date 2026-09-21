@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, Star } from "lucide-react";
 import type { Listing } from "@/data/catalog";
+import { resizedImageUrl } from "@/lib/product-utils";
 
 // Only the fields ListingCard actually renders — deliberately narrower than
 // Listing/Product so lightweight list payloads (without description, specs,
@@ -157,7 +158,7 @@ export function ListingCard({ listing }: { listing: CardListing }) {
       <div className="relative bg-secondary">
         <ConditionBadge condition={listing.condition} />
         <img
-          src={listing.image}
+          src={resizedImageUrl(listing.image, 500)}
           alt={`${listing.brand} ${listing.model} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale`}
           loading="lazy"
           width={800}

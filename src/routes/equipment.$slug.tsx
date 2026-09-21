@@ -7,7 +7,7 @@ import { InquiryModal } from "@/components/site/InquiryModal";
 import { categoryBySlug } from "@/data/catalog";
 import { productDetailQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
-import type { Product, ProductSummary } from "@/lib/product-utils";
+import { resizedImageUrl, type Product, type ProductSummary } from "@/lib/product-utils";
 import { absoluteUrl, canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/equipment/$slug")({
@@ -159,7 +159,7 @@ function ListingPage() {
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div>
             <img
-              src={listing.images[activeImage] ?? listing.image}
+              src={resizedImageUrl(listing.images[activeImage] ?? listing.image, 1000)}
               alt={`${listing.title} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale in ${listing.city}, ${listing.state}`}
               width={800}
               height={600}
@@ -175,7 +175,11 @@ function ListingPage() {
                     aria-label={`View photo ${index + 1} of ${listing.title}`}
                     className={`border ${index === activeImage ? "border-primary" : "border-border"}`}
                   >
-                    <img src={src} alt="" className="aspect-4/3 w-full object-cover" />
+                    <img
+                      src={resizedImageUrl(src, 200)}
+                      alt=""
+                      className="aspect-4/3 w-full object-cover"
+                    />
                   </button>
                 ))}
               </div>

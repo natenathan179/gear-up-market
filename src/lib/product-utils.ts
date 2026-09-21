@@ -18,6 +18,20 @@ function resolveLovableAssetPath(path: string): string {
   return previewHost ? `https://${previewHost}${path}` : path;
 }
 
+// Product photos are uploaded at whatever resolution the seller's camera or
+// phone produced (frequently 250-350KB each) and, before this, were served
+// at that same full size everywhere — including ~250px grid thumbnails
+// repeated dozens of times per category/browse page. Lovable's asset host
+// supports on-the-fly resizing via `?w=`/`q=` query params; request an
+// appropriately sized version instead of shipping the original everywhere.
+// No-ops for any URL that isn't one of ours (e.g. a Supabase signed URL,
+// whose query string is part of its signature and must not be altered).
+export function resizedImageUrl(url: string, width: number, quality = 75): string {
+  if (!url.includes(LOVABLE_ASSET_PREFIX)) return url;
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}w=${width}&q=${quality}`;
+}
+
 export type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 export type ReviewRow = Database["public"]["Tables"]["reviews"]["Row"];
 

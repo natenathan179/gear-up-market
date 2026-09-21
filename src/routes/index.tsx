@@ -10,6 +10,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, categories, faqs, guides } from "@/data/catalog";
 import { productsQueryOptions, reviewsQueryOptions } from "@/lib/queries";
 import { canonicalUrl } from "@/lib/seo";
+import { categoryThumb } from "@/lib/catalog-images";
 
 const title = "Gym Equipment Marketplace – Buy New & Used Gym Equipment";
 const description =
@@ -211,7 +212,7 @@ function Home() {
           {categories.map((c) => (
             <article key={c.slug} className="border border-border bg-card">
               <img
-                src={c.image}
+                src={categoryThumb(c.slug)}
                 alt={`${c.name} for sale`}
                 loading="lazy"
                 width={800}
