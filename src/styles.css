@@ -5,6 +5,53 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
+ * Self-hosted instead of loaded from fonts.googleapis.com: a cross-origin
+ * font stylesheet is a classic render-blocking resource (Lighthouse/Semrush
+ * flag it directly) — the browser must complete a separate DNS+TLS+fetch to
+ * fonts.googleapis.com, then another to fonts.gstatic.com for the actual
+ * file, before it can finish computing styles. Bundling these files with the
+ * app means the font request rides on the same origin (and cache) as
+ * everything else, with no extra round trip. Archivo ships as a single
+ * variable font on Google Fonts, so one file covers the whole 600-900 range
+ * used by --font-display; Barlow is static per weight.
+ */
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 600 900;
+  font-display: swap;
+  src: url("./assets/fonts/archivo-variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/barlow-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("./assets/fonts/barlow-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("./assets/fonts/barlow-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/barlow-700.woff2") format("woff2");
+}
+
+/*
  * Design system definition.
  *
  * The @theme inline block maps CSS custom properties to Tailwind utility
