@@ -9,7 +9,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Sell Your Gym Equipment | Gym Equipment Marketplace";
 const description =
-  "Sell your gym equipment to thousands of buyers. List used commercial or home fitness equipment with photos, condition and asking price — fast, easy and free to submit.";
+  "Sell your gym equipment to thousands of buyers. List used commercial or home fitness gear with photos, condition and asking price — free to submit.";
 
 export const Route = createFileRoute("/sell-your-equipment")({
   head: () => ({

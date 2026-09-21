@@ -7,7 +7,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Customer Reviews – Gym Equipment Marketplace Ratings";
 const description =
-  "Read verified customer reviews of Gym Equipment Marketplace. Real buyer feedback on used commercial gym equipment, freight delivery, condition grading and seller service.";
+  "Read verified customer reviews of Gym Equipment Marketplace: real buyer feedback on used gym equipment, freight delivery, condition and seller service.";
 
 export const Route = createFileRoute("/reviews")({
   loader: ({ context }) => context.queryClient.ensureQueryData(reviewsQueryOptions),

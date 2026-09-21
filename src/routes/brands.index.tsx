@@ -8,7 +8,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Gym Equipment Brands | Compare Life Fitness, Precor, Technogym & More";
 const description =
-  "Compare the top gym equipment brands — Life Fitness, Precor, Technogym, Cybex, Matrix, Hammer Strength, Rogue and NordicTrack — and see which is the best fit for a home or commercial gym.";
+  "Compare top gym equipment brands — Life Fitness, Precor, Technogym, Cybex, Matrix, Hammer Strength, Rogue and NordicTrack — for home or commercial gyms.";
 
 const brandFaqs = [
   {

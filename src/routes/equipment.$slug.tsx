@@ -47,7 +47,13 @@ export const Route = createFileRoute("/equipment/$slug")({
     const l = loaderData.listing;
     const isUsed = l.condition !== "New";
     const title = `${l.title} for Sale`;
-    const description = `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Full specifications, shipping, warranty and seller details.`;
+    // Sliced defensively: brand/model/city/state come from the catalog and
+    // can be long enough on their own to push this past the ~160-char limit
+    // search engines truncate meta descriptions at.
+    const description = `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Specs, shipping and warranty details.`.slice(
+      0,
+      155,
+    );
     return {
       meta: [
         { title },

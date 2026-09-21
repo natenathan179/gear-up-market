@@ -6,7 +6,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Fitness Equipment Guide – Buying Advice | Gym Equipment Marketplace";
 const description =
-  "Practical guides on buying gym equipment: home gym setups, commercial fit-outs, treadmill buying advice, equipment costs, and how to inspect used gym equipment.";
+  "Practical guides on buying gym equipment: home gym setups, commercial fit-outs, treadmill buying advice, equipment costs, and inspecting used gear.";
 
 export const Route = createFileRoute("/fitness-equipment-guide/")({
   head: () => ({

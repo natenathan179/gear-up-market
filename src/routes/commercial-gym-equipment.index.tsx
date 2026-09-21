@@ -9,7 +9,7 @@ export const Route = createFileRoute("/commercial-gym-equipment/")({
   head: categoryHead(
     "commercial-gym-equipment",
     "Commercial Gym Equipment for Sale | Gym Equipment Marketplace",
-    "Buy commercial gym equipment for gyms, hotels, schools and fitness centers. Full gym packages and single machines, new, refurbished and used, shipped nationwide.",
+    "Buy commercial gym equipment for gyms, hotels, schools and fitness centers. Full gym packages or single machines — new, refurbished or used.",
     category.faqs,
   ),
   component: CommercialIndex,

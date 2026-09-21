@@ -7,7 +7,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Shop Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
-  "Browse gym equipment for sale from verified sellers. Search cardio machines, strength equipment, free weights and accessories by brand, condition, price and location.";
+  "Browse gym equipment for sale from verified sellers. Search cardio, strength, free weights and accessories by brand, condition, price and location.";
 
 const shopFaqs = [
   {

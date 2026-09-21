@@ -9,7 +9,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Your Cart & Quote Request | Gym Equipment Marketplace";
 const description =
-  "Review the gym equipment in your cart and send a single quote request. We confirm availability, freight cost and payment options by email — no payment is taken online.";
+  "Review the gym equipment in your cart and send a single quote request. We confirm availability, freight cost and payment options by email.";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({

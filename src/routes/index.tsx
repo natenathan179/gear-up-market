@@ -13,7 +13,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Gym Equipment Marketplace – Buy New & Used Gym Equipment";
 const description =
-  "Buy and sell new and used gym equipment. Shop cardio machines, strength equipment, free weights and commercial gym equipment from verified sellers across the US.";
+  "Buy and sell new and used gym equipment. Shop cardio, strength, free weights and commercial gym equipment from verified sellers across the US.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

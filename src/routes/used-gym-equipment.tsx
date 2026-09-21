@@ -7,7 +7,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "Used Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
-  "Shop used gym equipment for sale: used commercial gym equipment, refurbished machines and second hand fitness equipment. Filter by condition, brand, price and location.";
+  "Shop used gym equipment for sale: commercial machines, refurbished units and second hand fitness equipment. Filter by condition, brand, price and location.";
 
 const usedFaqs = [
   {

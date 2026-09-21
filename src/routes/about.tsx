@@ -6,7 +6,7 @@ import { canonicalUrl } from "@/lib/seo";
 
 const title = "About Us | Buy & Sell New and Used Gym Equipment | Gym Equipment Marketplace";
 const description =
-  "Gym Equipment Marketplace connects buyers and sellers of new and used gym equipment across the United States — strength, cardio, home and commercial equipment from verified sellers, with honest condition reporting on every listing.";
+  "Gym Equipment Marketplace connects buyers and sellers of new and used gym equipment across the US — strength, cardio, home and commercial gear.";
 
 const faqs = [
   {
