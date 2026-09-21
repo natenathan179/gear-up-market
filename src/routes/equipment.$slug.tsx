@@ -8,7 +8,7 @@ import { categoryBySlug } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@/lib/product-utils";
-import { canonicalUrl } from "@/lib/seo";
+import { absoluteUrl, canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: async ({ params, context }) => {
@@ -74,6 +74,7 @@ export const Route = createFileRoute("/equipment/$slug")({
             "@context": "https://schema.org",
             "@type": "Product",
             name: l.title,
+            image: l.images.map(absoluteUrl),
             brand: { "@type": "Brand", name: l.brand },
             model: l.model,
             description: l.description,

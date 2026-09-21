@@ -1,0 +1,23 @@
+# Gym Equipment Marketplace
+
+> Gym Equipment Marketplace is an online marketplace to buy, sell, and compare new and used gym equipment for home gyms, commercial fitness facilities, personal trainers, gyms, hotels, schools, and fitness centers.
+
+## Shop
+
+- [Shop Equipment](https://gymequipmentmarketplace.com/shop-equipment): Browse all gym equipment for sale.
+- [Used Equipment](https://gymequipmentmarketplace.com/used-gym-equipment): Used and refurbished gym equipment.
+- [Commercial Gym Equipment](https://gymequipmentmarketplace.com/commercial-gym-equipment): Equipment for commercial gyms and fitness centers.
+- [Home Gym Equipment](https://gymequipmentmarketplace.com/home-gym-equipment): Equipment for home gyms.
+- [Cardio Equipment](https://gymequipmentmarketplace.com/cardio-equipment): Treadmills, bikes, ellipticals, and rowers.
+- [Strength Equipment](https://gymequipmentmarketplace.com/strength-equipment): Weight machines, racks, and cable machines.
+- [Free Weights](https://gymequipmentmarketplace.com/free-weights): Dumbbells, plates, and barbells.
+- [Gym Accessories](https://gymequipmentmarketplace.com/gym-accessories): Mats, straps, and other accessories.
+- [Brands](https://gymequipmentmarketplace.com/brands): Shop by equipment brand.
+
+## Resources
+
+- [Fitness Equipment Guide](https://gymequipmentmarketplace.com/fitness-equipment-guide): Buying guides and equipment advice.
+- [Sell Your Equipment](https://gymequipmentmarketplace.com/sell-your-equipment): List used gym equipment for sale.
+- [Reviews](https://gymequipmentmarketplace.com/reviews): Customer reviews and ratings.
+- [About Us](https://gymequipmentmarketplace.com/about): About Gym Equipment Marketplace.
+- [Contact](https://gymequipmentmarketplace.com/contact): Get in touch.
