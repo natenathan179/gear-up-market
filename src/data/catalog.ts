@@ -457,6 +457,10 @@ export const brands: Brand[] = [
         q: "Are parts still available for older Life Fitness models?",
         a: "Parts for most Life Fitness commercial series remain available through the manufacturer and third-party suppliers, though very old consoles can be harder to source.",
       },
+      {
+        q: "How do I tell which Life Fitness generation a used machine is?",
+        a: "Check the model plate on the frame or console — Life Fitness labels each line by series (such as Integrity, Elevation or Discover), and that series name is the fastest way to confirm generation, screen type and available connectivity before you buy.",
+      },
     ],
   },
   {
@@ -472,6 +476,14 @@ export const brands: Brand[] = [
       {
         q: "What is Precor best known for?",
         a: "Elliptical cross trainers. The EFX series is the brand's signature product and the most common Precor machine on the used market.",
+      },
+      {
+        q: "Do Precor machines need commercial-grade power or flooring?",
+        a: "Most Precor cardio runs on standard household outlets, but the frames are heavy — plan for a dolly to move them and level flooring underneath, since an uneven base is the most common cause of premature drive-belt wear.",
+      },
+      {
+        q: "How long does a used Precor EFX typically last?",
+        a: "A well-maintained EFX can run 10-15 years in commercial use before major components need replacing, which is why refurbished units from decommissioned clubs are usually still years from end of life.",
       },
     ],
   },
@@ -489,6 +501,14 @@ export const brands: Brand[] = [
         q: "Is Technogym worth buying used?",
         a: "Yes, particularly for hotels and boutique studios where appearance matters. Confirm that connected consoles are unlocked and serviceable before purchase.",
       },
+      {
+        q: "Do Technogym consoles require a subscription?",
+        a: "Some Excite Live and mywellness features require an active subscription to unlock fully, but the machines still function for standard training without one — ask the seller whether the account is transferable before buying.",
+      },
+      {
+        q: "Why is Technogym more expensive than comparable brands?",
+        a: "The premium reflects Italian-designed frames, upholstery and finish quality built for spaces where equipment is part of the interior design, not just the workout — a cost that also helps used units hold value.",
+      },
     ],
   },
   {
@@ -502,6 +522,14 @@ export const brands: Brand[] = [
       "Biomechanically researched strength machines and the Arc Trainer are common fixtures in university, hospital and commercial gym settings.",
     faqs: [
       { q: "What is the Cybex Arc Trainer?", a: "A low-impact cardio machine that combines an elliptical-style path with adjustable incline and resistance." },
+      {
+        q: "Are Cybex strength machines good for rehab or physical therapy use?",
+        a: "Yes — Cybex designed many of its selectorized lines around biomechanics research originally intended for clinical and rehab settings, which is why the equipment shows up so often in hospital and university fitness centers.",
+      },
+      {
+        q: "How adjustable are Cybex selectorized machines?",
+        a: "Most Cybex strength machines offer multiple seat and range-of-motion adjustments per station, letting a single machine fit a wider range of user heights than many competing selectorized lines.",
+      },
     ],
   },
   {
@@ -515,6 +543,14 @@ export const brands: Brand[] = [
       "Compact, quiet cardio and durable strength machines suit staffed gyms as well as unstaffed apartment and hotel fitness rooms.",
     faqs: [
       { q: "Is Matrix good for apartment gyms?", a: "Yes — the cardio line is compact, quiet and simple to service, which suits unstaffed apartment and hotel gyms." },
+      {
+        q: "Does Matrix Fitness make strength equipment too, not just cardio?",
+        a: "Yes — alongside its cardio line, Matrix produces selectorized strength, plate-loaded and functional training equipment under the Ultra and Versa series, so a facility can outfit an entire floor from one brand.",
+      },
+      {
+        q: "How noisy are Matrix treadmills and bikes compared to other brands?",
+        a: "Matrix specifically engineers its drive systems for low noise, which is a major reason it's favored in unstaffed or shared-wall settings like apartment buildings and hotel fitness rooms.",
+      },
     ],
   },
   {
@@ -528,6 +564,14 @@ export const brands: Brand[] = [
       "Heavy, plate-loaded machines built for serious training floors — the large footprint and commercial focus make it a better fit for gyms than most home spaces.",
     faqs: [
       { q: "Why is Hammer Strength popular used?", a: "Plate-loaded machines have no electronics and few wear parts, so a twenty-year-old unit can still perform like new after new pads and paint." },
+      {
+        q: "How much space does Hammer Strength equipment need?",
+        a: "Plan generously — the Iso-Lateral and Ground Base lines have a larger footprint than most selectorized machines to accommodate the independent-arm movement pattern, so measure ceiling height and walking clearance before buying.",
+      },
+      {
+        q: "Can Hammer Strength machines be used by beginners?",
+        a: "Yes, though the plate-loaded, independent-arm design rewards some familiarity with proper form — many facilities pair it with staff coaching for new members rather than leaving it fully self-serve.",
+      },
     ],
   },
   {
@@ -541,6 +585,14 @@ export const brands: Brand[] = [
       "Home-grade cardio despite the 'Commercial' model names — a strong, lower-cost entry point for a household setup rather than a staffed gym floor.",
     faqs: [
       { q: "Is NordicTrack commercial grade?", a: "No. The machines are home-grade despite the 'Commercial' model names, and are best suited to household use rather than a staffed gym floor." },
+      {
+        q: "Do NordicTrack machines require an iFit subscription to use?",
+        a: "No — the treadmills, bikes and rowers all work in manual mode without a subscription. iFit unlocks the interactive trainer-led workouts and automatic incline/resistance adjustments, but the hardware itself doesn't require it.",
+      },
+      {
+        q: "How does used NordicTrack pricing compare to buying new?",
+        a: "Used NordicTrack cardio typically sells for well under half of retail once a household upgrades or a unit is decommissioned, making it one of the more affordable ways to get interactive home cardio.",
+      },
     ],
   },
   {
@@ -554,6 +606,14 @@ export const brands: Brand[] = [
       "Simple, overbuilt racks and barbells that show up equally in garage gyms and commercial strength-training floors — a rare brand that fits both settings well.",
     faqs: [
       { q: "Does Rogue equipment hold value?", a: "Rogue racks and bars typically resell for a high percentage of retail because they are simple, heavily built and always in demand." },
+      {
+        q: "Is Rogue Fitness gear suitable for a home garage gym?",
+        a: "Yes — Rogue built its reputation partly on garage-gym customers, with rack footprints, bolt-together assembly and finish options designed for a home shop as much as a commercial strength floor.",
+      },
+      {
+        q: "What should I check before buying a used Rogue rack?",
+        a: "Inspect welds and powder coat for rust or cracking, confirm all j-cups, pins and accessories are included, and check hole spacing matches the attachments you plan to use, since Rogue has used a few different hole patterns across product lines.",
+      },
     ],
   },
 ];

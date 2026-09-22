@@ -289,6 +289,29 @@ function ListingPage() {
           </section>
         </div>
 
+        {category && category.body.length > 0 && (
+          <section className="mt-12 max-w-3xl">
+            <SectionHeading
+              title={`${category.name} Buying Guide`}
+              href={`/${category.slug}`}
+              linkLabel={`Shop ${category.name}`}
+              as="h2"
+            />
+            <div className="space-y-6">
+              {category.body.map((s) => (
+                <div key={s.heading}>
+                  <h3 className="text-sm font-bold text-foreground">{s.heading}</h3>
+                  <div className="mt-2 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    {s.paragraphs.map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="mt-12">
           <SectionHeading title="Frequently Asked Questions" as="h2" />
           <dl className="grid gap-4 md:grid-cols-2">

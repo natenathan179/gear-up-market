@@ -1,10 +1,19 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Breadcrumbs, FaqList, ListingCard, PageHeader, SectionHeading, faqSchema } from "@/components/site/Bits";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { locationBySlug, locations, type LocationPage } from "@/data/catalog";
+import { categories, locationBySlug, locations, type LocationPage } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import locationImg from "@/assets/cat-weights.jpg";
 import { canonicalUrl } from "@/lib/seo";
+
+// Same rationale as EquipmentBrowser's PAGE_SIZE: high-inventory states (Texas,
+// California, Florida, New York) were rendering 30+ listing cards straight
+// into the page, which pushed the text-to-HTML ratio well below the low
+// states' — capping the initial grid and paginating client-side keeps every
+// listing reachable for a real visitor while a crawler only ever sees one
+// page's worth of card markup.
+const PAGE_SIZE = 12;
 
 export const Route = createFileRoute("/gym-equipment-for-sale/$state")({
   loader: ({ params }) => {
@@ -67,6 +76,10 @@ function LocationPageView() {
   const { location } = Route.useLoaderData();
   const { data: products } = useSuspenseQuery(productsQueryOptions);
   const local = products.filter((l) => l.stateSlug === location.slug);
+  const [page, setPage] = useState(1);
+  const pageCount = Math.max(1, Math.ceil(local.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const paged = local.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   return (
     <>
@@ -86,11 +99,40 @@ function LocationPageView() {
           as="h2"
         />
         {local.length > 0 ? (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {local.map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {paged.map((l) => (
+                <ListingCard key={l.slug} listing={l} />
+              ))}
+            </div>
+            {pageCount > 1 && (
+              <nav
+                aria-label="Listings pagination"
+                className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-5"
+              >
+                <button
+                  type="button"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="border border-border px-4 py-2 text-xs font-bold uppercase tracking-wide hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground"
+                >
+                  Previous
+                </button>
+                <p className="text-sm text-muted-foreground">
+                  Page <strong className="text-foreground">{currentPage}</strong> of{" "}
+                  <strong className="text-foreground">{pageCount}</strong>
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+                  disabled={currentPage === pageCount}
+                  className="border border-border px-4 py-2 text-xs font-bold uppercase tracking-wide hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-border disabled:hover:text-foreground"
+                >
+                  Next
+                </button>
+              </nav>
+            )}
+          </>
         ) : (
           <p className="text-sm text-muted-foreground">
             No listings in {location.state} right now. Sellers add equipment weekly — browse
@@ -138,6 +180,25 @@ function LocationPageView() {
             time saved not waiting for local inventory to turn over.
           </p>
         </div>
+
+        <SectionHeading title={`Shop by Category in ${location.state}`} as="h2" />
+        <p className="max-w-3xl text-sm text-muted-foreground">
+          Whether you're outfitting a commercial gym or a home setup in {location.state}, start
+          with the category that matches what you need, then filter by brand, condition and price
+          once you're browsing.
+        </p>
+        <ul className="mt-3 flex flex-wrap gap-2 text-sm">
+          {categories.map((c) => (
+            <li key={c.slug}>
+              <Link
+                to={`/${c.slug}` as never}
+                className="inline-block border border-border px-3 py-2 font-medium hover:border-primary hover:text-primary"
+              >
+                {c.name} in {location.state}
+              </Link>
+            </li>
+          ))}
+        </ul>
 
         <FaqList faqs={locationFaqs(location)} title={`Gym Equipment in ${location.state}: FAQs`} />
 
