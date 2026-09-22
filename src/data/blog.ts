@@ -228,6 +228,7 @@ export const blogPosts: BlogPost[] = [
       "commercial-gym-equipment",
       "new-vs-used-gym-equipment",
       "how-much-does-gym-equipment-cost",
+      "who-buys-used-gym-equipment-how-to-sell",
     ],
     products: {
       heading: "Featured Gym Equipment",
@@ -382,7 +383,7 @@ export const blogPosts: BlogPost[] = [
         a: "Favor payment methods that offer buyer protection and clear before the seller ships, and be cautious of any seller pushing an unusual payment method or urgency to pay outside the platform's normal process.",
       },
     ],
-    related: ["used-gym-equipment", "commercial-gym-equipment", "texas", "florida", "california", "new-york"],
+    related: ["gym-equipment-for-sale-buyers-guide", "used-gym-equipment", "commercial-gym-equipment", "texas", "florida", "california", "new-york"],
     products: {
       heading: "Equipment Available Now",
       moreLink: { label: "View More Products", to: "/shop-equipment" },
@@ -949,6 +950,9 @@ export const blogPosts: BlogPost[] = [
       "new-vs-used-gym-equipment",
       "how-to-buy-used-gym-equipment",
       "how-to-inspect-used-gym-equipment",
+      "gym-equipment-for-sale-buyers-guide",
+      "used-cable-machines-for-sale",
+      "who-buys-used-gym-equipment-how-to-sell",
     ],
     products: {
       onlyUsed: true,
@@ -1160,6 +1164,7 @@ export const blogPosts: BlogPost[] = [
       "how-to-choose-a-treadmill",
       "technogym-elliptical-cross-trainers",
       "used-and-discount-gym-equipment",
+      "best-home-gym-equipment-for-weight-loss",
     ],
     products: {
       category: "cardio-equipment",
@@ -1335,7 +1340,7 @@ export const blogPosts: BlogPost[] = [
         a: "Most setups build a rack and bench first, since they cover the most common barbell lifts, then add free weights, a cable machine and selectorized or plate-loaded machines as the setup grows.",
       },
     ],
-    related: ["strength-equipment", "free-weights", "best-gym-equipment-brands", "commercial-vs-home-gym-equipment"],
+    related: ["strength-equipment", "free-weights", "best-gym-equipment-brands", "commercial-vs-home-gym-equipment", "used-cable-machines-for-sale"],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -1498,7 +1503,7 @@ export const blogPosts: BlogPost[] = [
         a: "It varies by individual, but consistent progressive overload over a sustained period matters more than any specific equipment choice — tracking your lifts is the most reliable way to confirm progress is happening.",
       },
     ],
-    related: ["free-weights", "home-gym-equipment", "best-gym-equipment-for-a-home-gym", "gym-accessories"],
+    related: ["free-weights", "home-gym-equipment", "best-gym-equipment-for-a-home-gym", "gym-accessories", "best-dumbbells-weight-sets-for-home-gym"],
     products: {
       category: "free-weights",
       heading: "Free Weights & Strength Essentials",
@@ -2291,7 +2296,7 @@ export const blogPosts: BlogPost[] = [
         a: "Ceiling height, especially if you're considering any rack or pull-up option — it's the single most common constraint that rules out equipment before floor space even becomes a factor.",
       },
     ],
-    related: ["home-gym-equipment", "gym-accessories", "best-gym-equipment-for-a-home-gym"],
+    related: ["home-gym-equipment", "gym-accessories", "best-gym-equipment-for-a-home-gym", "best-home-gym-equipment-for-weight-loss"],
     products: {
       category: "home-gym-equipment",
       heading: "Home Gym Equipment for Sale",
@@ -2865,7 +2870,7 @@ export const blogPosts: BlogPost[] = [
         a: "It depends on the design — some racks are stable freestanding under their own weight, while others benefit from anchoring for extra stability under maximal loads. Check the specific listing's guidance.",
       },
     ],
-    related: ["strength-equipment", "rogue-fitness", "how-to-inspect-used-gym-equipment"],
+    related: ["strength-equipment", "rogue-fitness", "how-to-inspect-used-gym-equipment", "best-dumbbells-weight-sets-for-home-gym"],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -3788,7 +3793,7 @@ export const blogPosts: BlogPost[] = [
         a: "It can work for experienced lifters comfortable managing fatigue across muscle groups, though beginners generally get more out of completing each exercise's full sets before moving to the next.",
       },
     ],
-    related: ["strength-equipment", "free-weights"],
+    related: ["strength-equipment", "free-weights", "shrug-machines-and-trapezius-training-equipment"],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -4353,7 +4358,7 @@ export const blogPosts: BlogPost[] = [
         a: "It's possible on the same day, but most routines separate them to manage total fatigue — pairing biceps and triceps together on their own day keeps each session focused and manageable.",
       },
     ],
-    related: ["strength-equipment", "free-weights"],
+    related: ["strength-equipment", "free-weights", "shrug-machines-and-trapezius-training-equipment"],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",

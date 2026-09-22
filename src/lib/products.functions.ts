@@ -62,6 +62,17 @@ export const fetchProducts = createServerFn({ method: "GET" }).handler(
   },
 );
 
+// Deterministic (same slug always yields the same window, so SSR and any
+// client re-render agree) but spreads different products' related picks
+// across the whole candidate pool instead of clustering on one subset.
+function hashSeed(input: string): number {
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash * 31 + input.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash);
+}
+
 export const fetchProductDetail = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }): Promise<{ listing: Product; related: ProductSummary[] } | null> => {
@@ -76,14 +87,30 @@ export const fetchProductDetail = createServerFn({ method: "GET" })
     const signed = await signImagePaths(supabase, row.images ?? []);
     const listing = rowToProduct(row, signed);
 
-    const { data: relatedRows } = await supabase
+    // Ordering by created_at meant every product in a category pointed its
+    // "related" links at the same 4 newest items — those 4 accumulated
+    // dozens of inbound internal links while the rest of the category got
+    // none, leaving most products reachable only from a paginated grid page
+    // a crawler may never see. Pulling a wider pool and picking a
+    // slug-seeded rotating window instead spreads related-link traffic
+    // across the whole category, so every product ends up linked from
+    // several others.
+    // The catalog's biggest category (strength-equipment) runs 130+ products,
+    // so this limit must clear the whole catalog's size or a fixed low cap
+    // would silently reproduce the original bug: every product's query would
+    // draw from the same lexicographically-first slice, and anything sorted
+    // after it would never enter any related pool no matter how the window
+    // rotates.
+    const { data: relatedPool } = await supabase
       .from("products")
       .select(PRODUCT_SUMMARY_COLUMNS)
       .or(`category.eq.${row.category},brand_slug.eq.${row.brand_slug}`)
       .neq("slug", slug)
-      .order("created_at", { ascending: false })
-      .limit(4);
-    const candidates = relatedRows ?? [];
+      .order("slug", { ascending: true })
+      .limit(500);
+    const pool = relatedPool ?? [];
+    const offset = pool.length > 0 ? hashSeed(slug) % pool.length : 0;
+    const candidates = pool.length <= 4 ? pool : Array.from({ length: 4 }, (_, i) => pool[(offset + i) % pool.length]!);
     const relatedFirstImages = candidates.flatMap((r) => (r.images?.[0] ? [r.images[0]] : []));
     const relatedSigned = await signImagePaths(supabase, relatedFirstImages);
     const related = candidates.map((r) => rowToProductSummary(r, relatedSigned));
