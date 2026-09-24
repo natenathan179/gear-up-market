@@ -1338,7 +1338,7 @@ export const faqs = [
 export const businessInfo = {
   name: "Gym Equipment Marketplace",
   phone: "(800) 555-0123",
-  email: "support@gymequipmentmarketplace.com",
+  email: "sales@gymequipmentmarketplace.com",
   hours: "Mon – Fri, 8am – 6pm EST",
   tagline: "Buy • Sell • Compare • Upgrade",
 };

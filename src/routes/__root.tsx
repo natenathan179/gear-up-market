@@ -18,6 +18,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/lib/cart";
 import appleTouchIcon from "@/assets/apple-touch-icon.png";
 import { countries, countryFromPathname } from "@/lib/region";
+import { businessInfo } from "@/data/catalog";
 
 function NotFoundComponent() {
   return (
@@ -115,8 +116,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: "Gym Equipment Marketplace",
           description:
             "Online marketplace for buying and selling new and used gym equipment, shipping across the United States, Canada and the UK.",
-          telephone: "(800) 555-0123",
-          email: "support@gymequipmentmarketplace.com",
+          telephone: businessInfo.phone,
+          email: businessInfo.email,
           areaServed: ["US", "CA", "GB"],
         }),
       },
