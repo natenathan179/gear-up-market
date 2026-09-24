@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ChevronDown, Mail, MapPin, Phone } from "lucide-react";
 import { brands, businessInfo, categories, locations } from "@/data/catalog";
 import logoMark from "@/assets/logo-mark.png";
 
@@ -65,18 +65,21 @@ export function Footer() {
               <MapPin className="size-4 text-primary" /> {businessInfo.hours}
             </li>
           </ul>
-          <h2 className="mt-6 font-display text-sm font-bold tracking-wide text-charcoal-foreground uppercase">
-            Locations
-          </h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            {locations.map((l) => (
-              <FooterLink
-                key={l.slug}
-                to={`/gym-equipment-for-sale/${l.slug}`}
-                label={`Gym Equipment in ${l.state}`}
-              />
-            ))}
-          </ul>
+          <details className="group mt-6">
+            <summary className="font-display flex cursor-pointer list-none items-center justify-between text-sm font-bold tracking-wide text-charcoal-foreground uppercase [&::-webkit-details-marker]:hidden">
+              Locations
+              <ChevronDown className="size-4 shrink-0 transition-transform group-open:rotate-180" />
+            </summary>
+            <ul className="mt-3 space-y-2 text-sm">
+              {locations.map((l) => (
+                <FooterLink
+                  key={l.slug}
+                  to={`/gym-equipment-for-sale/${l.slug}`}
+                  label={`Gym Equipment in ${l.state}`}
+                />
+              ))}
+            </ul>
+          </details>
         </div>
       </div>
 
