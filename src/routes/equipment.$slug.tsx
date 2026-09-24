@@ -15,7 +15,7 @@ import { categoryBySlug } from "@/data/catalog";
 import { productDetailQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
 import { resizedImageUrl, type Product, type ProductSummary } from "@/lib/product-utils";
-import { absoluteUrl, canonicalUrl } from "@/lib/seo";
+import { absoluteUrl, canonicalUrl, merchantReturnPolicySchema } from "@/lib/seo";
 import { formatPrice } from "@/lib/region";
 
 export const Route = createFileRoute("/equipment/$slug")({
@@ -104,6 +104,10 @@ export const Route = createFileRoute("/equipment/$slug")({
                 ? "https://schema.org/InStock"
                 : "https://schema.org/OutOfStock",
               seller: { "@type": "Organization", name: l.seller.name },
+              // Ties this listing to the 14-day baseline described on
+              // /returns-and-refunds — Google's documented way of surfacing
+              // return-policy data for Merchant Center product listings.
+              hasMerchantReturnPolicy: merchantReturnPolicySchema(),
             },
           }),
         },
