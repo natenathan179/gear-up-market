@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { ChevronRight, MapPin, Star } from "lucide-react";
+import { ChevronRight, MapPin, ShoppingCart, Star } from "lucide-react";
+import { toast } from "sonner";
 import type { Listing } from "@/data/catalog";
 import { resizedImageUrl } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/region";
 import { useRegion } from "@/lib/region-context";
+import { useCart } from "@/lib/cart";
 
 // Only the fields ListingCard actually renders — deliberately narrower than
 // Listing/Product so lightweight list payloads (without description, specs,
@@ -175,6 +177,7 @@ export function ConditionBadge({ condition }: { condition: string }) {
 
 export function ListingCard({ listing }: { listing: CardListing }) {
   const region = useRegion();
+  const cart = useCart();
   return (
     <article className="group flex flex-col border border-border bg-card transition-shadow hover:shadow-lg">
       <div className="relative bg-secondary">
@@ -206,13 +209,26 @@ export function ListingCard({ listing }: { listing: CardListing }) {
         <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
           <MapPin className="size-3" /> {listing.city}, {listing.state}
         </p>
-        <Link
-          to="/equipment/$slug"
-          params={{ slug: listing.slug }}
-          className="mt-3 block bg-primary py-2 text-center text-xs font-bold tracking-wide text-primary-foreground uppercase transition-colors hover:bg-primary/90"
-        >
-          View Details
-        </Link>
+        <div className="mt-3 flex gap-2">
+          <Link
+            to="/equipment/$slug"
+            params={{ slug: listing.slug }}
+            className="flex-1 bg-primary py-2 text-center text-xs font-bold tracking-wide text-primary-foreground uppercase transition-colors hover:bg-primary/90"
+          >
+            View Details
+          </Link>
+          <button
+            type="button"
+            onClick={() => {
+              cart.add(listing);
+              toast.success(`${listing.title} added to your cart.`);
+            }}
+            aria-label={`Add ${listing.title} to cart`}
+            className="flex items-center justify-center border border-border px-3 text-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            <ShoppingCart className="size-4" />
+          </button>
+        </div>
       </div>
     </article>
   );

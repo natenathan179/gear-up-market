@@ -12,11 +12,19 @@ export interface CartItem {
   qty: number;
 }
 
+// Only the fields `add` actually reads — narrower than Product so listing
+// cards (which carry a lighter summary shape, not the full product detail)
+// can add to cart without fetching the rest of the product.
+export type CartAddInput = Pick<
+  Product,
+  "slug" | "title" | "brand" | "condition" | "price" | "image"
+>;
+
 interface CartValue {
   items: CartItem[];
   count: number;
   total: number;
-  add: (product: Product, qty?: number) => void;
+  add: (product: CartAddInput, qty?: number) => void;
   remove: (slug: string) => void;
   setQty: (slug: string, qty: number) => void;
   clear: () => void;
@@ -45,7 +53,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items, hydrated]);
 
-  const add = useCallback((product: Product, qty = 1) => {
+  const add = useCallback((product: CartAddInput, qty = 1) => {
     setItems((current) => {
       const existing = current.find((item) => item.slug === product.slug);
       if (existing) {
