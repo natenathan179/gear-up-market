@@ -17,11 +17,10 @@ import { businessInfo } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
 import logoMark from "@/assets/logo-mark.png";
 
-// Grouped instead of one flat 15-link row: "Shop Equipment" and "Resources"
+// Grouped instead of one flat 15-link row: "Gym Equipment" and "Resources"
 // become dropdowns on desktop so the bar stays to a handful of top-level
 // items instead of overflowing/wrapping the header.
 const shopLinks = [
-  { to: "/shop-equipment", label: "All Equipment" },
   { to: "/used-gym-equipment", label: "Used Equipment" },
   { to: "/commercial-gym-equipment", label: "Commercial" },
   { to: "/home-gym-equipment", label: "Home Gym" },
@@ -40,8 +39,8 @@ const resourceLinks = [
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/shop-equipment", label: "Shop Equipment" },
-  ...shopLinks.slice(1),
+  { to: "/shop-equipment", label: "Gym Equipment" },
+  ...shopLinks,
   { to: "/brands", label: "Brands" },
   ...resourceLinks,
   { to: "/contact", label: "Contact" },
@@ -233,7 +232,7 @@ export function Header() {
               Home
             </Link>
           </li>
-          <NavDropdown label="Shop Equipment" to="/shop-equipment" items={shopLinks} />
+          <NavDropdown label="Gym Equipment" to="/shop-equipment" items={shopLinks} />
           <li>
             <Link
               to="/brands"
@@ -276,9 +275,9 @@ export function Header() {
             <ul className="pb-3">
               {navLinks.map((l, i) => (
                 <li key={l.to}>
-                  {(i === 1 || i === shopLinks.length + 2) && (
+                  {(i === 1 || i === shopLinks.length + 3) && (
                     <p className="mt-2 px-4 pb-1 text-[11px] font-bold tracking-wide text-charcoal-foreground/50 uppercase">
-                      {i === 1 ? "Shop Equipment" : "Resources"}
+                      {i === 1 ? "Gym Equipment" : "Resources"}
                     </p>
                   )}
                   <Link
