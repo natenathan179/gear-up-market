@@ -7,9 +7,20 @@ import {
   rowToReview,
   signImagePaths,
   type Product,
+  type ProductRow,
   type ProductSummary,
+  type ProductSummaryRow,
   type Review,
 } from "@/lib/product-utils";
+
+// A Supabase project waking from a free-tier idle pause (or any transient
+// backend slowness) can leave the outbound fetch hanging well past what a
+// visitor or crawler will wait for. Without a bound on it, that hang runs
+// until the platform's own worker/CPU-time limit kills the request, which
+// surfaces as a bare 5xx with no page at all. Capping it here means a slow
+// backend fails fast and predictably instead, so callers can fall back to a
+// degraded-but-200 response (see fetchProducts/fetchProductDetail/fetchReviews).
+const SUPABASE_FETCH_TIMEOUT_MS = 8_000;
 
 // `.functions.ts` files ship their full source to the client bundle (server
 // function bodies get stripped to RPC stubs, but top-level imports don't) —
@@ -29,7 +40,11 @@ async function publicClient() {
           headers.delete("Authorization");
         }
         headers.set("apikey", key);
-        return fetch(input, { ...init, headers });
+        return fetch(input, {
+          ...init,
+          headers,
+          signal: AbortSignal.timeout(SUPABASE_FETCH_TIMEOUT_MS),
+        });
       },
     },
   });
@@ -50,15 +65,23 @@ async function publicClient() {
 // to be in the select list; PostgREST orders before projecting.
 export const fetchProducts = createServerFn({ method: "GET" }).handler(
   async (): Promise<ProductSummary[]> => {
-    const supabase = await publicClient();
-    const { data, error } = await supabase
-      .from("products")
-      .select(PRODUCT_SUMMARY_COLUMNS)
-      .order("created_at", { ascending: false });
-    if (error || !data) return [];
-    const firstImages = data.flatMap((row) => (row.images?.[0] ? [row.images[0]] : []));
-    const signed = await signImagePaths(supabase, firstImages);
-    return data.map((row) => rowToProductSummary(row, signed));
+    try {
+      const supabase = await publicClient();
+      const { data, error } = await supabase
+        .from("products")
+        .select(PRODUCT_SUMMARY_COLUMNS)
+        .order("created_at", { ascending: false });
+      if (error || !data) return [];
+      const firstImages = data.flatMap((row) => (row.images?.[0] ? [row.images[0]] : []));
+      const signed = await signImagePaths(supabase, firstImages);
+      return data.map((row) => rowToProductSummary(row, signed));
+    } catch {
+      // A slow/unreachable backend (e.g. waking from an idle pause) would
+      // otherwise reject this handler outright and take the whole page down
+      // with it; an empty result degrades every listing page to "no
+      // equipment matches" instead of a 5xx.
+      return [];
+    }
   },
 );
 
@@ -75,58 +98,82 @@ function hashSeed(input: string): number {
 
 export const fetchProductDetail = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
-  .handler(async ({ data: slug }): Promise<{ listing: Product; related: ProductSummary[] } | null> => {
-    const supabase = await publicClient();
-    const { data: row, error } = await supabase
-      .from("products")
-      .select("*")
-      .eq("slug", slug)
-      .maybeSingle();
-    if (error || !row) return null;
+  .handler(
+    async ({ data: slug }): Promise<{ listing: Product; related: ProductSummary[] } | null> => {
+      let supabase: Awaited<ReturnType<typeof publicClient>>;
+      let row: ProductRow;
+      try {
+        supabase = await publicClient();
+        const result = await supabase.from("products").select("*").eq("slug", slug).maybeSingle();
+        if (result.error || !result.data) return null;
+        row = result.data;
+      } catch {
+        // A timed-out/unreachable backend should read as "we couldn't load
+        // this right now", not a hard crash — fall through to the same
+        // not-found handling the loader already has in place.
+        return null;
+      }
 
-    const signed = await signImagePaths(supabase, row.images ?? []);
-    const listing = rowToProduct(row, signed);
+      const signed = await signImagePaths(supabase, row.images ?? []);
+      const listing = rowToProduct(row, signed);
 
-    // Ordering by created_at meant every product in a category pointed its
-    // "related" links at the same 4 newest items — those 4 accumulated
-    // dozens of inbound internal links while the rest of the category got
-    // none, leaving most products reachable only from a paginated grid page
-    // a crawler may never see. Pulling a wider pool and picking a
-    // slug-seeded rotating window instead spreads related-link traffic
-    // across the whole category, so every product ends up linked from
-    // several others.
-    // The catalog's biggest category (strength-equipment) runs 130+ products,
-    // so this limit must clear the whole catalog's size or a fixed low cap
-    // would silently reproduce the original bug: every product's query would
-    // draw from the same lexicographically-first slice, and anything sorted
-    // after it would never enter any related pool no matter how the window
-    // rotates.
-    const { data: relatedPool } = await supabase
-      .from("products")
-      .select(PRODUCT_SUMMARY_COLUMNS)
-      .or(`category.eq.${row.category},brand_slug.eq.${row.brand_slug}`)
-      .neq("slug", slug)
-      .order("slug", { ascending: true })
-      .limit(500);
-    const pool = relatedPool ?? [];
-    const offset = pool.length > 0 ? hashSeed(slug) % pool.length : 0;
-    const candidates = pool.length <= 4 ? pool : Array.from({ length: 4 }, (_, i) => pool[(offset + i) % pool.length]!);
-    const relatedFirstImages = candidates.flatMap((r) => (r.images?.[0] ? [r.images[0]] : []));
-    const relatedSigned = await signImagePaths(supabase, relatedFirstImages);
-    const related = candidates.map((r) => rowToProductSummary(r, relatedSigned));
+      // Ordering by created_at meant every product in a category pointed its
+      // "related" links at the same 4 newest items — those 4 accumulated
+      // dozens of inbound internal links while the rest of the category got
+      // none, leaving most products reachable only from a paginated grid page
+      // a crawler may never see. Pulling a wider pool and picking a
+      // slug-seeded rotating window instead spreads related-link traffic
+      // across the whole category, so every product ends up linked from
+      // several others.
+      // The catalog's biggest category (strength-equipment) runs 130+ products,
+      // so this limit must clear the whole catalog's size or a fixed low cap
+      // would silently reproduce the original bug: every product's query would
+      // draw from the same lexicographically-first slice, and anything sorted
+      // after it would never enter any related pool no matter how the window
+      // rotates.
+      //
+      // This pool is secondary to the listing itself, so a failure here (e.g.
+      // the same backend hiccup that's merely slow rather than fully down)
+      // degrades to "no related items" rather than losing the whole page.
+      let pool: ProductSummaryRow[] = [];
+      try {
+        const { data: relatedPool } = await supabase
+          .from("products")
+          .select(PRODUCT_SUMMARY_COLUMNS)
+          .or(`category.eq.${row.category},brand_slug.eq.${row.brand_slug}`)
+          .neq("slug", slug)
+          .order("slug", { ascending: true })
+          .limit(500);
+        pool = relatedPool ?? [];
+      } catch {
+        pool = [];
+      }
+      const offset = pool.length > 0 ? hashSeed(slug) % pool.length : 0;
+      const candidates =
+        pool.length <= 4
+          ? pool
+          : Array.from({ length: 4 }, (_, i) => pool[(offset + i) % pool.length]!);
+      const relatedFirstImages = candidates.flatMap((r) => (r.images?.[0] ? [r.images[0]] : []));
+      const relatedSigned = await signImagePaths(supabase, relatedFirstImages);
+      const related = candidates.map((r) => rowToProductSummary(r, relatedSigned));
 
-    return { listing, related };
-  });
+      return { listing, related };
+    },
+  );
 
 export const fetchReviews = createServerFn({ method: "GET" }).handler(
   async (): Promise<Review[]> => {
-    const supabase = await publicClient();
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("*")
-      .eq("published", true)
-      .order("created_at", { ascending: true });
-    if (error || !data) return [];
-    return data.map(rowToReview);
+    try {
+      const supabase = await publicClient();
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("*")
+        .eq("published", true)
+        .order("created_at", { ascending: true });
+      if (error || !data) return [];
+      return data.map(rowToReview);
+    } catch {
+      return [];
+    }
   },
 );
