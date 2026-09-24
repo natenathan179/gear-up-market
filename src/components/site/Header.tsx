@@ -35,6 +35,9 @@ const resourceLinks = [
   { to: "/fitness-equipment-guide", label: "Equipment Guide" },
   { to: "/about", label: "About Us" },
   { to: "/reviews", label: "Reviews" },
+  { to: "/shipping-information", label: "Shipping Information" },
+  { to: "/returns-and-refunds", label: "Returns & Refunds" },
+  { to: "/faq", label: "FAQ" },
 ] as const;
 
 const navLinks = [
