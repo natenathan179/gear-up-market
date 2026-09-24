@@ -1,6 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { Breadcrumbs, FaqList, PageHeader, faqSchema } from "@/components/site/Bits";
+import {
+  Breadcrumbs,
+  CategoryShowcase,
+  FaqList,
+  PageHeader,
+  faqSchema,
+} from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import shopImg from "@/assets/cat-commercial.jpg";
 import { canonicalUrl, hreflangLinks } from "@/lib/seo";
@@ -71,6 +77,8 @@ function CaShopPage() {
       <section className="mx-auto max-w-7xl px-4 py-10">
         <EquipmentBrowser initialQuery={q ?? ""} />
       </section>
+
+      <CategoryShowcase prefix="/ca" />
 
       <section className="mx-auto max-w-7xl px-4 py-12">
         <FaqList faqs={caShopFaqs} title="Shopping from Canada: FAQs" />

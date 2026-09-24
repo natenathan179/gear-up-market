@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, ShoppingCart, Star } from "lucide-react";
 import { toast } from "sonner";
-import type { Listing } from "@/data/catalog";
+import { categories, type Listing } from "@/data/catalog";
 import { resizedImageUrl } from "@/lib/product-utils";
 import { formatPrice } from "@/lib/region";
 import { useRegion } from "@/lib/region-context";
@@ -95,6 +95,39 @@ export function SectionHeading({
         </Link>
       )}
     </div>
+  );
+}
+
+// The shop-equipment hub pages (US/UK/CA) list every product but never
+// linked out to the category pages themselves — a visitor searching "power
+// racks" from the hub had no path to the strength-equipment category's
+// buying guide short of typing a search term. Surfacing each category with
+// its own intro copy here fixes that gap and gives these otherwise
+// filter-and-cards-heavy pages real body text alongside the listing grid.
+export function CategoryShowcase({ prefix = "" }: { prefix?: string }) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-12">
+      <SectionHeading title="Shop by Category" as="h2" />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {categories.map((c) => (
+          <div key={c.slug} className="border border-border p-5">
+            <h3 className="font-display text-base font-bold text-foreground">
+              <Link to={`${prefix}/${c.slug}` as never} className="hover:text-primary">
+                {c.name}
+              </Link>
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.intro}</p>
+            <Link
+              to={`${prefix}/${c.slug}` as never}
+              className="mt-3 inline-flex items-center gap-1 text-xs font-bold tracking-wide text-primary uppercase hover:underline"
+            >
+              Shop {c.name}
+              <ChevronRight className="size-3.5" />
+            </Link>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

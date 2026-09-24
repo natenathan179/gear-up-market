@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import {
   Breadcrumbs,
+  CategoryShowcase,
   FaqList,
   PageHeader,
   SectionHeading,
@@ -104,6 +105,8 @@ function ShopPage() {
           </div>
         </div>
       </section>
+
+      <CategoryShowcase />
 
       <section className="mx-auto max-w-7xl px-4 py-12">
         <FaqList faqs={shopFaqs} title="Shopping FAQs" />
