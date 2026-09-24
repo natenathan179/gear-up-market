@@ -11,7 +11,7 @@ const LOVABLE_ASSET_PREFIX = "/__l5e/assets-v1/";
 // Lovable's own preview host; that host is only proxied by the Vite dev
 // server, not by the deployed app, so they must be resolved to an absolute
 // URL to load in production.
-function resolveLovableAssetPath(path: string): string {
+export function resolveLovableAssetPath(path: string): string {
   if (!path.startsWith(LOVABLE_ASSET_PREFIX)) return path;
   const previewHost =
     import.meta.env["VITE_LOVABLE_PREVIEW_HOST"] ?? process.env["LOVABLE_PREVIEW_HOST"];
@@ -72,7 +72,9 @@ export async function signImagePaths(
   paths: string[],
 ): Promise<Map<string, string>> {
   const signed = new Map<string, string>();
-  const storagePaths = [...new Set(paths)].filter((p) => p && !p.startsWith("http") && !p.startsWith("/"));
+  const storagePaths = [...new Set(paths)].filter(
+    (p) => p && !p.startsWith("http") && !p.startsWith("/"),
+  );
   if (storagePaths.length === 0) return signed;
   try {
     const { data } = await client.storage
@@ -126,10 +128,12 @@ function cleanProductTitle(title: string): string {
   return core.replace(/ for Sale$/, "").trim();
 }
 
-function resolveImagePaths(paths: string[], signed: Map<string, string>): string[] {
+export function resolveImagePaths(paths: string[], signed: Map<string, string>): string[] {
   return paths
     .map((path) =>
-      path.startsWith("http") || path.startsWith("/") ? resolveLovableAssetPath(path) : (signed.get(path) ?? ""),
+      path.startsWith("http") || path.startsWith("/")
+        ? resolveLovableAssetPath(path)
+        : (signed.get(path) ?? ""),
     )
     .filter(Boolean);
 }
@@ -211,7 +215,10 @@ export type ProductSummaryRow = Pick<
   | "featured"
 >;
 
-export function rowToProductSummary(row: ProductSummaryRow, signed: Map<string, string>): ProductSummary {
+export function rowToProductSummary(
+  row: ProductSummaryRow,
+  signed: Map<string, string>,
+): ProductSummary {
   const usable = resolveImagePaths(row.images ?? [], signed);
   return {
     id: row.id,
