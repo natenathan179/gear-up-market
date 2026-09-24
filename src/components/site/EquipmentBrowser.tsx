@@ -4,6 +4,8 @@ import { ListingCard } from "@/components/site/Bits";
 import { brands, conditions } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
 import type { ProductSummary } from "@/lib/product-utils";
+import { formatPrice, type CountryCode } from "@/lib/region";
+import { useRegion } from "@/lib/region-context";
 
 interface Props {
   initialQuery?: string;
@@ -20,16 +22,28 @@ interface Props {
 // worth of cards, while real visitors can still page through the full set.
 const PAGE_SIZE = 24;
 
-const priceBands = [
-  { label: "Any price", min: 0, max: Infinity },
-  { label: "Under $1,000", min: 0, max: 1000 },
-  { label: "$1,000 – $3,000", min: 1000, max: 3000 },
-  { label: "$3,000 – $6,000", min: 3000, max: 6000 },
-  { label: "Over $6,000", min: 6000, max: Infinity },
-];
+function getPriceBands(country: CountryCode) {
+  return [
+    { label: "Any price", min: 0, max: Infinity },
+    { label: `Under ${formatPrice(1000, country)}`, min: 0, max: 1000 },
+    {
+      label: `${formatPrice(1000, country)} – ${formatPrice(3000, country)}`,
+      min: 1000,
+      max: 3000,
+    },
+    {
+      label: `${formatPrice(3000, country)} – ${formatPrice(6000, country)}`,
+      min: 3000,
+      max: 6000,
+    },
+    { label: `Over ${formatPrice(6000, country)}`, min: 6000, max: Infinity },
+  ];
+}
 
 export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, pool }: Props) {
   const { data: allProducts } = useSuspenseQuery(productsQueryOptions);
+  const region = useRegion();
+  const priceBands = useMemo(() => getPriceBands(region), [region]);
 
   const base = useMemo(() => {
     let items = pool ?? allProducts;
@@ -37,7 +51,6 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
     if (onlyUsed) items = items.filter((l) => l.condition !== "New");
     return items;
   }, [pool, allProducts, lockCategory, onlyUsed]);
-
 
   const [q, setQ] = useState(initialQuery);
   const [brand, setBrand] = useState("");
@@ -71,7 +84,7 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
     if (sort === "price-asc") items = [...items].sort((a, b) => a.price - b.price);
     if (sort === "price-desc") items = [...items].sort((a, b) => b.price - a.price);
     return items;
-  }, [base, q, brand, condition, state, usage, band, sort]);
+  }, [base, q, brand, condition, state, usage, band, sort, priceBands]);
 
   useEffect(() => {
     setPage(1);
@@ -104,7 +117,12 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
           <label htmlFor="f-brand" className="mb-1 block text-xs font-semibold uppercase">
             Brand
           </label>
-          <select id="f-brand" value={brand} onChange={(e) => setBrand(e.target.value)} className={selectClass}>
+          <select
+            id="f-brand"
+            value={brand}
+            onChange={(e) => setBrand(e.target.value)}
+            className={selectClass}
+          >
             <option value="">All brands</option>
             {availableBrands.map((b) => (
               <option key={b.slug} value={b.slug}>
@@ -154,7 +172,12 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
           <label htmlFor="f-state" className="mb-1 block text-xs font-semibold uppercase">
             Location
           </label>
-          <select id="f-state" value={state} onChange={(e) => setState(e.target.value)} className={selectClass}>
+          <select
+            id="f-state"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            className={selectClass}
+          >
             <option value="">All locations</option>
             {states.map((s) => (
               <option key={s} value={s}>
@@ -167,7 +190,12 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
           <label htmlFor="f-usage" className="mb-1 block text-xs font-semibold uppercase">
             Commercial / Home
           </label>
-          <select id="f-usage" value={usage} onChange={(e) => setUsage(e.target.value)} className={selectClass}>
+          <select
+            id="f-usage"
+            value={usage}
+            onChange={(e) => setUsage(e.target.value)}
+            className={selectClass}
+          >
             <option value="">Both</option>
             <option value="Commercial">Commercial</option>
             <option value="Home">Home</option>
@@ -182,7 +210,8 @@ export function EquipmentBrowser({ initialQuery = "", lockCategory, onlyUsed, po
               <>
                 Showing{" "}
                 <strong className="text-foreground">
-                  {(currentPage - 1) * PAGE_SIZE + 1}–{Math.min(currentPage * PAGE_SIZE, results.length)}
+                  {(currentPage - 1) * PAGE_SIZE + 1}–
+                  {Math.min(currentPage * PAGE_SIZE, results.length)}
                 </strong>{" "}
                 of <strong className="text-foreground">{results.length}</strong> listings
               </>

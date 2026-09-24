@@ -2,16 +2,33 @@ import { Link } from "@tanstack/react-router";
 import { ChevronRight, MapPin, Star } from "lucide-react";
 import type { Listing } from "@/data/catalog";
 import { resizedImageUrl } from "@/lib/product-utils";
+import { formatPrice } from "@/lib/region";
+import { useRegion } from "@/lib/region-context";
 
 // Only the fields ListingCard actually renders — deliberately narrower than
 // Listing/Product so lightweight list payloads (without description, specs,
 // seller, etc.) can be passed in without carrying that unused weight.
 type CardListing = Pick<
   Listing,
-  "slug" | "title" | "brand" | "model" | "subcategory" | "condition" | "price" | "city" | "state" | "image"
+  | "slug"
+  | "title"
+  | "brand"
+  | "model"
+  | "subcategory"
+  | "condition"
+  | "price"
+  | "city"
+  | "state"
+  | "image"
 >;
 
-export function FaqList({ faqs, title = "Frequently Asked Questions" }: { faqs: { q: string; a: string }[]; title?: string }) {
+export function FaqList({
+  faqs,
+  title = "Frequently Asked Questions",
+}: {
+  faqs: { q: string; a: string }[];
+  title?: string;
+}) {
   if (faqs.length === 0) return null;
   return (
     <div>
@@ -128,12 +145,16 @@ export function PageHeader({
       )}
       <div className="relative mx-auto max-w-7xl px-4">
         {eyebrow && (
-          <p className="mb-3 text-xs font-bold tracking-[0.2em] text-primary uppercase">{eyebrow}</p>
+          <p className="mb-3 text-xs font-bold tracking-[0.2em] text-primary uppercase">
+            {eyebrow}
+          </p>
         )}
         <h1 className="font-display max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl">
           {h1}
         </h1>
-        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-charcoal-foreground/75">{intro}</p>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-charcoal-foreground/75">
+          {intro}
+        </p>
       </div>
     </div>
   );
@@ -153,6 +174,7 @@ export function ConditionBadge({ condition }: { condition: string }) {
 }
 
 export function ListingCard({ listing }: { listing: CardListing }) {
+  const region = useRegion();
   return (
     <article className="group flex flex-col border border-border bg-card transition-shadow hover:shadow-lg">
       <div className="relative bg-secondary">
@@ -169,13 +191,17 @@ export function ListingCard({ listing }: { listing: CardListing }) {
       <div className="flex flex-1 flex-col p-3">
         <p className="text-xs text-muted-foreground">{listing.brand}</p>
         <h3 className="mt-0.5 text-sm leading-snug font-bold text-foreground">
-          <Link to="/equipment/$slug" params={{ slug: listing.slug }} className="hover:text-primary">
+          <Link
+            to="/equipment/$slug"
+            params={{ slug: listing.slug }}
+            className="hover:text-primary"
+          >
             {listing.title}
           </Link>
         </h3>
         <p className="mt-1 text-xs text-muted-foreground">Condition: {listing.condition}</p>
         <p className="mt-2 text-lg font-extrabold text-primary">
-          ${listing.price.toLocaleString()}
+          {formatPrice(listing.price, region)}
         </p>
         <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
           <MapPin className="size-3" /> {listing.city}, {listing.state}

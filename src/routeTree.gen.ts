@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BrandsRouteImport } from './routes/brands'
+import { Route as CaRouteImport } from './routes/ca'
 import { Route as CardioEquipmentRouteImport } from './routes/cardio-equipment'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CommercialGymEquipmentRouteImport } from './routes/commercial-gym-equipment'
@@ -31,18 +32,25 @@ import { Route as ShippingInformationRouteImport } from './routes/shipping-infor
 import { Route as ShopEquipmentRouteImport } from './routes/shop-equipment'
 import { Route as StrengthEquipmentRouteImport } from './routes/strength-equipment'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as UkRouteImport } from './routes/uk'
 import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as BrandsIndexRouteImport } from './routes/brands.index'
 import { Route as BrandsSlugRouteImport } from './routes/brands.$slug'
+import { Route as CaIndexRouteImport } from './routes/ca.index'
+import { Route as CaCategoryRouteImport } from './routes/ca.$category'
+import { Route as CaShopEquipmentRouteImport } from './routes/ca.shop-equipment'
 import { Route as CommercialGymEquipmentIndexRouteImport } from './routes/commercial-gym-equipment.index'
 import { Route as CommercialGymEquipmentSolutionRouteImport } from './routes/commercial-gym-equipment.$solution'
 import { Route as EquipmentSlugRouteImport } from './routes/equipment.$slug'
 import { Route as FitnessEquipmentGuideIndexRouteImport } from './routes/fitness-equipment-guide.index'
 import { Route as FitnessEquipmentGuideSlugRouteImport } from './routes/fitness-equipment-guide.$slug'
 import { Route as GymEquipmentForSaleStateRouteImport } from './routes/gym-equipment-for-sale.$state'
+import { Route as UkIndexRouteImport } from './routes/uk.index'
+import { Route as UkCategoryRouteImport } from './routes/uk.$category'
+import { Route as UkShopEquipmentRouteImport } from './routes/uk.shop-equipment'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminReviewsRouteImport } from './routes/_authenticated/admin.reviews'
 import { Route as AuthenticatedAdminProductsIdRouteImport } from './routes/_authenticated/admin.products.$id'
@@ -69,6 +77,11 @@ const BlogRoute = BlogRouteImport.update({
 const BrandsRoute = BrandsRouteImport.update({
   id: '/brands',
   path: '/brands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaRoute = CaRouteImport.update({
+  id: '/ca',
+  path: '/ca',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CardioEquipmentRoute = CardioEquipmentRouteImport.update({
@@ -156,6 +169,11 @@ const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
   path: '/terms-and-conditions',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UkRoute = UkRouteImport.update({
+  id: '/uk',
+  path: '/uk',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UsedGymEquipmentRoute = UsedGymEquipmentRouteImport.update({
   id: '/used-gym-equipment',
   path: '/used-gym-equipment',
@@ -185,6 +203,21 @@ const BrandsSlugRoute = BrandsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => BrandsRoute,
+} as any)
+const CaIndexRoute = CaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CaRoute,
+} as any)
+const CaCategoryRoute = CaCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => CaRoute,
+} as any)
+const CaShopEquipmentRoute = CaShopEquipmentRouteImport.update({
+  id: '/shop-equipment',
+  path: '/shop-equipment',
+  getParentRoute: () => CaRoute,
 } as any)
 const CommercialGymEquipmentIndexRoute =
   CommercialGymEquipmentIndexRouteImport.update({
@@ -221,6 +254,21 @@ const GymEquipmentForSaleStateRoute =
     path: '/gym-equipment-for-sale/$state',
     getParentRoute: () => rootRouteImport,
   } as any)
+const UkIndexRoute = UkIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => UkRoute,
+} as any)
+const UkCategoryRoute = UkCategoryRouteImport.update({
+  id: '/$category',
+  path: '/$category',
+  getParentRoute: () => UkRoute,
+} as any)
+const UkShopEquipmentRoute = UkShopEquipmentRouteImport.update({
+  id: '/shop-equipment',
+  path: '/shop-equipment',
+  getParentRoute: () => UkRoute,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -244,6 +292,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRouteWithChildren
+  '/ca': typeof CaRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
   '/cart': typeof CartRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
@@ -261,18 +310,25 @@ export interface FileRoutesByFullPath {
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
+  '/ca/$category': typeof CaCategoryRoute
+  '/ca/shop-equipment': typeof CaShopEquipmentRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
+  '/uk/$category': typeof UkCategoryRoute
+  '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog/': typeof BlogIndexRoute
   '/brands/': typeof BrandsIndexRoute
+  '/ca/': typeof CaIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
+  '/uk/': typeof UkIndexRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
@@ -299,14 +355,20 @@ export interface FileRoutesByTo {
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
+  '/ca/$category': typeof CaCategoryRoute
+  '/ca/shop-equipment': typeof CaShopEquipmentRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
+  '/uk/$category': typeof UkCategoryRoute
+  '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog': typeof BlogIndexRoute
   '/brands': typeof BrandsIndexRoute
+  '/ca': typeof CaIndexRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide': typeof FitnessEquipmentGuideIndexRoute
+  '/uk': typeof UkIndexRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
@@ -318,6 +380,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog': typeof BlogRouteWithChildren
   '/brands': typeof BrandsRouteWithChildren
+  '/ca': typeof CaRouteWithChildren
   '/cardio-equipment': typeof CardioEquipmentRoute
   '/cart': typeof CartRoute
   '/commercial-gym-equipment': typeof CommercialGymEquipmentRouteWithChildren
@@ -335,18 +398,25 @@ export interface FileRoutesById {
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
+  '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
+  '/ca/$category': typeof CaCategoryRoute
+  '/ca/shop-equipment': typeof CaShopEquipmentRoute
   '/commercial-gym-equipment/$solution': typeof CommercialGymEquipmentSolutionRoute
   '/equipment/$slug': typeof EquipmentSlugRoute
   '/fitness-equipment-guide/$slug': typeof FitnessEquipmentGuideSlugRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
+  '/uk/$category': typeof UkCategoryRoute
+  '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog/': typeof BlogIndexRoute
   '/brands/': typeof BrandsIndexRoute
+  '/ca/': typeof CaIndexRoute
   '/commercial-gym-equipment/': typeof CommercialGymEquipmentIndexRoute
   '/fitness-equipment-guide/': typeof FitnessEquipmentGuideIndexRoute
+  '/uk/': typeof UkIndexRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/products/$id': typeof AuthenticatedAdminProductsIdRoute
@@ -358,6 +428,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/brands'
+    | '/ca'
     | '/cardio-equipment'
     | '/cart'
     | '/commercial-gym-equipment'
@@ -375,18 +446,25 @@ export interface FileRouteTypes {
     | '/shop-equipment'
     | '/strength-equipment'
     | '/terms-and-conditions'
+    | '/uk'
     | '/used-gym-equipment'
     | '/admin/login'
     | '/blog/$slug'
     | '/brands/$slug'
+    | '/ca/$category'
+    | '/ca/shop-equipment'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
     | '/gym-equipment-for-sale/$state'
+    | '/uk/$category'
+    | '/uk/shop-equipment'
     | '/blog/'
     | '/brands/'
+    | '/ca/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
+    | '/uk/'
     | '/admin/reviews'
     | '/admin/'
     | '/admin/products/$id'
@@ -413,14 +491,20 @@ export interface FileRouteTypes {
     | '/admin/login'
     | '/blog/$slug'
     | '/brands/$slug'
+    | '/ca/$category'
+    | '/ca/shop-equipment'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
     | '/gym-equipment-for-sale/$state'
+    | '/uk/$category'
+    | '/uk/shop-equipment'
     | '/blog'
     | '/brands'
+    | '/ca'
     | '/commercial-gym-equipment'
     | '/fitness-equipment-guide'
+    | '/uk'
     | '/admin/reviews'
     | '/admin'
     | '/admin/products/$id'
@@ -431,6 +515,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog'
     | '/brands'
+    | '/ca'
     | '/cardio-equipment'
     | '/cart'
     | '/commercial-gym-equipment'
@@ -448,18 +533,25 @@ export interface FileRouteTypes {
     | '/shop-equipment'
     | '/strength-equipment'
     | '/terms-and-conditions'
+    | '/uk'
     | '/used-gym-equipment'
     | '/admin/login'
     | '/blog/$slug'
     | '/brands/$slug'
+    | '/ca/$category'
+    | '/ca/shop-equipment'
     | '/commercial-gym-equipment/$solution'
     | '/equipment/$slug'
     | '/fitness-equipment-guide/$slug'
     | '/gym-equipment-for-sale/$state'
+    | '/uk/$category'
+    | '/uk/shop-equipment'
     | '/blog/'
     | '/brands/'
+    | '/ca/'
     | '/commercial-gym-equipment/'
     | '/fitness-equipment-guide/'
+    | '/uk/'
     | '/_authenticated/admin/reviews'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/products/$id'
@@ -471,6 +563,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogRoute: typeof BlogRouteWithChildren
   BrandsRoute: typeof BrandsRouteWithChildren
+  CaRoute: typeof CaRouteWithChildren
   CardioEquipmentRoute: typeof CardioEquipmentRoute
   CartRoute: typeof CartRoute
   CommercialGymEquipmentRoute: typeof CommercialGymEquipmentRouteWithChildren
@@ -488,6 +581,7 @@ export interface RootRouteChildren {
   ShopEquipmentRoute: typeof ShopEquipmentRoute
   StrengthEquipmentRoute: typeof StrengthEquipmentRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
+  UkRoute: typeof UkRouteWithChildren
   UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
   AdminLoginRoute: typeof AdminLoginRoute
   EquipmentSlugRoute: typeof EquipmentSlugRoute
@@ -529,6 +623,13 @@ declare module '@tanstack/react-router' {
       path: '/brands'
       fullPath: '/brands'
       preLoaderRoute: typeof BrandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ca': {
+      id: '/ca'
+      path: '/ca'
+      fullPath: '/ca'
+      preLoaderRoute: typeof CaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cardio-equipment': {
@@ -650,6 +751,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsAndConditionsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uk': {
+      id: '/uk'
+      path: '/uk'
+      fullPath: '/uk'
+      preLoaderRoute: typeof UkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/used-gym-equipment': {
       id: '/used-gym-equipment'
       path: '/used-gym-equipment'
@@ -692,6 +800,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrandsSlugRouteImport
       parentRoute: typeof BrandsRoute
     }
+    '/ca/': {
+      id: '/ca/'
+      path: '/'
+      fullPath: '/ca/'
+      preLoaderRoute: typeof CaIndexRouteImport
+      parentRoute: typeof CaRoute
+    }
+    '/ca/$category': {
+      id: '/ca/$category'
+      path: '/$category'
+      fullPath: '/ca/$category'
+      preLoaderRoute: typeof CaCategoryRouteImport
+      parentRoute: typeof CaRoute
+    }
+    '/ca/shop-equipment': {
+      id: '/ca/shop-equipment'
+      path: '/shop-equipment'
+      fullPath: '/ca/shop-equipment'
+      preLoaderRoute: typeof CaShopEquipmentRouteImport
+      parentRoute: typeof CaRoute
+    }
     '/commercial-gym-equipment/': {
       id: '/commercial-gym-equipment/'
       path: '/'
@@ -733,6 +862,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/gym-equipment-for-sale/$state'
       preLoaderRoute: typeof GymEquipmentForSaleStateRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/uk/': {
+      id: '/uk/'
+      path: '/'
+      fullPath: '/uk/'
+      preLoaderRoute: typeof UkIndexRouteImport
+      parentRoute: typeof UkRoute
+    }
+    '/uk/$category': {
+      id: '/uk/$category'
+      path: '/$category'
+      fullPath: '/uk/$category'
+      preLoaderRoute: typeof UkCategoryRouteImport
+      parentRoute: typeof UkRoute
+    }
+    '/uk/shop-equipment': {
+      id: '/uk/shop-equipment'
+      path: '/shop-equipment'
+      fullPath: '/uk/shop-equipment'
+      preLoaderRoute: typeof UkShopEquipmentRouteImport
+      parentRoute: typeof UkRoute
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -798,6 +948,20 @@ const BrandsRouteChildren: BrandsRouteChildren = {
 const BrandsRouteWithChildren =
   BrandsRoute._addFileChildren(BrandsRouteChildren)
 
+interface CaRouteChildren {
+  CaCategoryRoute: typeof CaCategoryRoute
+  CaShopEquipmentRoute: typeof CaShopEquipmentRoute
+  CaIndexRoute: typeof CaIndexRoute
+}
+
+const CaRouteChildren: CaRouteChildren = {
+  CaCategoryRoute: CaCategoryRoute,
+  CaShopEquipmentRoute: CaShopEquipmentRoute,
+  CaIndexRoute: CaIndexRoute,
+}
+
+const CaRouteWithChildren = CaRoute._addFileChildren(CaRouteChildren)
+
 interface CommercialGymEquipmentRouteChildren {
   CommercialGymEquipmentSolutionRoute: typeof CommercialGymEquipmentSolutionRoute
   CommercialGymEquipmentIndexRoute: typeof CommercialGymEquipmentIndexRoute
@@ -829,12 +993,27 @@ const FitnessEquipmentGuideRouteWithChildren =
     FitnessEquipmentGuideRouteChildren,
   )
 
+interface UkRouteChildren {
+  UkCategoryRoute: typeof UkCategoryRoute
+  UkShopEquipmentRoute: typeof UkShopEquipmentRoute
+  UkIndexRoute: typeof UkIndexRoute
+}
+
+const UkRouteChildren: UkRouteChildren = {
+  UkCategoryRoute: UkCategoryRoute,
+  UkShopEquipmentRoute: UkShopEquipmentRoute,
+  UkIndexRoute: UkIndexRoute,
+}
+
+const UkRouteWithChildren = UkRoute._addFileChildren(UkRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
   BrandsRoute: BrandsRouteWithChildren,
+  CaRoute: CaRouteWithChildren,
   CardioEquipmentRoute: CardioEquipmentRoute,
   CartRoute: CartRoute,
   CommercialGymEquipmentRoute: CommercialGymEquipmentRouteWithChildren,
@@ -852,6 +1031,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShopEquipmentRoute: ShopEquipmentRoute,
   StrengthEquipmentRoute: StrengthEquipmentRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
+  UkRoute: UkRouteWithChildren,
   UsedGymEquipmentRoute: UsedGymEquipmentRoute,
   AdminLoginRoute: AdminLoginRoute,
   EquipmentSlugRoute: EquipmentSlugRoute,

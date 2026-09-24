@@ -1,9 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { Breadcrumbs, FaqList, PageHeader, SectionHeading, faqSchema } from "@/components/site/Bits";
+import {
+  Breadcrumbs,
+  FaqList,
+  PageHeader,
+  SectionHeading,
+  faqSchema,
+} from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import shopImg from "@/assets/cat-commercial.jpg";
-import { canonicalUrl } from "@/lib/seo";
+import { canonicalUrl, hreflangLinks } from "@/lib/seo";
 
 const title = "Shop Gym Equipment for Sale | Gym Equipment Marketplace";
 const description =
@@ -12,14 +18,14 @@ const description =
 const shopFaqs = [
   {
     q: "How do I search for specific gym equipment?",
-    a: "Type a brand, model, equipment type or keyword into the search box — it matches against every listing's title, brand, model and category at once, so searching \"Precor treadmill\" or \"power rack\" both work.",
+    a: 'Type a brand, model, equipment type or keyword into the search box — it matches against every listing\'s title, brand, model and category at once, so searching "Precor treadmill" or "power rack" both work.',
   },
   {
     q: "Can I filter results by price, brand or location?",
     a: "Yes — use the filters on the left to narrow by brand, condition, price band, state and whether the equipment is built for commercial or home use. Filters combine, so you can search and filter at the same time.",
   },
   {
-    q: "What does \"Commercial\" vs \"Home\" mean in the filters?",
+    q: 'What does "Commercial" vs "Home" mean in the filters?',
     a: "Commercial equipment is built for continuous, multi-user use in a staffed gym or facility. Home equipment is built for lighter, occasional use by one household. The filter helps you skip listings that don't match your setup.",
   },
   {
@@ -48,7 +54,14 @@ export const Route = createFileRoute("/shop-equipment")({
       // keep them crawlable (for internal link equity) but out of the index.
       ...(match.search.q ? [{ name: "robots", content: "noindex, follow" }] : []),
     ],
-    links: [{ rel: "canonical", href: canonicalUrl("/shop-equipment") }],
+    links: [
+      { rel: "canonical", href: canonicalUrl("/shop-equipment") },
+      ...hreflangLinks({
+        us: "/shop-equipment",
+        ca: "/ca/shop-equipment",
+        uk: "/uk/shop-equipment",
+      }),
+    ],
     scripts: faqSchema(shopFaqs),
   }),
   component: ShopPage,

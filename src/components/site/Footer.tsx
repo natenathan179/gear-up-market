@@ -46,6 +46,8 @@ export function Footer() {
           <FooterLink to="/faq" label="FAQs" />
           <FooterLink to="/terms-and-conditions" label="Terms & Conditions" />
           <FooterLink to="/privacy-policy" label="Privacy Policy" />
+          <FooterLink to="/ca" label="Shipping to Canada" />
+          <FooterLink to="/uk" label="Shipping to the UK" />
         </FooterCol>
 
         <div>

@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -16,7 +17,7 @@ import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { CartProvider } from "@/lib/cart";
 import appleTouchIcon from "@/assets/apple-touch-icon.png";
-
+import { countries, countryFromPathname } from "@/lib/region";
 
 function NotFoundComponent() {
   return (
@@ -113,9 +114,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "Gym Equipment Marketplace",
           description:
-            "Online marketplace for buying and selling new and used gym equipment across the United States.",
+            "Online marketplace for buying and selling new and used gym equipment, shipping across the United States, Canada and the UK.",
           telephone: "(800) 555-0123",
           email: "support@gymequipmentmarketplace.com",
+          areaServed: ["US", "CA", "GB"],
         }),
       },
     ],
@@ -127,8 +129,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const htmlLang = countries[countryFromPathname(pathname)].htmlLang;
   return (
-    <html lang="en">
+    <html lang={htmlLang}>
       <head>
         <HeadContent />
       </head>
@@ -159,4 +163,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

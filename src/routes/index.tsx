@@ -9,7 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, categories, faqs, guides } from "@/data/catalog";
 import { productsQueryOptions, reviewsQueryOptions } from "@/lib/queries";
-import { canonicalUrl } from "@/lib/seo";
+import { canonicalUrl, hreflangLinks } from "@/lib/seo";
 import { categoryThumb } from "@/lib/catalog-images";
 
 const title = "Gym Equipment Marketplace – Buy New & Used Gym Equipment";
@@ -30,6 +30,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: canonicalUrl("/") },
+      ...hreflangLinks({ us: "/", ca: "/ca", uk: "/uk" }),
       { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
     ],
     scripts: [
@@ -207,7 +208,11 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12">
-        <SectionHeading title="Shop by Category" href="/shop-equipment" linkLabel="View All Categories" />
+        <SectionHeading
+          title="Shop by Category"
+          href="/shop-equipment"
+          linkLabel="View All Categories"
+        />
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
           {categories.map((c) => (
             <article key={c.slug} className="border border-border bg-card">
@@ -235,7 +240,11 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-12">
-        <SectionHeading title="Featured Equipment" href="/shop-equipment" linkLabel="View All Products" />
+        <SectionHeading
+          title="Featured Equipment"
+          href="/shop-equipment"
+          linkLabel="View All Products"
+        />
         <Suspense fallback={<ListingGridSkeleton count={6} />}>
           <FeaturedEquipmentSection />
         </Suspense>
@@ -274,22 +283,38 @@ function Home() {
             </p>
             <ul className="mt-5 space-y-2 text-sm">
               <li>
-                <Link to="/commercial-gym-equipment/$solution" params={{ solution: "hotel-gym-equipment" }} className="hover:text-primary">
+                <Link
+                  to="/commercial-gym-equipment/$solution"
+                  params={{ solution: "hotel-gym-equipment" }}
+                  className="hover:text-primary"
+                >
                   Hotel Gym Equipment
                 </Link>
               </li>
               <li>
-                <Link to="/commercial-gym-equipment/$solution" params={{ solution: "school-gym-equipment" }} className="hover:text-primary">
+                <Link
+                  to="/commercial-gym-equipment/$solution"
+                  params={{ solution: "school-gym-equipment" }}
+                  className="hover:text-primary"
+                >
                   School Gym Equipment
                 </Link>
               </li>
               <li>
-                <Link to="/commercial-gym-equipment/$solution" params={{ solution: "apartment-gym-equipment" }} className="hover:text-primary">
+                <Link
+                  to="/commercial-gym-equipment/$solution"
+                  params={{ solution: "apartment-gym-equipment" }}
+                  className="hover:text-primary"
+                >
                   Apartment Gym Equipment
                 </Link>
               </li>
               <li>
-                <Link to="/commercial-gym-equipment/$solution" params={{ solution: "corporate-gym-equipment" }} className="hover:text-primary">
+                <Link
+                  to="/commercial-gym-equipment/$solution"
+                  params={{ solution: "corporate-gym-equipment" }}
+                  className="hover:text-primary"
+                >
                   Corporate Gym Equipment
                 </Link>
               </li>
@@ -326,7 +351,9 @@ function Home() {
           <ol className="grid gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {steps.map((s) => (
               <li key={s.n} className="border border-border bg-card p-5">
-                <span className="font-display block text-3xl font-extrabold text-primary">{s.n}</span>
+                <span className="font-display block text-3xl font-extrabold text-primary">
+                  {s.n}
+                </span>
                 <h3 className="mt-2 text-sm font-bold text-foreground">{s.t}</h3>
                 <p className="mt-1 text-xs text-muted-foreground">{s.d}</p>
               </li>
@@ -384,7 +411,11 @@ function Home() {
           {guides.slice(0, 4).map((g) => (
             <article key={g.slug} className="border border-border bg-card p-5">
               <h3 className="text-sm font-bold text-foreground">
-                <Link to="/fitness-equipment-guide/$slug" params={{ slug: g.slug }} className="hover:text-primary">
+                <Link
+                  to="/fitness-equipment-guide/$slug"
+                  params={{ slug: g.slug }}
+                  className="hover:text-primary"
+                >
                   {g.title}
                 </Link>
               </h3>

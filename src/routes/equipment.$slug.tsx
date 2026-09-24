@@ -2,13 +2,21 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { MapPin, MessageSquare, ShieldCheck, ShoppingCart, Truck } from "lucide-react";
 import { toast } from "sonner";
-import { Breadcrumbs, FaqList, ListingCard, SectionHeading, Stars, faqSchema } from "@/components/site/Bits";
+import {
+  Breadcrumbs,
+  FaqList,
+  ListingCard,
+  SectionHeading,
+  Stars,
+  faqSchema,
+} from "@/components/site/Bits";
 import { InquiryModal } from "@/components/site/InquiryModal";
 import { categoryBySlug } from "@/data/catalog";
 import { productDetailQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
 import { resizedImageUrl, type Product, type ProductSummary } from "@/lib/product-utils";
 import { absoluteUrl, canonicalUrl } from "@/lib/seo";
+import { formatPrice } from "@/lib/region";
 
 export const Route = createFileRoute("/equipment/$slug")({
   loader: async ({ params, context }) => {
@@ -24,7 +32,10 @@ export const Route = createFileRoute("/equipment/$slug")({
       <p className="mt-3 text-sm text-muted-foreground">
         Please refresh the page, or browse all equipment.
       </p>
-      <Link to="/shop-equipment" className="mt-6 inline-block bg-primary px-5 py-3 text-sm font-bold uppercase text-primary-foreground">
+      <Link
+        to="/shop-equipment"
+        className="mt-6 inline-block bg-primary px-5 py-3 text-sm font-bold uppercase text-primary-foreground"
+      >
         Shop equipment
       </Link>
     </div>
@@ -35,7 +46,10 @@ export const Route = createFileRoute("/equipment/$slug")({
       <p className="mt-3 text-sm text-muted-foreground">
         This listing may have sold. Browse current equipment instead.
       </p>
-      <Link to="/shop-equipment" className="mt-6 inline-block bg-primary px-5 py-3 text-sm font-bold uppercase text-primary-foreground">
+      <Link
+        to="/shop-equipment"
+        className="mt-6 inline-block bg-primary px-5 py-3 text-sm font-bold uppercase text-primary-foreground"
+      >
         Shop equipment
       </Link>
     </div>
@@ -50,10 +64,11 @@ export const Route = createFileRoute("/equipment/$slug")({
     // Sliced defensively: brand/model/city/state come from the catalog and
     // can be long enough on their own to push this past the ~160-char limit
     // search engines truncate meta descriptions at.
-    const description = `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Specs, shipping and warranty details.`.slice(
-      0,
-      155,
-    );
+    const description =
+      `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Specs, shipping and warranty details.`.slice(
+        0,
+        155,
+      );
     return {
       meta: [
         { title },
@@ -100,7 +115,12 @@ export const Route = createFileRoute("/equipment/$slug")({
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "/" },
               { "@type": "ListItem", position: 2, name: "Shop Equipment", item: "/shop-equipment" },
-              { "@type": "ListItem", position: 3, name: l.title, item: `/equipment/${params.slug}` },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: l.title,
+                item: `/equipment/${params.slug}`,
+              },
             ],
           }),
         },
@@ -196,6 +216,11 @@ function ListingPage() {
             <p className="mt-4 text-3xl font-extrabold text-primary">
               ${listing.price.toLocaleString()}
             </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Ships to the US, Canada &amp; the UK — approx. {formatPrice(listing.price, "ca")} /{" "}
+              {formatPrice(listing.price, "uk")}. Final price and shipping are confirmed in USD when
+              you enquire.
+            </p>
 
             <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
               <Row label="Brand" value={listing.brand} />
@@ -268,8 +293,9 @@ function ListingPage() {
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               This {listing.condition.toLowerCase()} {listing.brand} {listing.model} is listed in{" "}
               {listing.city}, {listing.state} and is suited to {listing.usage.toLowerCase()} use. It
-              targets {listing.muscleGroup.toLowerCase()} training with {listing.resistance.toLowerCase()}{" "}
-              resistance. Freight, liftgate and inside delivery can all be quoted before you commit.
+              targets {listing.muscleGroup.toLowerCase()} training with{" "}
+              {listing.resistance.toLowerCase()} resistance. Freight, liftgate and inside delivery
+              can all be quoted before you commit.
             </p>
           </section>
           <section>
@@ -278,7 +304,10 @@ function ListingPage() {
               <tbody>
                 {listing.specs.map((s) => (
                   <tr key={s.label} className="border-b border-border last:border-0">
-                    <th scope="row" className="w-1/2 bg-secondary px-3 py-2 text-left font-semibold">
+                    <th
+                      scope="row"
+                      className="w-1/2 bg-secondary px-3 py-2 text-left font-semibold"
+                    >
                       {s.label}
                     </th>
                     <td className="px-3 py-2 text-muted-foreground">{s.value}</td>

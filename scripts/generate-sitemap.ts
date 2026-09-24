@@ -18,12 +18,15 @@ import { SITE_URL } from "@/lib/seo";
 
 async function fetchProductSlugs(): Promise<string[]> {
   const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"];
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
+  const key =
+    process.env["SUPABASE_PUBLISHABLE_KEY"] ?? process.env["VITE_SUPABASE_PUBLISHABLE_KEY"];
   if (!url || !key) {
     console.error("Missing Supabase env vars — sitemap will omit product pages.");
     return [];
   }
-  const supabase = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
+  const supabase = createClient(url, key, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
   const { data, error } = await supabase.from("products").select("slug");
   if (error || !data) {
     console.error("Failed to fetch product slugs for sitemap:", error?.message);
@@ -56,6 +59,18 @@ const staticPaths = [
   "/shipping-information",
 ];
 
+// Categories that also have /ca and /uk international variants — everything
+// else (brands, blog, guides, locations, legal pages) stays US-only, so
+// there's nothing to cross-reference with hreflang for those.
+const internationalCategorySlugs = [
+  "cardio-equipment",
+  "strength-equipment",
+  "home-gym-equipment",
+  "free-weights",
+  "gym-accessories",
+  "commercial-gym-equipment",
+];
+
 async function main() {
   const paths = new Set<string>(staticPaths);
 
@@ -69,11 +84,49 @@ async function main() {
   const productSlugs = await fetchProductSlugs();
   for (const slug of productSlugs) paths.add(`/equipment/${slug}`);
 
+  // International (Canada/UK) pages: home, browse, and the shared categories.
+  const internationalPaths = new Set<string>();
+  for (const prefix of ["/ca", "/uk"]) {
+    internationalPaths.add(prefix);
+    internationalPaths.add(`${prefix}/shop-equipment`);
+    for (const slug of internationalCategorySlugs) internationalPaths.add(`${prefix}/${slug}`);
+  }
+  for (const p of internationalPaths) paths.add(p);
+
+  // hreflang alternates for every path that has US/CA/UK counterparts.
+  const hreflangGroups = new Map<string, Record<"en-US" | "en-CA" | "en-GB", string>>();
+  const addGroup = (usPath: string) => {
+    hreflangGroups.set(usPath, {
+      "en-US": usPath,
+      "en-CA": usPath === "/" ? "/ca" : `/ca${usPath}`,
+      "en-GB": usPath === "/" ? "/uk" : `/uk${usPath}`,
+    });
+  };
+  addGroup("/");
+  addGroup("/shop-equipment");
+  for (const slug of internationalCategorySlugs) addGroup(`/${slug}`);
+  const usPathToGroup = new Map<string, Record<"en-US" | "en-CA" | "en-GB", string>>();
+  for (const group of hreflangGroups.values()) {
+    for (const path of Object.values(group)) usPathToGroup.set(path, group);
+  }
+
   const urls = [...paths].sort();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.map((p) => `  <url><loc>${SITE_URL}${p}</loc></url>`).join("\n")}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls
+  .map((p) => {
+    const group = usPathToGroup.get(p);
+    if (!group) return `  <url><loc>${SITE_URL}${p}</loc></url>`;
+    const alternates = (Object.entries(group) as ["en-US" | "en-CA" | "en-GB", string][])
+      .map(
+        ([hreflang, path]) =>
+          `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${SITE_URL}${path}" />`,
+      )
+      .join("\n");
+    return `  <url><loc>${SITE_URL}${p}</loc>\n${alternates}\n  </url>`;
+  })
+  .join("\n")}
 </urlset>
 `;
 

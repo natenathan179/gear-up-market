@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Search,
   Phone,
@@ -11,14 +11,17 @@ import {
   Truck,
   ShieldCheck,
   Lock,
+  ChevronDown,
 } from "lucide-react";
 import { businessInfo } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
 import logoMark from "@/assets/logo-mark.png";
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/shop-equipment", label: "Shop Equipment" },
+// Grouped instead of one flat 15-link row: "Shop Equipment" and "Resources"
+// become dropdowns on desktop so the bar stays to a handful of top-level
+// items instead of overflowing/wrapping the header.
+const shopLinks = [
+  { to: "/shop-equipment", label: "All Equipment" },
   { to: "/used-gym-equipment", label: "Used Equipment" },
   { to: "/commercial-gym-equipment", label: "Commercial" },
   { to: "/home-gym-equipment", label: "Home Gym" },
@@ -26,13 +29,86 @@ const navLinks = [
   { to: "/strength-equipment", label: "Strength" },
   { to: "/free-weights", label: "Free Weights" },
   { to: "/gym-accessories", label: "Accessories" },
-  { to: "/brands", label: "Brands" },
+] as const;
+
+const resourceLinks = [
   { to: "/blog", label: "Blog" },
   { to: "/fitness-equipment-guide", label: "Equipment Guide" },
   { to: "/about", label: "About Us" },
   { to: "/reviews", label: "Reviews" },
+] as const;
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/shop-equipment", label: "Shop Equipment" },
+  ...shopLinks.slice(1),
+  { to: "/brands", label: "Brands" },
+  ...resourceLinks,
   { to: "/contact", label: "Contact" },
 ] as const;
+
+function NavDropdown({
+  label,
+  to,
+  items,
+}: {
+  label: string;
+  to?: string;
+  items: readonly { to: string; label: string }[];
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLLIElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, [open]);
+
+  return (
+    <li ref={ref} className="relative flex items-center">
+      {to ? (
+        <Link
+          to={to as never}
+          activeProps={{ className: "bg-primary text-primary-foreground" }}
+          className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
+        >
+          {label}
+        </Link>
+      ) : (
+        <span className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase">{label}</span>
+      )}
+      <button
+        type="button"
+        aria-label={`${label} menu`}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="flex h-full items-center px-1.5 transition-colors hover:bg-white/10"
+      >
+        <ChevronDown className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <ul className="absolute top-full left-0 z-20 min-w-52 border border-white/10 bg-charcoal py-1 shadow-lg">
+          {items.map((item) => (
+            <li key={item.to}>
+              <Link
+                to={item.to as never}
+                onClick={() => setOpen(false)}
+                activeProps={{ className: "text-primary" }}
+                className="block px-4 py-2.5 text-[13px] font-medium normal-case tracking-normal transition-colors hover:bg-white/10 hover:text-primary"
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
 
 export function Header() {
   const cart = useCart();
@@ -63,7 +139,10 @@ export function Header() {
           </ul>
           <ul className="flex items-center gap-4">
             <li>
-              <Link to="/reviews" className="hidden items-center gap-1.5 hover:text-primary sm:flex">
+              <Link
+                to="/reviews"
+                className="hidden items-center gap-1.5 hover:text-primary sm:flex"
+              >
                 <Heart className="size-3.5" /> Reviews
               </Link>
             </li>
@@ -73,7 +152,10 @@ export function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/cart" className="flex items-center gap-1.5 font-semibold hover:text-primary">
+              <Link
+                to="/cart"
+                className="flex items-center gap-1.5 font-semibold hover:text-primary"
+              >
                 <ShoppingCart className="size-3.5" /> Cart ({cart.count})
               </Link>
             </li>
@@ -115,11 +197,16 @@ export function Header() {
             </button>
           </form>
 
-          <a href={`tel:${businessInfo.phone.replace(/\D/g, "")}`} className="hidden items-center gap-2 lg:flex">
+          <a
+            href={`tel:${businessInfo.phone.replace(/\D/g, "")}`}
+            className="hidden items-center gap-2 lg:flex"
+          >
             <Phone className="size-6 text-primary" />
             <span className="text-xs leading-tight">
               <span className="block text-muted-foreground">Call Us</span>
-              <span className="block text-base font-bold text-foreground">{businessInfo.phone}</span>
+              <span className="block text-base font-bold text-foreground">
+                {businessInfo.phone}
+              </span>
               <span className="block text-muted-foreground">{businessInfo.hours}</span>
             </span>
           </a>
@@ -135,19 +222,38 @@ export function Header() {
       </div>
 
       <nav aria-label="Main" className="bg-charcoal text-charcoal-foreground">
-        <div className="mx-auto hidden max-w-7xl items-center gap-1 px-4 md:flex">
-          {navLinks.map((l) => (
+        <ul className="mx-auto hidden max-w-7xl items-center gap-1 px-4 md:flex">
+          <li>
             <Link
-              key={l.to}
-              to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
+              to="/"
+              activeOptions={{ exact: true }}
               activeProps={{ className: "bg-primary text-primary-foreground" }}
               className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
             >
-              {l.label}
+              Home
             </Link>
-          ))}
-        </div>
+          </li>
+          <NavDropdown label="Shop Equipment" to="/shop-equipment" items={shopLinks} />
+          <li>
+            <Link
+              to="/brands"
+              activeProps={{ className: "bg-primary text-primary-foreground" }}
+              className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
+            >
+              Brands
+            </Link>
+          </li>
+          <NavDropdown label="Resources" items={resourceLinks} />
+          <li>
+            <Link
+              to="/contact"
+              activeProps={{ className: "bg-primary text-primary-foreground" }}
+              className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
+            >
+              Contact
+            </Link>
+          </li>
+        </ul>
 
         {open && (
           <div className="md:hidden">
@@ -168,8 +274,13 @@ export function Header() {
               </button>
             </form>
             <ul className="pb-3">
-              {navLinks.map((l) => (
+              {navLinks.map((l, i) => (
                 <li key={l.to}>
+                  {(i === 1 || i === shopLinks.length + 2) && (
+                    <p className="mt-2 px-4 pb-1 text-[11px] font-bold tracking-wide text-charcoal-foreground/50 uppercase">
+                      {i === 1 ? "Shop Equipment" : "Resources"}
+                    </p>
+                  )}
                   <Link
                     to={l.to}
                     onClick={() => setOpen(false)}
