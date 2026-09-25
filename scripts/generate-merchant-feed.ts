@@ -135,7 +135,14 @@ function rowToFeedLine(row: ProductRow): string {
     .join(". ");
 
   const fields: Record<(typeof MERCHANT_FEED_COLUMNS)[number], string> = {
-    id: row.slug,
+    // Google caps `id` at 50 characters and requires it to stay stable
+    // across feed updates — several slugs (e.g. long brand + machine-type
+    // combinations) already exceed that, and slug length only grows as
+    // more descriptive titles get added. The row's own UUID is short,
+    // permanent and guaranteed unique, so it isn't subject to either
+    // problem; the human-readable slug still drives the actual page URL
+    // below via `link`.
+    id: row.id,
     // Google truncates/rejects title beyond 150 chars and description
     // beyond 5000 — clip defensively rather than let occasional long
     // titles or spec-heavy descriptions get silently mangled on upload.
