@@ -49,6 +49,7 @@ type FormState = {
   description: string;
   warranty: string;
   shipping: string;
+  weight_lbs: string;
   featured: boolean;
   available: boolean;
 };
@@ -70,6 +71,7 @@ const empty: FormState = {
   description: "",
   warranty: "",
   shipping: "",
+  weight_lbs: "",
   featured: false,
   available: true,
 };
@@ -116,6 +118,7 @@ function ProductEditor() {
         description: data.description,
         warranty: data.warranty,
         shipping: data.shipping,
+        weight_lbs: data.weight_lbs == null ? "" : String(data.weight_lbs),
         featured: data.featured,
         available: data.available,
       });
@@ -195,6 +198,7 @@ function ProductEditor() {
       description: form.description,
       warranty: form.warranty,
       shipping: form.shipping,
+      weight_lbs: form.weight_lbs.trim() === "" ? null : Number(form.weight_lbs),
       featured: form.featured,
       available: form.available,
       images,
@@ -233,6 +237,7 @@ function ProductEditor() {
     ["resistance", "Resistance type"],
     ["warranty", "Warranty"],
     ["shipping", "Shipping / freight"],
+    ["weight_lbs", "Shipping weight (lbs) — required for Google Merchant Center", "number"],
   ];
 
   return (
