@@ -42,7 +42,6 @@ export type Database = {
           updated_at: string
           usage: Database["public"]["Enums"]["product_usage"]
           warranty: string
-          weight_lbs: number | null
         }
         Insert: {
           available?: boolean
@@ -71,7 +70,6 @@ export type Database = {
           updated_at?: string
           usage?: Database["public"]["Enums"]["product_usage"]
           warranty?: string
-          weight_lbs?: number | null
         }
         Update: {
           available?: boolean
@@ -100,7 +98,6 @@ export type Database = {
           updated_at?: string
           usage?: Database["public"]["Enums"]["product_usage"]
           warranty?: string
-          weight_lbs?: number | null
         }
         Relationships: []
       }

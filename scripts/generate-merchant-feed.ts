@@ -50,7 +50,6 @@ const MERCHANT_FEED_COLUMNS = [
   "mpn",
   "product_type",
   "google_product_category",
-  "shipping_weight",
 ] as const;
 
 // Google's text feed format is TSV, so any tab/newline inside a value would
@@ -162,11 +161,6 @@ function rowToFeedLine(row: ProductRow): string {
     mpn: tsvSafe(row.model),
     product_type: productType(row),
     google_product_category: "Sporting Goods > Exercise & Fitness",
-    // No fabricated fallback: an unknown weight is worse than an honest gap
-    // here, since it's what Google uses to calculate real delivery cost.
-    // Rows missing it still surface as "missing shipping_weight" until
-    // backfilled with real data (see scripts/apply-product-weights.ts).
-    shipping_weight: row.weight_lbs == null ? "" : `${row.weight_lbs} lb`,
   };
 
   return MERCHANT_FEED_COLUMNS.map((col) => fields[col]).join("\t");
