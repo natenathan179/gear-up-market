@@ -1,21 +1,37 @@
 import type { Condition, Listing } from "@/data/catalog";
 import type { Database } from "@/integrations/supabase/types";
 import { categoryImage } from "@/lib/catalog-images";
+import { SITE_URL } from "@/lib/seo";
 
 export const PRODUCT_BUCKET = "product-images";
 export const SIGNED_URL_TTL = 60 * 60 * 24 * 7;
 
-const LOVABLE_ASSET_PREFIX = "/__l5e/assets-v1/";
+export const LOVABLE_ASSET_PREFIX = "/__l5e/assets-v1/";
+
+// Path prefix (on our own domain) that server.ts's product-image proxy
+// answers — see the comment there for why this exists instead of just
+// linking straight to Lovable's preview host.
+export const PRODUCT_IMAGE_PROXY_PREFIX = "/product-image/";
+
+// Shared between here and server.ts's /product-image proxy, which needs the
+// same host to know where to actually fetch bytes from.
+export function lovablePreviewHost(): string | undefined {
+  return import.meta.env["VITE_LOVABLE_PREVIEW_HOST"] ?? process.env["LOVABLE_PREVIEW_HOST"];
+}
 
 // Images uploaded via Lovable's editor are stored as paths relative to
-// Lovable's own preview host; that host is only proxied by the Vite dev
-// server, not by the deployed app, so they must be resolved to an absolute
-// URL to load in production.
+// Lovable's own preview host. That host serves every response with
+// `X-Robots-Tag: noindex, nofollow` (it's meant for the in-editor preview,
+// not public traffic), which is fine for the editor but means Google
+// Merchant Center flat-out refuses these as product images ("Invalid image
+// encoding") and Google Image Search won't index them either. Routing
+// through our own domain's /product-image proxy (server.ts) instead of
+// linking to the preview host directly sidesteps that: same bytes, but
+// served from a URL that isn't flagged noindex.
 export function resolveLovableAssetPath(path: string): string {
   if (!path.startsWith(LOVABLE_ASSET_PREFIX)) return path;
-  const previewHost =
-    import.meta.env["VITE_LOVABLE_PREVIEW_HOST"] ?? process.env["LOVABLE_PREVIEW_HOST"];
-  return previewHost ? `https://${previewHost}${path}` : path;
+  if (!lovablePreviewHost()) return path;
+  return `${SITE_URL}${PRODUCT_IMAGE_PROXY_PREFIX}${path.slice(LOVABLE_ASSET_PREFIX.length)}`;
 }
 
 // Product photos are uploaded at whatever resolution the seller's camera or
@@ -26,8 +42,11 @@ export function resolveLovableAssetPath(path: string): string {
 // appropriately sized version instead of shipping the original everywhere.
 // No-ops for any URL that isn't one of ours (e.g. a Supabase signed URL,
 // whose query string is part of its signature and must not be altered).
+// By the time this runs, a Lovable-hosted image has already been resolved
+// to its /product-image proxy URL (see resolveLovableAssetPath) rather than
+// the raw /__l5e/assets-v1/ path, so that's what identifies it here.
 export function resizedImageUrl(url: string, width: number, quality = 75): string {
-  if (!url.includes(LOVABLE_ASSET_PREFIX)) return url;
+  if (!url.includes(PRODUCT_IMAGE_PROXY_PREFIX)) return url;
   const separator = url.includes("?") ? "&" : "?";
   return `${url}${separator}w=${width}&q=${quality}`;
 }

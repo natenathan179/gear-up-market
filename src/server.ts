@@ -3,8 +3,68 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { SITE_URL } from "./lib/seo";
+import {
+  LOVABLE_ASSET_PREFIX,
+  PRODUCT_IMAGE_PROXY_PREFIX,
+  lovablePreviewHost,
+} from "./lib/product-utils";
 
 const CANONICAL_HOST = new URL(SITE_URL).host;
+
+// Product photos live on Lovable's preview host, which marks every response
+// `X-Robots-Tag: noindex, nofollow` — correct for an in-editor preview
+// environment, but it means Google Merchant Center and Google Image Search
+// both refuse to use those URLs directly (see resolveLovableAssetPath in
+// lib/product-utils.ts, which points image URLs at this proxy instead of the
+// preview host). This just re-serves the same bytes from our own domain
+// without that header, cached at the edge so most requests never leave
+// Cloudflare to hit the preview host at all.
+const PRODUCT_IMAGE_CACHE_CONTROL = "public, max-age=31536000, immutable";
+const PRODUCT_IMAGE_FETCH_TIMEOUT_MS = 8_000;
+
+// Called before the main try/catch below (this isn't a page render, so it
+// shouldn't wait behind one), so it has to fail safely on its own — a slow
+// or unreachable preview host must not hang or throw past this function.
+async function productImageProxy(
+  request: Request,
+  pathname: string,
+): Promise<Response | undefined> {
+  if (request.method !== "GET" || !pathname.startsWith(PRODUCT_IMAGE_PROXY_PREFIX))
+    return undefined;
+
+  const cache = typeof caches !== "undefined" ? await caches.open("product-images") : undefined;
+  const cached = await cache?.match(request);
+  if (cached) return cached;
+
+  const previewHost = lovablePreviewHost();
+  if (!previewHost) return new Response("Not found", { status: 404 });
+
+  const search = new URL(request.url).search;
+  const upstreamPath = LOVABLE_ASSET_PREFIX + pathname.slice(PRODUCT_IMAGE_PROXY_PREFIX.length);
+  try {
+    const upstream = await fetch(`https://${previewHost}${upstreamPath}${search}`, {
+      signal: AbortSignal.timeout(PRODUCT_IMAGE_FETCH_TIMEOUT_MS),
+    });
+    if (!upstream.ok || !upstream.body) {
+      return new Response("Not found", {
+        status: upstream.status === 200 ? 502 : upstream.status,
+      });
+    }
+
+    const response = new Response(upstream.body, {
+      status: 200,
+      headers: {
+        "content-type": upstream.headers.get("content-type") ?? "application/octet-stream",
+        "cache-control": PRODUCT_IMAGE_CACHE_CONTROL,
+      },
+    });
+    await cache?.put(request, response.clone());
+    return response;
+  } catch (error) {
+    console.error(error);
+    return new Response("Bad gateway", { status: 502 });
+  }
+}
 
 // www, the bare domain and plain http all route to this Worker; without a
 // redirect, search engines crawl and index each as a separate copy of every
@@ -87,6 +147,10 @@ export default {
     if (redirect) return redirect;
 
     const pathname = new URL(request.url).pathname;
+
+    const imageProxyResponse = await productImageProxy(request, pathname);
+    if (imageProxyResponse) return imageProxyResponse;
+
     const cacheable = typeof caches !== "undefined" && isCacheablePageRequest(request, pathname);
     const cache = cacheable ? await caches.open("pages") : undefined;
     if (cache) {
