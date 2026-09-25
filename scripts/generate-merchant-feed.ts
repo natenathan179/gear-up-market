@@ -134,15 +134,18 @@ function rowToFeedLine(row: ProductRow): string {
     .filter(Boolean)
     .join(". ");
 
+  // Google caps `id` at 50 characters. The slug is the preferred id — it's
+  // already what most listings use and is what shows up in Merchant Center
+  // reporting — so only the minority that actually exceed the limit (long
+  // brand + machine-type combinations) fall back to the row's UUID, which
+  // is short, permanent and guaranteed unique. This keeps every other
+  // product's id untouched across feed updates rather than reassigning ids
+  // wholesale.
+  const MAX_ID_LENGTH = 50;
+  const id = row.slug.length <= MAX_ID_LENGTH ? row.slug : row.id;
+
   const fields: Record<(typeof MERCHANT_FEED_COLUMNS)[number], string> = {
-    // Google caps `id` at 50 characters and requires it to stay stable
-    // across feed updates — several slugs (e.g. long brand + machine-type
-    // combinations) already exceed that, and slug length only grows as
-    // more descriptive titles get added. The row's own UUID is short,
-    // permanent and guaranteed unique, so it isn't subject to either
-    // problem; the human-readable slug still drives the actual page URL
-    // below via `link`.
-    id: row.id,
+    id,
     // Google truncates/rejects title beyond 150 chars and description
     // beyond 5000 — clip defensively rather than let occasional long
     // titles or spec-heavy descriptions get silently mangled on upload.
