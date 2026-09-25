@@ -80,7 +80,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: heroImg,
     readTime: "9 min read",
-    publishedAt: "2026-09-17",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "What Counts as Gym Equipment",
@@ -252,7 +252,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: heroImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-16",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "Buying From an Online Marketplace",
@@ -406,7 +406,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: commercialImg,
     readTime: "8 min read",
-    publishedAt: "2026-09-15",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "What Makes Equipment Commercial-Grade",
@@ -586,7 +586,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: homeImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-14",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "Start With Your Space, Not the Equipment",
@@ -790,7 +790,7 @@ export const blogPosts: BlogPost[] = [
     category: "Used Equipment",
     heroImage: sellImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-13",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "Where Discounted Gym Equipment Comes From",
@@ -977,7 +977,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: cardioImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-12",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "Treadmills",
@@ -1189,7 +1189,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-09-11",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "Selectorized Machines",
@@ -1364,7 +1364,7 @@ export const blogPosts: BlogPost[] = [
     category: "Fitness Tips",
     heroImage: weightsImg,
     readTime: "8 min read",
-    publishedAt: "2026-09-10",
+    publishedAt: "2026-09-20",
     body: [
       {
         heading: "How Progressive Overload Actually Builds Muscle",
@@ -1527,7 +1527,7 @@ export const blogPosts: BlogPost[] = [
     category: "Selling Guides",
     heroImage: sellImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-18",
+    publishedAt: "2026-09-21",
     body: [
       {
         heading: "Who Actually Buys Used Gym Equipment",
@@ -1703,7 +1703,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-19",
+    publishedAt: "2026-09-21",
     body: [
       {
         heading: "What a Cable Machine Does, and Why Buy Used",
@@ -1922,7 +1922,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-20",
+    publishedAt: "2026-09-21",
     body: [
       {
         heading: "What Rogue Fitness Is Known For",
@@ -2320,7 +2320,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: homeImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-22",
+    publishedAt: "2026-09-21",
     body: [
       {
         heading: "What Is an All-in-One Home Gym Machine",
@@ -2501,7 +2501,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: weightsImg,
     readTime: "6 min read",
-    publishedAt: "2026-09-23",
+    publishedAt: "2026-09-21",
     body: [
       {
         heading: "Adjustable vs. Fixed Dumbbells",
@@ -2706,7 +2706,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-24",
+    publishedAt: "2026-09-21",
     body: [
       {
         heading: "Power Rack vs. Squat Cage vs. Half Rack",
@@ -2894,7 +2894,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: accessoriesImg,
     readTime: "6 min read",
-    publishedAt: "2026-09-25",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "Flooring: The Accessory Most People Buy Last",
@@ -3080,7 +3080,7 @@ export const blogPosts: BlogPost[] = [
     category: "Fitness Tips",
     heroImage: cardioImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-26",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "Why Cardio Equipment Usually Leads the List",
@@ -3269,7 +3269,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-09-27",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "The Main Types of Chest Machines",
@@ -3454,7 +3454,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-28",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "The Main Types of Shoulder Machines",
@@ -3640,7 +3640,7 @@ export const blogPosts: BlogPost[] = [
     category: "Fitness Tips",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-29",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "Why Chest, Shoulders and Triceps Train Well Together",
@@ -3817,7 +3817,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-09-30",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "The Main Types of Bicep Machines",
@@ -4009,7 +4009,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-01",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "The Main Types of Tricep Machines",
@@ -4199,7 +4199,7 @@ export const blogPosts: BlogPost[] = [
     category: "Fitness Tips",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-02",
+    publishedAt: "2026-09-22",
     body: [
       {
         heading: "Biceps vs. Triceps: Opposing Muscles, Same Arm Day",
@@ -4382,7 +4382,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-03",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "What a Shrug Machine Does",
@@ -4573,7 +4573,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-04",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "Why Lateral Raise Machines Exist",
@@ -4755,7 +4755,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-05",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "The Main Types of Leg and Hip Machines",
@@ -4946,7 +4946,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "9 min read",
-    publishedAt: "2026-10-06",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "Leg Extension vs. Leg Curl: Two Different Muscles",
@@ -5114,7 +5114,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-07",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "What Is a Plate-Loaded Machine?",
@@ -5286,7 +5286,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-08",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "What Cybex Is Known For",
@@ -5481,7 +5481,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-09",
+    publishedAt: "2026-09-23",
     body: [
       {
         heading: "What Technogym Is Known For",
@@ -5668,7 +5668,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-10",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "What Precor Is Known For",
@@ -5856,7 +5856,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-11",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "What Life Fitness Is Known For",
@@ -6038,7 +6038,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-12",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "What Matrix Is Known For",
@@ -6229,7 +6229,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: strengthImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-13",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "What Hammer Strength Is Known For",
@@ -6412,7 +6412,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: homeImg,
     readTime: "8 min read",
-    publishedAt: "2026-10-14",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "Brand Matters Less Than Category Fit",
@@ -6587,7 +6587,7 @@ export const blogPosts: BlogPost[] = [
     category: "Buying Guides",
     heroImage: commercialImg,
     readTime: "9 min read",
-    publishedAt: "2026-10-15",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "What Makes a Brand 'Commercial-Grade'",
@@ -6772,7 +6772,7 @@ export const blogPosts: BlogPost[] = [
     category: "Equipment Reviews",
     heroImage: cardioImg,
     readTime: "7 min read",
-    publishedAt: "2026-10-16",
+    publishedAt: "2026-09-24",
     body: [
       {
         heading: "Technogym's Elliptical and Cross-Trainer Lines",

@@ -37,7 +37,9 @@ function BlogIndex() {
   const { q, category } = Route.useSearch();
   const { data: products } = useSuspenseQuery(productsQueryOptions);
 
-  let posts = [...blogPosts].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));
+  // Reversed so that, within a day, later-listed (newer) posts come first —
+  // the sort is stable and treats same-date posts as equal.
+  let posts = [...blogPosts].reverse().sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   if (category) posts = posts.filter((p) => p.category === category);
   if (q) {
     const needle = q.trim().toLowerCase();
@@ -109,7 +111,9 @@ function BlogIndex() {
                         <h3 className="text-base font-bold text-foreground group-hover:text-primary">
                           {p.title}
                         </h3>
-                        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{p.excerpt}</p>
+                        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+                          {p.excerpt}
+                        </p>
                         <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
                           <span className="flex items-center gap-1.5">
                             <Calendar className="size-3.5" /> {formatBlogDate(p.publishedAt)}

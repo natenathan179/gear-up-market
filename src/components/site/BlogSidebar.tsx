@@ -17,9 +17,12 @@ export function BlogSidebar({ excludeSlug, promo }: { excludeSlug?: string; prom
   const [q, setQ] = useState("");
   const { data: products } = useSuspenseQuery(productsQueryOptions);
 
+  // Reversed so that, within a day, later-listed (newer) posts come first —
+  // the sort is stable and treats same-date posts as equal.
   const recent = [...blogPosts]
+    .reverse()
     .filter((p) => p.slug !== excludeSlug)
-    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
     .slice(0, 4);
 
   const categories = blogCategories();
@@ -85,7 +88,9 @@ export function BlogSidebar({ excludeSlug, promo }: { excludeSlug?: string; prom
                     {p.title}
                   </Link>
                 </h3>
-                <p className="mt-1 text-[11px] text-muted-foreground">{formatBlogDate(p.publishedAt)}</p>
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  {formatBlogDate(p.publishedAt)}
+                </p>
               </div>
             </li>
           ))}
