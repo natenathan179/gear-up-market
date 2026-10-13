@@ -40,11 +40,11 @@ export function hreflangLinks(paths: Partial<Record<CountryCode, string>>) {
   const defaultPath = paths.us ?? entries[0]?.[1];
   const links = entries.map(([country, path]) => ({
     rel: "alternate",
-    hreflang: countries[country].hreflang,
+    hrefLang: countries[country].hreflang,
     href: canonicalUrl(path),
   }));
   if (defaultPath) {
-    links.push({ rel: "alternate", hreflang: "x-default", href: canonicalUrl(defaultPath) });
+    links.push({ rel: "alternate", hrefLang: "x-default", href: canonicalUrl(defaultPath) });
   }
   return links;
 }
