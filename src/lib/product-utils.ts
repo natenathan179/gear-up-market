@@ -1,7 +1,6 @@
 import type { Condition, Listing } from "@/data/catalog";
 import type { Database } from "@/integrations/supabase/types";
 import { categoryImage } from "@/lib/catalog-images";
-import { SITE_URL } from "@/lib/seo";
 
 export const PRODUCT_BUCKET = "product-images";
 export const SIGNED_URL_TTL = 60 * 60 * 24 * 7;
@@ -28,10 +27,17 @@ export function lovablePreviewHost(): string | undefined {
 // through our own domain's /product-image proxy (server.ts) instead of
 // linking to the preview host directly sidesteps that: same bytes, but
 // served from a URL that isn't flagged noindex.
+//
+// The proxy URL is deliberately host-relative so the same stored path
+// renders wherever the site is served — the in-editor preview, the Lovable
+// deployment URL, and the live domain once it's connected — instead of
+// hard-coding the canonical domain, which 404s until that domain is
+// actually pointed at the site. Anything that needs a fully qualified URL
+// (the Merchant Center feed, for one) prefixes SITE_URL itself.
 export function resolveLovableAssetPath(path: string): string {
   if (!path.startsWith(LOVABLE_ASSET_PREFIX)) return path;
   if (!lovablePreviewHost()) return path;
-  return `${SITE_URL}${PRODUCT_IMAGE_PROXY_PREFIX}${path.slice(LOVABLE_ASSET_PREFIX.length)}`;
+  return `${PRODUCT_IMAGE_PROXY_PREFIX}${path.slice(LOVABLE_ASSET_PREFIX.length)}`;
 }
 
 // Product photos are uploaded at whatever resolution the seller's camera or

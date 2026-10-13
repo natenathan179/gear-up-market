@@ -70,8 +70,15 @@ async function productImageProxy(
 // redirect, search engines crawl and index each as a separate copy of every
 // page (duplicate-content warnings), and plain http leaves visitors on an
 // unencrypted connection instead of landing on the canonical https URL.
+//
+// Only hosts that are genuinely aliases of the live domain take part in this.
+// Lovable's preview host, the *.lovable.app deployment URL and the local dev
+// server have to serve normally — bouncing them to a domain that isn't
+// connected yet would send every visitor to a dead URL.
 function canonicalUrlRedirect(request: Request): Response | undefined {
   const url = new URL(request.url);
+  const isLiveDomain = url.host === CANONICAL_HOST || url.host === `www.${CANONICAL_HOST}`;
+  if (!isLiveDomain) return undefined;
   if (url.host === CANONICAL_HOST && url.protocol === "https:") return undefined;
   url.host = CANONICAL_HOST;
   url.protocol = "https:";
