@@ -123,7 +123,11 @@ function productType(row: ProductRow): string {
 }
 
 function rowToFeedLine(row: ProductRow): string {
-  const images = row.images.filter(Boolean).map((url) => resizedImageUrl(url, 1600));
+  // The site itself renders host-relative proxy URLs (see
+  // resolveLovableAssetPath), but a Merchant Center feed has to carry fully
+  // qualified image addresses, so qualify them here.
+  const feedImage = (url: string) => (url.startsWith("/") ? canonicalUrl(url) : url);
+  const images = row.images.filter(Boolean).map((url) => feedImage(resizedImageUrl(url, 1600)));
   const [primaryImage, ...rest] = images;
   const specsSummary = parseSpecs(row.specs)
     .map((s) => `${s.label}: ${s.value}`)
