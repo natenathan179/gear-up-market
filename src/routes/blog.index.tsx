@@ -92,7 +92,7 @@ function BlogIndex() {
                 .
               </p>
             ) : (
-              <ul className="mt-8 grid gap-6 sm:grid-cols-2">
+              <ul className="mt-8 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {posts.map((p) => (
                   <li key={p.slug} className="group border border-border bg-card">
                     <Link to="/blog/$slug" params={{ slug: p.slug }} className="block">
