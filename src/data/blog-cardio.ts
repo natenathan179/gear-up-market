@@ -504,7 +504,7 @@ export const cardioPosts: BlogPost[] = [
         ],
         list: [
           "Precor — EFX ellipticals and AMT adaptive motion trainers",
-          "Life Fitness — cross-trainers and the Arc Trainer",
+          "Life Fitness and Cybex — cross-trainers and the Arc Trainer",
           "Octane Fitness — elliptical specialist, Pro series, LateralX and seated xRide",
           "Matrix — commercial ellipticals and ascent trainers",
           "Technogym — commercial cross trainers",
@@ -1047,7 +1047,7 @@ export const cardioPosts: BlogPost[] = [
         table: {
           headers: ["Machine", "Motion", "Emphasis"],
           rows: [
-            ["Arc Trainer (Life Fitness)", "Arc-shaped path", "Glutes and quads, low knee stress"],
+            ["Arc Trainer (Cybex / Life Fitness)", "Arc-shaped path", "Glutes and quads, low knee stress"],
             ["AMT (Precor)", "Adaptive stride, user-controlled", "Walking to running to climbing"],
             ["Stepper elliptical / ascent trainer", "Steep, climbing path", "Glutes and calves"],
             [
@@ -1066,7 +1066,7 @@ export const cardioPosts: BlogPost[] = [
       {
         heading: "Arc Trainer",
         paragraphs: [
-          "Life Fitness's Arc Trainer moves your feet through an arc rather than an oval, with incline adjustment that shifts emphasis between stride-like and climbing motions. Many users find it produces a strong glute and quad workout with low stress on the knees.",
+          "The Arc Trainer, developed by Cybex and now part of the Life Fitness family, moves your feet through an arc rather than an oval, with incline adjustment that shifts emphasis between stride-like and climbing motions. Many users find it produces a strong glute and quad workout with low stress on the knees.",
         ],
       },
       {
