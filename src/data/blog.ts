@@ -58,6 +58,7 @@ import weightsImg from "@/assets/cat-weights.jpg";
 import accessoriesImg from "@/assets/cat-accessories.webp";
 import { benchPosts } from "@/data/blog-benches";
 import { cardioPosts } from "@/data/blog-cardio";
+import { usedPosts } from "@/data/blog-used";
 
 const STOCK_CATEGORY_IMAGES = new Set<string>([
   heroImg,
@@ -6936,6 +6937,7 @@ export const blogPosts: BlogPost[] = [
   },
   ...benchPosts,
   ...cardioPosts,
+  ...usedPosts,
 ];
 
 export const blogPostBySlug = (slug: string) => blogPosts.find((p) => p.slug === slug);
