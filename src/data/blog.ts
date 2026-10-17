@@ -60,6 +60,7 @@ import { benchPosts } from "@/data/blog-benches";
 import { cardioPosts } from "@/data/blog-cardio";
 import { usedPosts } from "@/data/blog-used";
 import { arcPosts } from "@/data/blog-arc";
+import { storagePosts } from "@/data/blog-storage";
 
 const STOCK_CATEGORY_IMAGES = new Set<string>([
   heroImg,
@@ -6940,6 +6941,7 @@ export const blogPosts: BlogPost[] = [
   ...cardioPosts,
   ...usedPosts,
   ...arcPosts,
+  ...storagePosts,
 ];
 
 export const blogPostBySlug = (slug: string) => blogPosts.find((p) => p.slug === slug);
