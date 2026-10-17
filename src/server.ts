@@ -29,8 +29,15 @@ async function productImageProxy(
   request: Request,
   pathname: string,
 ): Promise<Response | undefined> {
-  if (request.method !== "GET" || !pathname.startsWith(PRODUCT_IMAGE_PROXY_PREFIX))
-    return undefined;
+  if (!pathname.startsWith(PRODUCT_IMAGE_PROXY_PREFIX)) return undefined;
+  // HEAD used to fall through to the SSR handler and 404, and image crawlers
+  // (Merchant Center included) may probe with HEAD before fetching. Serve it
+  // from the same GET response, minus the body.
+  if (request.method === "HEAD") {
+    const get = await productImageProxy(new Request(request.url, { method: "GET" }), pathname);
+    return get && new Response(null, { status: get.status, headers: get.headers });
+  }
+  if (request.method !== "GET") return undefined;
 
   const cache = typeof caches !== "undefined" ? await caches.open("product-images") : undefined;
   const cached = await cache?.match(request);

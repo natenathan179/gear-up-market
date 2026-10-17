@@ -122,6 +122,50 @@ function productType(row: ProductRow): string {
   return tsvSafe(`${category?.name ?? row.category} > ${row.subcategory}`);
 }
 
+// Google product taxonomy IDs (https://www.google.com/basepages/producttype/
+// taxonomy-with-ids.en-US.txt). Every product used to share the broad
+// "Sporting Goods > Exercise & Fitness", which left Google to infer the rest
+// from the title — and titles like "Low Back Machine" or "Hip & Back" got
+// misclassified as over-the-counter healthcare, a restricted category. A
+// specific category per subcategory removes the guesswork.
+const SUBCATEGORY_TAXONOMY: Record<string, number> = {
+  Treadmills: 997,
+  "Commercial Treadmills": 997,
+  "Folding Treadmills": 997,
+  "Exercise Bikes": 994,
+  "Spin Bikes": 994,
+  Ellipticals: 992,
+  "Cross Trainers": 992,
+  "Rowing Machines": 995,
+  "Stair Climbers": 996,
+  Benches: 499795,
+  "Home Benches": 499795,
+  "Dumbbell Sets": 3164,
+  "Adjustable Dumbbells": 3164,
+  Kettlebells: 3164,
+  "Weight Plates": 3164,
+  "Bumper Plates": 3164,
+  Barbells: 3271,
+  "Storage Racks": 8083,
+  "Gym Flooring": 4669,
+  Mats: 4669,
+  "Resistance Bands": 5869,
+  "Lifting Belts": 3654,
+  "Medicine Balls": 3938,
+};
+const CATEGORY_TAXONOMY: Record<string, number> = {
+  "cardio-equipment": 4589, // Cardio > Cardio Machines
+  "free-weights": 3164, // Weight Lifting > Free Weights
+  "gym-accessories": 990, // Exercise & Fitness
+};
+const DEFAULT_TAXONOMY = 3542; // Weight Lifting > Weight Lifting Machines & Racks
+
+function googleProductCategory(row: ProductRow): string {
+  const id =
+    SUBCATEGORY_TAXONOMY[row.subcategory] ?? CATEGORY_TAXONOMY[row.category] ?? DEFAULT_TAXONOMY;
+  return String(id);
+}
+
 function rowToFeedLine(row: ProductRow): string {
   // The site itself renders host-relative proxy URLs (see
   // resolveLovableAssetPath), but a Merchant Center feed has to carry fully
@@ -164,7 +208,7 @@ function rowToFeedLine(row: ProductRow): string {
     brand: tsvSafe(row.brand),
     mpn: tsvSafe(row.model),
     product_type: productType(row),
-    google_product_category: "Sporting Goods > Exercise & Fitness",
+    google_product_category: googleProductCategory(row),
   };
 
   return MERCHANT_FEED_COLUMNS.map((col) => fields[col]).join("\t");
