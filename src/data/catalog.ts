@@ -460,6 +460,10 @@ export const categories: Category[] = [
       "whey protein for sale",
       "creatine monohydrate",
       "sports nutrition store",
+      "buy peptides online",
+      "HGH for sale",
+      "kits4less supplements",
+      "research peptides usa",
     ],
     body: [
       {
