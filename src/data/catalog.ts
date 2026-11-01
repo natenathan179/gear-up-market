@@ -694,6 +694,30 @@ export const brands: Brand[] = [
       },
     ],
   },
+  {
+    slug: "dragon-pharma",
+    name: "Dragon Pharma",
+    intro:
+      "Dragon Pharma is a sports nutrition brand known for fully dosed, transparently labeled formulas — from the Venom pre-workout family and WheyPhorm protein to everyday health essentials like omega-3, multivitamins and organ support. Every product we list is genuine, factory sealed and ships fast nationwide.",
+    popularModels: ["Venom Pre-Workout", "Venom Inferno", "Mr. Veinz", "WheyPhorm", "IsoPhorm"],
+    bestFor: "Both",
+    bestForNote:
+      "Formulas for every level — high-stim pre-workouts for experienced athletes, stim-free pump products for evening training, and everyday health supplements for any household.",
+    faqs: [
+      {
+        q: "Are Dragon Pharma supplements from this store authentic?",
+        a: "Yes. All Dragon Pharma products we sell come through official distribution channels and arrive factory sealed with batch details and expiration dates on the label.",
+      },
+      {
+        q: "What is Dragon Pharma best known for?",
+        a: "The Venom pre-workout line is the brand's signature range, alongside its WheyPhorm and IsoPhorm proteins and a broad everyday-health lineup covering vitamins, omegas and organ support.",
+      },
+      {
+        q: "Which Dragon Pharma pre-workout is the strongest?",
+        a: "Venom Inferno is the highest-stimulant option in the range and is intended for experienced users. Venom Essential is the moderate everyday option, and Mr. Veinz is the stim-free pump choice.",
+      },
+    ],
+  },
 ];
 
 export const brandBySlug = (slug: string) => brands.find((b) => b.slug === slug);
