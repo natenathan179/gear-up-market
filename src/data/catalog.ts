@@ -487,6 +487,13 @@ export const categories: Category[] = [
           "Supplements support a good diet — they do not replace one. If you have a medical condition, take prescription medication, or are pregnant or nursing, talk to a physician before adding any new supplement to your routine.",
         ],
       },
+      {
+        heading: "HGH, Peptides and Performance Compounds from Kits4Less",
+        paragraphs: [
+          "Our Kits4Less range covers the most requested research peptides and performance compounds in the USA: HGH kits in multiple IU strengths, GLP-1 peptides such as semaglutide, tirzepatide and retatrutide in single vials, multi-vial kits and pre-filled injection pens, plus recovery staples like BPC-157, TB-500, GHK-Cu, NAD+ and glutathione. Every vial is lyophilized, preservative free and independently lab tested, with purity reports available for each batch.",
+          "You will also find a full line of injectable oils and oral tablets, bacteriostatic water for reconstitution, and bundle pricing on multi-kit orders. Store peptides and HGH in a cool, dark place and refrigerate after reconstitution — never freeze. These products are intended for research purposes; always consult a qualified professional before beginning any new protocol.",
+        ],
+      },
     ],
     faqs: [
       {
