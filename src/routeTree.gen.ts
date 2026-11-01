@@ -31,6 +31,7 @@ import { Route as SellYourEquipmentRouteImport } from './routes/sell-your-equipm
 import { Route as ShippingInformationRouteImport } from './routes/shipping-information'
 import { Route as ShopEquipmentRouteImport } from './routes/shop-equipment'
 import { Route as StrengthEquipmentRouteImport } from './routes/strength-equipment'
+import { Route as SupplementsRouteImport } from './routes/supplements'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as UkRouteImport } from './routes/uk'
 import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
@@ -162,6 +163,11 @@ const ShopEquipmentRoute = ShopEquipmentRouteImport.update({
 const StrengthEquipmentRoute = StrengthEquipmentRouteImport.update({
   id: '/strength-equipment',
   path: '/strength-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupplementsRoute = SupplementsRouteImport.update({
+  id: '/supplements',
+  path: '/supplements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
@@ -309,6 +315,7 @@ export interface FileRoutesByFullPath {
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRoute
+  '/supplements': typeof SupplementsRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
@@ -350,6 +357,7 @@ export interface FileRoutesByTo {
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRoute
+  '/supplements': typeof SupplementsRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
   '/admin/login': typeof AdminLoginRoute
@@ -397,6 +405,7 @@ export interface FileRoutesById {
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRoute
+  '/supplements': typeof SupplementsRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
@@ -445,6 +454,7 @@ export interface FileRouteTypes {
     | '/shipping-information'
     | '/shop-equipment'
     | '/strength-equipment'
+    | '/supplements'
     | '/terms-and-conditions'
     | '/uk'
     | '/used-gym-equipment'
@@ -486,6 +496,7 @@ export interface FileRouteTypes {
     | '/shipping-information'
     | '/shop-equipment'
     | '/strength-equipment'
+    | '/supplements'
     | '/terms-and-conditions'
     | '/used-gym-equipment'
     | '/admin/login'
@@ -532,6 +543,7 @@ export interface FileRouteTypes {
     | '/shipping-information'
     | '/shop-equipment'
     | '/strength-equipment'
+    | '/supplements'
     | '/terms-and-conditions'
     | '/uk'
     | '/used-gym-equipment'
@@ -580,6 +592,7 @@ export interface RootRouteChildren {
   ShippingInformationRoute: typeof ShippingInformationRoute
   ShopEquipmentRoute: typeof ShopEquipmentRoute
   StrengthEquipmentRoute: typeof StrengthEquipmentRoute
+  SupplementsRoute: typeof SupplementsRoute
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   UkRoute: typeof UkRouteWithChildren
   UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
@@ -742,6 +755,13 @@ declare module '@tanstack/react-router' {
       path: '/strength-equipment'
       fullPath: '/strength-equipment'
       preLoaderRoute: typeof StrengthEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supplements': {
+      id: '/supplements'
+      path: '/supplements'
+      fullPath: '/supplements'
+      preLoaderRoute: typeof SupplementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms-and-conditions': {
@@ -1030,6 +1050,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShippingInformationRoute: ShippingInformationRoute,
   ShopEquipmentRoute: ShopEquipmentRoute,
   StrengthEquipmentRoute: StrengthEquipmentRoute,
+  SupplementsRoute: SupplementsRoute,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   UkRoute: UkRouteWithChildren,
   UsedGymEquipmentRoute: UsedGymEquipmentRoute,
