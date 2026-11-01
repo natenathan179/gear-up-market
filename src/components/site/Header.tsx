@@ -28,6 +28,7 @@ const shopLinks = [
   { to: "/strength-equipment", label: "Strength" },
   { to: "/free-weights", label: "Free Weights" },
   { to: "/gym-accessories", label: "Accessories" },
+  { to: "/supplements", label: "Supplements" },
 ] as const;
 
 const resourceLinks = [
