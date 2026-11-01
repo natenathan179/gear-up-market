@@ -743,6 +743,30 @@ export const brands: Brand[] = [
       },
     ],
   },
+  {
+    slug: "kits4less",
+    name: "Kits4Less",
+    intro:
+      "Kits4Less is one of the most lab-tested sources of research peptides, HGH and performance compounds in the USA, with independent purity reports published for every batch. The range covers HGH kits, GLP-1 peptides like semaglutide, tirzepatide and retatrutide, recovery peptides such as BPC-157 and TB-500, pre-filled injection pens, injectable oils, oral tablets and reconstitution supplies.",
+    popularModels: ["HGH Dragon", "Retatrutide", "Tirzepatide", "Semaglutide", "BPC-157", "TB-500"],
+    bestFor: "Both",
+    bestForNote:
+      "Single vials for first-time buyers, multi-vial kits and bundles for better value, and pre-filled injection pens for convenient, accurate dosing.",
+    faqs: [
+      {
+        q: "Are Kits4Less products lab tested?",
+        a: "Yes. Kits4Less publishes independent lab test reports for every batch, verifying purity and potency. It is one of the most frequently tested sources in the industry.",
+      },
+      {
+        q: "What is the difference between single vials, kits and injection pens?",
+        a: "Single vials are the lowest-cost way to try a compound. Kits bundle ten vials at a better per-vial price. Injection pens come pre-filled and ready to use for convenient, accurate dosing without reconstitution.",
+      },
+      {
+        q: "How should I store Kits4Less peptides and HGH?",
+        a: "Store lyophilized vials in a cool, dark place. After reconstituting with bacteriostatic water, keep vials refrigerated and never freeze them.",
+      },
+    ],
+  },
 ];
 
 export const brandBySlug = (slug: string) => brands.find((b) => b.slug === slug);
