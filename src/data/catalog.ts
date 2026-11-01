@@ -429,9 +429,9 @@ export const categories: Category[] = [
     name: "Supplements",
     navLabel: "Supplements",
     blurb: "Pre-Workout, Protein, Creatine and More",
-    h1: "Sports Supplements for Sale – Pre-Workout, Protein & Wellness",
+    h1: "Sports Supplements for Sale – Pre-Workout, Protein, Peptides & Wellness",
     intro:
-      "Shop genuine, factory-sealed sports supplements from Dragon Pharma: pre-workouts, whey and isolate protein, creatine, amino acids, pump formulas, weight-management support and everyday health essentials. Every product ships fast nationwide with tracking.",
+      "Shop genuine, factory-sealed sports supplements from Dragon Pharma and Kits4Less: pre-workouts, whey and isolate protein, creatine, amino acids, pump formulas, HGH, research peptides, injection pens, weight-management support and everyday health essentials. Every product ships fast nationwide with tracking.",
     image: supplementsImg,
     subcategories: [
       "Pre-Workout",
@@ -446,6 +446,12 @@ export const categories: Category[] = [
       "Joint Support",
       "Heart Health",
       "Liver Support",
+      "HGH",
+      "Peptides",
+      "Injection Pens",
+      "Injectable Oils",
+      "Oral Tablets",
+      "Supplies",
     ],
     keywords: [
       "supplements for sale",
