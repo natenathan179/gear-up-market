@@ -4,6 +4,7 @@ import homeImg from "@/assets/cat-home.jpg";
 import commercialImg from "@/assets/cat-commercial.jpg";
 import weightsImg from "@/assets/cat-weights.jpg";
 import accessoriesImg from "@/assets/cat-accessories.webp";
+import supplementsImg from "@/assets/cat-supplements.jpg";
 
 export type Condition = "New" | "Excellent" | "Very Good" | "Good" | "Refurbished";
 
@@ -420,6 +421,83 @@ export const categories: Category[] = [
       {
         q: "How do I clean and maintain rubber gym flooring?",
         a: "Sweep or vacuum regularly to remove grit that can wear the surface, and clean with a mild, non-solvent cleaner rather than harsh chemicals, which can dry out and crack rubber over time.",
+      },
+    ],
+  },
+  {
+    slug: "supplements",
+    name: "Supplements",
+    navLabel: "Supplements",
+    blurb: "Pre-Workout, Protein, Creatine and More",
+    h1: "Sports Supplements for Sale – Pre-Workout, Protein & Wellness",
+    intro:
+      "Shop genuine, factory-sealed sports supplements from Dragon Pharma: pre-workouts, whey and isolate protein, creatine, amino acids, pump formulas, weight-management support and everyday health essentials. Every product ships fast nationwide with tracking.",
+    image: supplementsImg,
+    subcategories: [
+      "Pre-Workout",
+      "Protein Powder",
+      "Creatine",
+      "Amino Acids",
+      "Pump & Nitric Oxide",
+      "Weight Management",
+      "Greens & Superfoods",
+      "Vitamins & Minerals",
+      "Digestive Health",
+      "Joint Support",
+      "Heart Health",
+      "Liver Support",
+    ],
+    keywords: [
+      "supplements for sale",
+      "buy pre-workout online",
+      "dragon pharma supplements",
+      "whey protein for sale",
+      "creatine monohydrate",
+      "sports nutrition store",
+    ],
+    body: [
+      {
+        heading: "Pre-Workout, Pump and Performance Formulas",
+        paragraphs: [
+          "Pre-workout supplements are built around stimulants, focus ingredients and performance compounds like beta-alanine and citrulline, and the right choice depends on your stimulant tolerance and training time. High-stim formulas such as Venom Inferno suit experienced users training hard in the morning, while stimulant-free pump formulas like Mr. Veinz and Juicy Pump work for evening sessions or anyone stacking with a separate energy source.",
+          "Creatine monohydrate remains the most researched sports supplement ever sold, with decades of studies behind its effect on strength and muscle fullness. Pairing a creatine with a quality whey or isolate protein covers the two highest-value purchases in sports nutrition before anything else is worth adding.",
+        ],
+      },
+      {
+        heading: "Protein Powders: Whey vs. Isolate",
+        paragraphs: [
+          "Whey protein blends digest quickly, mix easily and cost less per serving, which makes them the everyday choice for hitting a protein target around workouts and meals. Whey isolates go through extra filtration to remove most lactose, fat and carbs, so they suit anyone cutting calories tightly or who finds standard whey hard to digest.",
+          "Whichever you choose, check the label for the protein-per-scoop against the scoop size — a 25 g protein serving in a 30 g scoop is a leaner product than 25 g in a 45 g scoop, and the difference is usually fillers and flavoring.",
+        ],
+      },
+      {
+        heading: "Everyday Health: Vitamins, Omegas and Organ Support",
+        paragraphs: [
+          "A multivitamin, vitamin D3-K2 and omega-3 fish oil form the base of most sensible health stacks, covering the micronutrient gaps that hard training and busy diets tend to leave. Digestive enzymes and probiotics help heavy eaters and high-protein diets stay comfortable, while joint, liver, heart and kidney support formulas are popular with athletes running demanding training blocks.",
+          "Supplements support a good diet — they do not replace one. If you have a medical condition, take prescription medication, or are pregnant or nursing, talk to a physician before adding any new supplement to your routine.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Are the supplements you sell genuine and sealed?",
+        a: "Yes. Every supplement we list is sourced through official distribution channels and ships factory sealed with a full ingredient panel, batch details and expiration date on the label.",
+      },
+      {
+        q: "Which pre-workout should I start with?",
+        a: "If you are new to pre-workouts or train in the evening, start with a moderate-stim or stim-free pump formula. High-stim products are better suited to experienced users with an established caffeine tolerance.",
+      },
+      {
+        q: "What is the difference between whey protein and whey isolate?",
+        a: "Whey isolate is filtered further than standard whey, removing most lactose, fat and carbohydrates. It costs more per serving but digests easier for many people and fits calorie-restricted diets better.",
+      },
+      {
+        q: "How fast do supplement orders ship?",
+        a: "Supplement orders ship nationwide within 1–2 business days with tracking. Because supplements are small and light, delivery is much faster and cheaper than freight-shipped gym equipment.",
+      },
+      {
+        q: "Can I take several of these supplements together?",
+        a: "Most of these products stack sensibly — for example a pre-workout, creatine and whey protein cover different needs. Avoid doubling up on stimulant-based products in the same window, and check with a physician if you take any medication.",
       },
     ],
   },
