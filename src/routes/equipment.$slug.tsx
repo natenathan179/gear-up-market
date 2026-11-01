@@ -61,11 +61,16 @@ export const Route = createFileRoute("/equipment/$slug")({
     const l = loaderData.listing;
     const isUsed = l.condition !== "New";
     const title = `${l.title} for Sale`;
+    const where = l.city ? ` in ${l.city}, ${l.state}` : "";
+    const what =
+      l.category === "supplements"
+        ? `${l.brand} ${l.subcategory.toLowerCase()} supplement`
+        : `${l.condition.toLowerCase()} ${l.brand} ${l.model}`;
     // Sliced defensively: brand/model/city/state come from the catalog and
     // can be long enough on their own to push this past the ~160-char limit
     // search engines truncate meta descriptions at.
     const description =
-      `Shop this ${l.condition.toLowerCase()} ${l.brand} ${l.model} in ${l.city}, ${l.state} for $${l.price.toLocaleString()}. Specs, shipping and warranty details.`.slice(
+      `Shop this ${what}${where} for $${l.price.toLocaleString()}. Specs, shipping and warranty details.`.slice(
         0,
         155,
       );
@@ -164,6 +169,8 @@ function ListingPage() {
   };
   const category = categoryBySlug(listing.category);
   const isUsed = listing.condition !== "New";
+  const isSupplement = listing.category === "supplements";
+  const hasLocation = Boolean(listing.city);
   const cart = useCart();
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
@@ -184,7 +191,7 @@ function ListingPage() {
           <div>
             <img
               src={resizedImageUrl(listing.images[activeImage] ?? listing.image, 1000)}
-              alt={`${listing.title} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale in ${listing.city}, ${listing.state}`}
+              alt={`${listing.title} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale${hasLocation ? ` in ${listing.city}, ${listing.state}` : ""}`}
               width={800}
               height={600}
               className="aspect-4/3 w-full border border-border object-cover"
@@ -215,7 +222,8 @@ function ListingPage() {
               {listing.brand}
             </p>
             <h1 className="font-display mt-2 text-3xl font-extrabold tracking-tight text-foreground">
-              {listing.title} – {isUsed ? "Used" : "New"} Gym Equipment
+              {listing.title}
+              {!isSupplement && ` – ${isUsed ? "Used" : "New"} Gym Equipment`}
             </h1>
             <p className="mt-4 text-3xl font-extrabold text-primary">
               ${listing.price.toLocaleString()}
@@ -277,9 +285,11 @@ function ListingPage() {
                 <Stars rating={listing.seller.rating} /> {listing.seller.rating} (
                 {listing.seller.reviews} reviews)
               </div>
-              <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-                <MapPin className="size-3.5" /> {listing.city}, {listing.state}
-              </p>
+              {hasLocation && (
+                <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
+                  <MapPin className="size-3.5" /> {listing.city}, {listing.state}
+                </p>
+              )}
               <p className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
                 <Truck className="size-3.5" /> {listing.shipping}
               </p>
@@ -294,13 +304,22 @@ function ListingPage() {
           <section>
             <SectionHeading title="Description" as="h2" />
             <p className="text-sm leading-relaxed text-muted-foreground">{listing.description}</p>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              This {listing.condition.toLowerCase()} {listing.brand} {listing.model} is listed in{" "}
-              {listing.city}, {listing.state} and is suited to {listing.usage.toLowerCase()} use. It
-              targets {listing.muscleGroup.toLowerCase()} training with{" "}
-              {listing.resistance.toLowerCase()} resistance. Freight, liftgate and inside delivery
-              can all be quoted before you commit.
-            </p>
+            {isSupplement ? (
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                This {listing.brand} {listing.subcategory.toLowerCase()} supplement is brand new and
+                factory sealed, with the full ingredient panel and expiration date on the label.
+                Orders ship nationwide within 1–2 business days with tracking, and our team confirms
+                availability and delivery time for your address before you pay.
+              </p>
+            ) : (
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                This {listing.condition.toLowerCase()} {listing.brand} {listing.model} is listed in{" "}
+                {listing.city}, {listing.state} and is suited to {listing.usage.toLowerCase()} use.
+                It targets {listing.muscleGroup.toLowerCase()} training with{" "}
+                {listing.resistance.toLowerCase()} resistance. Freight, liftgate and inside delivery
+                can all be quoted before you commit.
+              </p>
+            )}
           </section>
           <section>
             <SectionHeading title="Specifications" as="h2" />
