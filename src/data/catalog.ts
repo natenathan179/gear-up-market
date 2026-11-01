@@ -516,6 +516,14 @@ export const categories: Category[] = [
         q: "Can I take several of these supplements together?",
         a: "Most of these products stack sensibly — for example a pre-workout, creatine and whey protein cover different needs. Avoid doubling up on stimulant-based products in the same window, and check with a physician if you take any medication.",
       },
+      {
+        q: "Are the Kits4Less peptides and HGH lab tested?",
+        a: "Yes. Every Kits4Less vial and pen we list is independently lab tested for purity and potency, and batch test reports are published by the manufacturer. Products arrive factory sealed and lyophilized for maximum shelf life.",
+      },
+      {
+        q: "How should I store peptides and HGH?",
+        a: "Keep lyophilized vials in a cool, dark place away from direct sunlight. Once reconstituted with bacteriostatic water, store vials in the refrigerator and never freeze them.",
+      },
     ],
   },
 ];
