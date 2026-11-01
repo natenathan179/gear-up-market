@@ -236,14 +236,14 @@ function ListingPage() {
 
             <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
               <Row label="Brand" value={listing.brand} />
-              <Row label="Model" value={listing.model} />
+              {listing.model && <Row label="Model" value={listing.model} />}
               <Row label="Condition" value={listing.condition} />
               <Row label="Category" value={category?.name ?? listing.category} />
               <Row label="Type" value={listing.subcategory} />
-              <Row label="Use" value={listing.usage} />
-              <Row label="Muscle group" value={listing.muscleGroup} />
-              <Row label="Resistance" value={listing.resistance} />
-              <Row label="Location" value={`${listing.city}, ${listing.state}`} />
+              {!isSupplement && <Row label="Use" value={listing.usage} />}
+              {listing.muscleGroup && <Row label="Muscle group" value={listing.muscleGroup} />}
+              {listing.resistance && <Row label="Resistance" value={listing.resistance} />}
+              {hasLocation && <Row label="Location" value={`${listing.city}, ${listing.state}`} />}
               <Row label="Availability" value={listing.available ? "In stock" : "Sold"} />
             </dl>
 
