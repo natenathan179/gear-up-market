@@ -350,7 +350,7 @@ function ProductEditor() {
                   <img
                     src={previews[path] ?? ""}
                     alt=""
-                    className="aspect-4/3 w-full object-cover"
+                    className="aspect-square w-full bg-secondary object-contain"
                   />
                   <button
                     type="button"

@@ -199,8 +199,8 @@ function ListingPage() {
               src={resizedImageUrl(listing.images[activeImage] ?? listing.image, 1000)}
               alt={`${listing.title} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale${hasLocation ? ` in ${listing.city}, ${listing.state}` : ""}`}
               width={800}
-              height={600}
-              className="aspect-4/3 w-full border border-border object-cover"
+              height={800}
+              className="aspect-square w-full border border-border bg-secondary object-contain"
             />
             {listing.images.length > 1 && (
               <div className="mt-3 grid grid-cols-5 gap-2">
@@ -215,7 +215,7 @@ function ListingPage() {
                     <img
                       src={resizedImageUrl(src, 200)}
                       alt=""
-                      className="aspect-4/3 w-full object-cover"
+                      className="aspect-square w-full bg-secondary object-contain"
                     />
                   </button>
                 ))}

@@ -70,8 +70,8 @@ function CartPage() {
                     src={item.image}
                     alt={item.title}
                     width={160}
-                    height={120}
-                    className="aspect-4/3 w-full object-cover sm:w-40"
+                    height={160}
+                    className="aspect-square w-full bg-secondary object-contain sm:w-32"
                   />
                   <div className="flex-1">
                     <p className="text-xs text-muted-foreground">{item.brand}</p>

@@ -220,8 +220,8 @@ export function ListingCard({ listing }: { listing: CardListing }) {
           alt={`${listing.brand} ${listing.model} – ${listing.condition.toLowerCase()} ${listing.subcategory.toLowerCase()} for sale`}
           loading="lazy"
           width={800}
-          height={600}
-          className="aspect-4/3 w-full object-cover"
+          height={800}
+          className="aspect-square w-full object-contain"
         />
       </div>
       <div className="flex flex-1 flex-col p-3">
@@ -239,9 +239,11 @@ export function ListingCard({ listing }: { listing: CardListing }) {
         <p className="mt-2 text-lg font-extrabold text-primary">
           {formatPrice(listing.price, region)}
         </p>
-        <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-          <MapPin className="size-3" /> {listing.city}, {listing.state}
-        </p>
+        {listing.city && (
+          <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+            <MapPin className="size-3" /> {listing.city}, {listing.state}
+          </p>
+        )}
         <div className="mt-3 flex gap-2">
           <Link
             to="/equipment/$slug"
