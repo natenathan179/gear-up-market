@@ -17,6 +17,7 @@ import { businessInfo } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
 import { useQuery } from "@tanstack/react-query";
 import { productsQueryOptions } from "@/lib/queries";
+import { buildBrandDirectory } from "@/lib/brands";
 import { departmentBySlug, equipmentDepartments } from "@/lib/taxonomy";
 import logoMark from "@/assets/logo-mark.png";
 
@@ -49,9 +50,12 @@ const useLinks = [
   { to: "/sell-your-equipment", label: "Sell Your Equipment" },
 ] as const;
 
-// Department → equipment type mega menu. Types with no live stock are
-// hidden once inventory has loaded, so the menu never leads to an empty page.
-function ShopMegaMenu() {
+const megaItemClass =
+  "block py-1 text-[13px] font-medium normal-case tracking-normal text-charcoal-foreground/80 transition-colors hover:text-primary";
+
+// Open state for a full-width mega menu: closes on outside click or Escape,
+// and only fetches inventory once it has been opened.
+function useMegaMenu() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
   const { data: products } = useQuery({ ...productsQueryOptions, enabled: open });
@@ -70,10 +74,36 @@ function ShopMegaMenu() {
     };
   }, [open]);
 
+  return { open, setOpen, ref, products, close: () => setOpen(false) };
+}
+
+function MegaMenuToggle({
+  label,
+  open,
+  onToggle,
+}: {
+  label: string;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={`${label} menu`}
+      aria-expanded={open}
+      onClick={onToggle}
+      className="flex h-full items-center px-1.5 transition-colors hover:bg-white/10"
+    >
+      <ChevronDown className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+    </button>
+  );
+}
+
+// Department → equipment type mega menu. Types with no live stock are
+// hidden once inventory has loaded, so the menu never leads to an empty page.
+function ShopMegaMenu() {
+  const { open, setOpen, ref, products, close } = useMegaMenu();
   const inStock = new Set(products?.map((p) => `${p.department}/${p.typeSlug}`));
-  const close = () => setOpen(false);
-  const itemClass =
-    "block py-1 text-[13px] font-medium normal-case tracking-normal text-charcoal-foreground/80 transition-colors hover:text-primary";
 
   return (
     <li ref={ref} className="flex items-center">
@@ -84,15 +114,7 @@ function ShopMegaMenu() {
       >
         Gym Equipment
       </Link>
-      <button
-        type="button"
-        aria-label="Gym Equipment menu"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className="flex h-full items-center px-1.5 transition-colors hover:bg-white/10"
-      >
-        <ChevronDown className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
-      </button>
+      <MegaMenuToggle label="Gym Equipment" open={open} onToggle={() => setOpen((v) => !v)} />
       {open && (
         <div className="absolute inset-x-0 top-full z-30 border-t border-white/10 bg-charcoal shadow-xl">
           <div className="mx-auto grid max-w-7xl gap-8 px-6 py-6 md:grid-cols-3 lg:grid-cols-5">
@@ -113,7 +135,7 @@ function ShopMegaMenu() {
                         <Link
                           to={`/${d.slug}/${t.slug}` as never}
                           onClick={close}
-                          className={itemClass}
+                          className={megaItemClass}
                         >
                           {t.short}
                         </Link>
@@ -129,7 +151,7 @@ function ShopMegaMenu() {
               <ul>
                 {useLinks.map((l) => (
                   <li key={l.to}>
-                    <Link to={l.to} onClick={close} className={itemClass}>
+                    <Link to={l.to} onClick={close} className={megaItemClass}>
                       {l.label}
                     </Link>
                   </li>
@@ -143,6 +165,56 @@ function ShopMegaMenu() {
                 Shop all equipment
               </Link>
             </div>
+          </div>
+        </div>
+      )}
+    </li>
+  );
+}
+
+// Every brand with live stock, A–Z, flowed into columns.
+function BrandsMegaMenu() {
+  const { open, setOpen, ref, products, close } = useMegaMenu();
+  const brands = products ? buildBrandDirectory(products).filter((b) => b.count > 0) : [];
+
+  return (
+    <li ref={ref} className="flex items-center">
+      <Link
+        to="/brands"
+        activeProps={{ className: "bg-primary text-primary-foreground" }}
+        className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
+      >
+        Brands
+      </Link>
+      <MegaMenuToggle label="Brands" open={open} onToggle={() => setOpen((v) => !v)} />
+      {open && (
+        <div className="absolute inset-x-0 top-full z-30 border-t border-white/10 bg-charcoal shadow-xl">
+          <div className="mx-auto max-w-7xl px-6 py-6">
+            {products ? (
+              <ul className="columns-2 gap-8 sm:columns-3 lg:columns-5">
+                {brands.map((b) => (
+                  <li key={b.slug} className="break-inside-avoid">
+                    <Link
+                      to="/brands/$slug"
+                      params={{ slug: b.slug }}
+                      onClick={close}
+                      className={megaItemClass}
+                    >
+                      {b.name} <span className="text-charcoal-foreground/50">({b.count})</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-[13px] text-charcoal-foreground/70">Loading brands…</p>
+            )}
+            <Link
+              to="/brands"
+              onClick={close}
+              className="mt-5 inline-block bg-primary px-3 py-2 text-xs font-bold tracking-wide text-primary-foreground uppercase"
+            >
+              View all brands
+            </Link>
           </div>
         </div>
       )}
@@ -358,15 +430,7 @@ export function Header() {
           </li>
           <ShopMegaMenu />
           <NavDropdown label="Supplements" to="/supplements" items={supplementLinks} />
-          <li>
-            <Link
-              to="/brands"
-              activeProps={{ className: "bg-primary text-primary-foreground" }}
-              className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
-            >
-              Brands
-            </Link>
-          </li>
+          <BrandsMegaMenu />
           <NavDropdown label="Resources" items={resourceLinks} />
           <li>
             <Link
