@@ -767,6 +767,30 @@ export const brands: Brand[] = [
       },
     ],
   },
+  {
+    slug: "landro-labs",
+    name: "Landro Labs",
+    intro:
+      "Landro Labs is a premium research peptide brand offering high-purity lyophilized compounds for laboratory research. The range covers recovery peptides like BPC-157 and TB-500, growth hormone secretagogues such as CJC-1295, Ipamorelin and Tesamorelin, nootropic peptides like Semax and Selank, metabolic compounds including 5-Amino-1MQ, MOTS-C and GLP series, plus reconstitution supplies like bacteriostatic water.",
+    popularModels: ["BPC-157", "Tesamorelin", "Ipamorelin", "GHK-Cu", "NAD+", "Semax"],
+    bestFor: "Both",
+    bestForNote:
+      "Single vials for focused research protocols and multi-peptide blends like GLOW and KLOW for combined recovery, skin and gut-health research.",
+    faqs: [
+      {
+        q: "What form do Landro Labs peptides come in?",
+        a: "Every Landro Labs peptide is supplied as a lyophilized (freeze-dried) research material in a sealed vial, ready for reconstitution with bacteriostatic water.",
+      },
+      {
+        q: "Are Landro Labs products for human use?",
+        a: "No. All Landro Labs products are sold strictly for research use only and are not intended for human or veterinary use.",
+      },
+      {
+        q: "How fast do Landro Labs orders ship?",
+        a: "Orders ship nationwide in 1–2 business days with tracking, in discreet and careful packaging.",
+      },
+    ],
+  },
 ];
 
 export const brandBySlug = (slug: string) => brands.find((b) => b.slug === slug);
