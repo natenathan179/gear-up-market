@@ -213,6 +213,33 @@
   }
 }
 
+/*
+ * Layouts are capped at max-w-7xl (1280px) and most type is set in px, so on
+ * wide monitors the whole site shrank to a small strip in the middle of the
+ * screen. Scale everything up proportionally instead; media queries still see
+ * the real window width, so this can't feed back into itself.
+ */
+@media (min-width: 1920px) {
+  html {
+    zoom: 1.25;
+  }
+}
+@media (min-width: 2400px) {
+  html {
+    zoom: 1.5;
+  }
+}
+@media (min-width: 2880px) {
+  html {
+    zoom: 1.75;
+  }
+}
+@media (min-width: 3600px) {
+  html {
+    zoom: 2;
+  }
+}
+
 @keyframes marquee-left {
   from {
     transform: translateX(0);

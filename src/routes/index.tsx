@@ -213,7 +213,7 @@ function Home() {
           href="/shop-equipment"
           linkLabel="View All Categories"
         />
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-7">
           {categories.map((c) => (
             <article key={c.slug} className="border border-border bg-card">
               <img
