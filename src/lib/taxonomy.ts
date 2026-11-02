@@ -14,7 +14,11 @@
 // type. Usage (Commercial / Home) stays an independent facet layered on top.
 
 export type DepartmentSlug =
-  "strength-equipment" | "cardio-equipment" | "free-weights" | "gym-accessories";
+  | "strength-equipment"
+  | "cardio-equipment"
+  | "free-weights"
+  | "gym-accessories"
+  | "supplements";
 
 export interface EquipmentType {
   slug: string;
@@ -250,7 +254,80 @@ export const departments: Department[] = [
         "Medicine balls, bands, handles, attachments and the other small gear every gym needs.",
     },
   ]),
+  dept("supplements", "Supplements", "Supplements", [
+    {
+      slug: "pre-workout",
+      name: "Pre-Workout & Pump Formulas",
+      short: "Pre-Workout",
+      intro:
+        "Pre-workouts, pump and nitric oxide boosters and intra-workout carbs for energy and focus in the gym.",
+    },
+    {
+      slug: "protein-powder",
+      name: "Protein Powder",
+      short: "Protein",
+      intro: "Whey, isolate and blended protein powders for recovery and daily protein intake.",
+    },
+    {
+      slug: "creatine-amino-acids",
+      name: "Creatine & Amino Acids",
+      short: "Creatine & Aminos",
+      intro: "Creatine monohydrate, BCAAs and EAAs for strength, performance and recovery.",
+    },
+    {
+      slug: "weight-management",
+      name: "Weight Management",
+      short: "Weight Management",
+      intro: "Fat burners and weight-management support to pair with training and diet.",
+    },
+    {
+      slug: "vitamins-health",
+      name: "Vitamins & Health",
+      short: "Vitamins & Health",
+      intro:
+        "Vitamins, minerals, omegas, greens and targeted support for joints, heart, liver, digestion and everyday health.",
+    },
+    {
+      slug: "hgh",
+      name: "HGH",
+      short: "HGH",
+      intro: "HGH products, sealed and shipped fast with tracking.",
+    },
+    {
+      slug: "peptides",
+      name: "Peptides",
+      short: "Peptides",
+      intro: "Research peptides, factory sealed and shipped nationwide with tracking.",
+    },
+    {
+      slug: "injection-pens",
+      name: "Injection Pens",
+      short: "Injection Pens",
+      intro: "Pre-filled and reusable injection pens.",
+    },
+    {
+      slug: "injectable-oils",
+      name: "Injectable Oils",
+      short: "Injectable Oils",
+      intro: "Injectable oils, sealed and shipped fast with tracking.",
+    },
+    {
+      slug: "oral-tablets",
+      name: "Oral Tablets",
+      short: "Oral Tablets",
+      intro: "Oral tablets, sealed and shipped fast with tracking.",
+    },
+    {
+      slug: "supplies",
+      name: "Supplies",
+      short: "Supplies",
+      intro: "Syringes, swabs, bacteriostatic water and other supplies.",
+    },
+  ]),
 ];
+
+/** The departments that are gym equipment, i.e. everything but supplements. */
+export const equipmentDepartments = departments.filter((d) => d.slug !== "supplements");
 
 export const allTypes: EquipmentType[] = departments.flatMap((d) => d.types);
 
@@ -283,7 +360,8 @@ export function matchesCollection(
   slug: string,
 ): boolean {
   const usage = usageForCollection(slug);
-  if (usage) return product.usage === usage;
+  // Supplements carry a usage value but aren't home or commercial gym gear.
+  if (usage) return product.usage === usage && product.department !== "supplements";
   return (product.department ?? product.category) === slug;
 }
 
@@ -450,14 +528,39 @@ const muscleFallback: Record<string, string> = {
   core: "ab-core-machines",
 };
 
+// Supplement listings are classified by subcategory alone; anything not
+// listed here falls back to vitamins & health.
+const supplementTypes: Record<string, string> = {
+  "pre-workout": "pre-workout",
+  "pump & nitric oxide": "pre-workout",
+  "intra-workout & carbs": "pre-workout",
+  "protein powder": "protein-powder",
+  creatine: "creatine-amino-acids",
+  "amino acids": "creatine-amino-acids",
+  "weight management": "weight-management",
+  hgh: "hgh",
+  peptides: "peptides",
+  "injection pens": "injection-pens",
+  "injectable oils": "injectable-oils",
+  "oral tablets": "oral-tablets",
+  supplies: "supplies",
+};
+
 const departmentFallbackType: Record<DepartmentSlug, string> = {
   "strength-equipment": "specialty-strength",
   "cardio-equipment": "specialty-cardio",
   "free-weights": "dumbbells",
   "gym-accessories": "training-accessories",
+  supplements: "vitamins-health",
 };
 
 export function classifyProduct(input: ClassifyInput): Classification {
+  // Equipment title rules ("bench", "press"…) would misfile supplements.
+  if (input.category === "supplements") {
+    const type = supplementTypes[input.subcategory.trim().toLowerCase()];
+    return { department: "supplements", type: type ?? departmentFallbackType.supplements };
+  }
+
   // Only the part before the importer's " – Commercial X Machine" suffix
   // describes the product itself; the suffix repeats the (often wrong)
   // subcategory and would otherwise drive matches.

@@ -15,7 +15,7 @@ import { useRegion } from "@/lib/region-context";
 import { productsQueryOptions } from "@/lib/queries";
 import {
   departmentBySlug,
-  departments,
+  equipmentDepartments,
   matchesCollection,
   usageForCollection,
   type Department,
@@ -103,7 +103,7 @@ export function CategoryPage({ category }: { category: Category }) {
           <TypeLinks department={department} prefix={prefix} />
         ) : (
           <div className="space-y-6">
-            {departments.map((d) => (
+            {equipmentDepartments.map((d) => (
               <TypeLinks key={d.slug} heading department={d} usage={usage} prefix={prefix} />
             ))}
           </div>

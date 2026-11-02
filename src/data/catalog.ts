@@ -4,6 +4,7 @@ import homeImg from "@/assets/cat-home.jpg";
 import commercialImg from "@/assets/cat-commercial.jpg";
 import weightsImg from "@/assets/cat-weights.jpg";
 import accessoriesImg from "@/assets/cat-accessories.webp";
+import supplementsImg from "@/assets/cat-supplements.jpg";
 
 export type Condition = "New" | "Excellent" | "Very Good" | "Good" | "Refurbished";
 
@@ -423,6 +424,108 @@ export const categories: Category[] = [
       },
     ],
   },
+  {
+    slug: "supplements",
+    name: "Supplements",
+    navLabel: "Supplements",
+    blurb: "Pre-Workout, Protein, Creatine and More",
+    h1: "Sports Supplements for Sale – Pre-Workout, Protein, Peptides & Wellness",
+    intro:
+      "Shop genuine, factory-sealed sports supplements from Dragon Pharma and Kits4Less: pre-workouts, whey and isolate protein, creatine, amino acids, pump formulas, HGH, research peptides, injection pens, weight-management support and everyday health essentials. Every product ships fast nationwide with tracking.",
+    image: supplementsImg,
+    subcategories: [
+      "Pre-Workout",
+      "Protein Powder",
+      "Creatine",
+      "Amino Acids",
+      "Pump & Nitric Oxide",
+      "Weight Management",
+      "Greens & Superfoods",
+      "Vitamins & Minerals",
+      "Digestive Health",
+      "Joint Support",
+      "Heart Health",
+      "Liver Support",
+      "HGH",
+      "Peptides",
+      "Injection Pens",
+      "Injectable Oils",
+      "Oral Tablets",
+      "Supplies",
+    ],
+    keywords: [
+      "supplements for sale",
+      "buy pre-workout online",
+      "dragon pharma supplements",
+      "whey protein for sale",
+      "creatine monohydrate",
+      "sports nutrition store",
+      "buy peptides online",
+      "HGH for sale",
+      "kits4less supplements",
+      "research peptides usa",
+    ],
+    body: [
+      {
+        heading: "Pre-Workout, Pump and Performance Formulas",
+        paragraphs: [
+          "Pre-workout supplements are built around stimulants, focus ingredients and performance compounds like beta-alanine and citrulline, and the right choice depends on your stimulant tolerance and training time. High-stim formulas such as Venom Inferno suit experienced users training hard in the morning, while stimulant-free pump formulas like Mr. Veinz and Juicy Pump work for evening sessions or anyone stacking with a separate energy source.",
+          "Creatine monohydrate remains the most researched sports supplement ever sold, with decades of studies behind its effect on strength and muscle fullness. Pairing a creatine with a quality whey or isolate protein covers the two highest-value purchases in sports nutrition before anything else is worth adding.",
+        ],
+      },
+      {
+        heading: "Protein Powders: Whey vs. Isolate",
+        paragraphs: [
+          "Whey protein blends digest quickly, mix easily and cost less per serving, which makes them the everyday choice for hitting a protein target around workouts and meals. Whey isolates go through extra filtration to remove most lactose, fat and carbs, so they suit anyone cutting calories tightly or who finds standard whey hard to digest.",
+          "Whichever you choose, check the label for the protein-per-scoop against the scoop size — a 25 g protein serving in a 30 g scoop is a leaner product than 25 g in a 45 g scoop, and the difference is usually fillers and flavoring.",
+        ],
+      },
+      {
+        heading: "Everyday Health: Vitamins, Omegas and Organ Support",
+        paragraphs: [
+          "A multivitamin, vitamin D3-K2 and omega-3 fish oil form the base of most sensible health stacks, covering the micronutrient gaps that hard training and busy diets tend to leave. Digestive enzymes and probiotics help heavy eaters and high-protein diets stay comfortable, while joint, liver, heart and kidney support formulas are popular with athletes running demanding training blocks.",
+          "Supplements support a good diet — they do not replace one. If you have a medical condition, take prescription medication, or are pregnant or nursing, talk to a physician before adding any new supplement to your routine.",
+        ],
+      },
+      {
+        heading: "HGH, Peptides and Performance Compounds from Kits4Less",
+        paragraphs: [
+          "Our Kits4Less range covers the most requested research peptides and performance compounds in the USA: HGH kits in multiple IU strengths, GLP-1 peptides such as semaglutide, tirzepatide and retatrutide in single vials, multi-vial kits and pre-filled injection pens, plus recovery staples like BPC-157, TB-500, GHK-Cu, NAD+ and glutathione. Every vial is lyophilized, preservative free and independently lab tested, with purity reports available for each batch.",
+          "You will also find a full line of injectable oils and oral tablets, bacteriostatic water for reconstitution, and bundle pricing on multi-kit orders. Store peptides and HGH in a cool, dark place and refrigerate after reconstitution — never freeze. These products are intended for research purposes; always consult a qualified professional before beginning any new protocol.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Are the supplements you sell genuine and sealed?",
+        a: "Yes. Every supplement we list is sourced through official distribution channels and ships factory sealed with a full ingredient panel, batch details and expiration date on the label.",
+      },
+      {
+        q: "Which pre-workout should I start with?",
+        a: "If you are new to pre-workouts or train in the evening, start with a moderate-stim or stim-free pump formula. High-stim products are better suited to experienced users with an established caffeine tolerance.",
+      },
+      {
+        q: "What is the difference between whey protein and whey isolate?",
+        a: "Whey isolate is filtered further than standard whey, removing most lactose, fat and carbohydrates. It costs more per serving but digests easier for many people and fits calorie-restricted diets better.",
+      },
+      {
+        q: "How fast do supplement orders ship?",
+        a: "Supplement orders ship nationwide within 1–2 business days with tracking. Because supplements are small and light, delivery is much faster and cheaper than freight-shipped gym equipment.",
+      },
+      {
+        q: "Can I take several of these supplements together?",
+        a: "Most of these products stack sensibly — for example a pre-workout, creatine and whey protein cover different needs. Avoid doubling up on stimulant-based products in the same window, and check with a physician if you take any medication.",
+      },
+      {
+        q: "Are the Kits4Less peptides and HGH lab tested?",
+        a: "Yes. Every Kits4Less vial and pen we list is independently lab tested for purity and potency, and batch test reports are published by the manufacturer. Products arrive factory sealed and lyophilized for maximum shelf life.",
+      },
+      {
+        q: "How should I store peptides and HGH?",
+        a: "Keep lyophilized vials in a cool, dark place away from direct sunlight. Once reconstituted with bacteriostatic water, store vials in the refrigerator and never freeze them.",
+      },
+    ],
+  },
 ];
 
 export const categoryBySlug = (slug: string) => categories.find((c) => c.slug === slug);
@@ -613,6 +716,78 @@ export const brands: Brand[] = [
       {
         q: "What should I check before buying a used Rogue rack?",
         a: "Inspect welds and powder coat for rust or cracking, confirm all j-cups, pins and accessories are included, and check hole spacing matches the attachments you plan to use, since Rogue has used a few different hole patterns across product lines.",
+      },
+    ],
+  },
+  {
+    slug: "dragon-pharma",
+    name: "Dragon Pharma",
+    intro:
+      "Dragon Pharma is a sports nutrition brand known for fully dosed, transparently labeled formulas — from the Venom pre-workout family and WheyPhorm protein to everyday health essentials like omega-3, multivitamins and organ support. Every product we list is genuine, factory sealed and ships fast nationwide.",
+    popularModels: ["Venom Pre-Workout", "Venom Inferno", "Mr. Veinz", "WheyPhorm", "IsoPhorm"],
+    bestFor: "Both",
+    bestForNote:
+      "Formulas for every level — high-stim pre-workouts for experienced athletes, stim-free pump products for evening training, and everyday health supplements for any household.",
+    faqs: [
+      {
+        q: "Are Dragon Pharma supplements from this store authentic?",
+        a: "Yes. All Dragon Pharma products we sell come through official distribution channels and arrive factory sealed with batch details and expiration dates on the label.",
+      },
+      {
+        q: "What is Dragon Pharma best known for?",
+        a: "The Venom pre-workout line is the brand's signature range, alongside its WheyPhorm and IsoPhorm proteins and a broad everyday-health lineup covering vitamins, omegas and organ support.",
+      },
+      {
+        q: "Which Dragon Pharma pre-workout is the strongest?",
+        a: "Venom Inferno is the highest-stimulant option in the range and is intended for experienced users. Venom Essential is the moderate everyday option, and Mr. Veinz is the stim-free pump choice.",
+      },
+    ],
+  },
+  {
+    slug: "kits4less",
+    name: "Kits4Less",
+    intro:
+      "Kits4Less is one of the most lab-tested sources of research peptides, HGH and performance compounds in the USA, with independent purity reports published for every batch. The range covers HGH kits, GLP-1 peptides like semaglutide, tirzepatide and retatrutide, recovery peptides such as BPC-157 and TB-500, pre-filled injection pens, injectable oils, oral tablets and reconstitution supplies.",
+    popularModels: ["HGH Dragon", "Retatrutide", "Tirzepatide", "Semaglutide", "BPC-157", "TB-500"],
+    bestFor: "Both",
+    bestForNote:
+      "Single vials for first-time buyers, multi-vial kits and bundles for better value, and pre-filled injection pens for convenient, accurate dosing.",
+    faqs: [
+      {
+        q: "Are Kits4Less products lab tested?",
+        a: "Yes. Kits4Less publishes independent lab test reports for every batch, verifying purity and potency. It is one of the most frequently tested sources in the industry.",
+      },
+      {
+        q: "What is the difference between single vials, kits and injection pens?",
+        a: "Single vials are the lowest-cost way to try a compound. Kits bundle ten vials at a better per-vial price. Injection pens come pre-filled and ready to use for convenient, accurate dosing without reconstitution.",
+      },
+      {
+        q: "How should I store Kits4Less peptides and HGH?",
+        a: "Store lyophilized vials in a cool, dark place. After reconstituting with bacteriostatic water, keep vials refrigerated and never freeze them.",
+      },
+    ],
+  },
+  {
+    slug: "landro-labs",
+    name: "Landro Labs",
+    intro:
+      "Landro Labs is a premium research peptide brand offering high-purity lyophilized compounds for laboratory research. The range covers recovery peptides like BPC-157 and TB-500, growth hormone secretagogues such as CJC-1295, Ipamorelin and Tesamorelin, nootropic peptides like Semax and Selank, metabolic compounds including 5-Amino-1MQ, MOTS-C and GLP series, plus reconstitution supplies like bacteriostatic water.",
+    popularModels: ["BPC-157", "Tesamorelin", "Ipamorelin", "GHK-Cu", "NAD+", "Semax"],
+    bestFor: "Both",
+    bestForNote:
+      "Single vials for focused research protocols and multi-peptide blends like GLOW and KLOW for combined recovery, skin and gut-health research.",
+    faqs: [
+      {
+        q: "What form do Landro Labs peptides come in?",
+        a: "Every Landro Labs peptide is supplied as a lyophilized (freeze-dried) research material in a sealed vial, ready for reconstitution with bacteriostatic water.",
+      },
+      {
+        q: "Are Landro Labs products for human use?",
+        a: "No. All Landro Labs products are sold strictly for research use only and are not intended for human or veterinary use.",
+      },
+      {
+        q: "How fast do Landro Labs orders ship?",
+        a: "Orders ship nationwide in 1–2 business days with tracking, in discreet and careful packaging.",
       },
     ],
   },

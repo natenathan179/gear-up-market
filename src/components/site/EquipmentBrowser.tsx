@@ -158,7 +158,9 @@ export function EquipmentBrowser({
     let items = pool ?? allProducts;
     if (lockDepartment) items = items.filter((l) => l.department === lockDepartment);
     if (lockType) items = items.filter((l) => l.typeSlug === lockType);
-    if (lockUsage) items = items.filter((l) => l.usage === lockUsage);
+    // Supplements carry a usage value but aren't home or commercial gym gear.
+    if (lockUsage)
+      items = items.filter((l) => l.usage === lockUsage && l.department !== "supplements");
     if (onlyUsed) items = items.filter((l) => l.condition !== "New");
     return items;
   }, [pool, allProducts, lockDepartment, lockType, lockUsage, onlyUsed]);

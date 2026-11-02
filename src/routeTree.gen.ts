@@ -31,6 +31,7 @@ import { Route as SellYourEquipmentRouteImport } from './routes/sell-your-equipm
 import { Route as ShippingInformationRouteImport } from './routes/shipping-information'
 import { Route as ShopEquipmentRouteImport } from './routes/shop-equipment'
 import { Route as StrengthEquipmentRouteImport } from './routes/strength-equipment'
+import { Route as SupplementsRouteImport } from './routes/supplements'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as UkRouteImport } from './routes/uk'
 import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
@@ -56,6 +57,8 @@ import { Route as GymAccessoriesTypeRouteImport } from './routes/gym-accessories
 import { Route as GymEquipmentForSaleStateRouteImport } from './routes/gym-equipment-for-sale.$state'
 import { Route as StrengthEquipmentIndexRouteImport } from './routes/strength-equipment.index'
 import { Route as StrengthEquipmentTypeRouteImport } from './routes/strength-equipment.$type'
+import { Route as SupplementsIndexRouteImport } from './routes/supplements.index'
+import { Route as SupplementsTypeRouteImport } from './routes/supplements.$type'
 import { Route as UkIndexRouteImport } from './routes/uk.index'
 import { Route as UkCategoryRouteImport } from './routes/uk.$category'
 import { Route as UkShopEquipmentRouteImport } from './routes/uk.shop-equipment'
@@ -174,6 +177,11 @@ const ShopEquipmentRoute = ShopEquipmentRouteImport.update({
 const StrengthEquipmentRoute = StrengthEquipmentRouteImport.update({
   id: '/strength-equipment',
   path: '/strength-equipment',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupplementsRoute = SupplementsRouteImport.update({
+  id: '/supplements',
+  path: '/supplements',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
@@ -306,6 +314,16 @@ const StrengthEquipmentTypeRoute = StrengthEquipmentTypeRouteImport.update({
   path: '/$type',
   getParentRoute: () => StrengthEquipmentRoute,
 } as any)
+const SupplementsIndexRoute = SupplementsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SupplementsRoute,
+} as any)
+const SupplementsTypeRoute = SupplementsTypeRouteImport.update({
+  id: '/$type',
+  path: '/$type',
+  getParentRoute: () => SupplementsRoute,
+} as any)
 const UkIndexRoute = UkIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -381,6 +399,7 @@ export interface FileRoutesByFullPath {
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRouteWithChildren
+  '/supplements': typeof SupplementsRouteWithChildren
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
@@ -397,6 +416,7 @@ export interface FileRoutesByFullPath {
   '/gym-accessories/$type': typeof GymAccessoriesTypeRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/strength-equipment/$type': typeof StrengthEquipmentTypeRoute
+  '/supplements/$type': typeof SupplementsTypeRoute
   '/uk/$category': typeof UkCategoryRouteWithChildren
   '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog/': typeof BlogIndexRoute
@@ -408,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/free-weights/': typeof FreeWeightsIndexRoute
   '/gym-accessories/': typeof GymAccessoriesIndexRoute
   '/strength-equipment/': typeof StrengthEquipmentIndexRoute
+  '/supplements/': typeof SupplementsIndexRoute
   '/uk/': typeof UkIndexRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/ca/$category/$type': typeof CaCategoryTypeRoute
@@ -444,6 +465,7 @@ export interface FileRoutesByTo {
   '/gym-accessories/$type': typeof GymAccessoriesTypeRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/strength-equipment/$type': typeof StrengthEquipmentTypeRoute
+  '/supplements/$type': typeof SupplementsTypeRoute
   '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog': typeof BlogIndexRoute
   '/brands': typeof BrandsIndexRoute
@@ -454,6 +476,7 @@ export interface FileRoutesByTo {
   '/free-weights': typeof FreeWeightsIndexRoute
   '/gym-accessories': typeof GymAccessoriesIndexRoute
   '/strength-equipment': typeof StrengthEquipmentIndexRoute
+  '/supplements': typeof SupplementsIndexRoute
   '/uk': typeof UkIndexRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/ca/$category/$type': typeof CaCategoryTypeRoute
@@ -487,6 +510,7 @@ export interface FileRoutesById {
   '/shipping-information': typeof ShippingInformationRoute
   '/shop-equipment': typeof ShopEquipmentRoute
   '/strength-equipment': typeof StrengthEquipmentRouteWithChildren
+  '/supplements': typeof SupplementsRouteWithChildren
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
@@ -503,6 +527,7 @@ export interface FileRoutesById {
   '/gym-accessories/$type': typeof GymAccessoriesTypeRoute
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/strength-equipment/$type': typeof StrengthEquipmentTypeRoute
+  '/supplements/$type': typeof SupplementsTypeRoute
   '/uk/$category': typeof UkCategoryRouteWithChildren
   '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog/': typeof BlogIndexRoute
@@ -514,6 +539,7 @@ export interface FileRoutesById {
   '/free-weights/': typeof FreeWeightsIndexRoute
   '/gym-accessories/': typeof GymAccessoriesIndexRoute
   '/strength-equipment/': typeof StrengthEquipmentIndexRoute
+  '/supplements/': typeof SupplementsIndexRoute
   '/uk/': typeof UkIndexRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/ca/$category/$type': typeof CaCategoryTypeRoute
@@ -547,6 +573,7 @@ export interface FileRouteTypes {
     | '/shipping-information'
     | '/shop-equipment'
     | '/strength-equipment'
+    | '/supplements'
     | '/terms-and-conditions'
     | '/uk'
     | '/used-gym-equipment'
@@ -563,6 +590,7 @@ export interface FileRouteTypes {
     | '/gym-accessories/$type'
     | '/gym-equipment-for-sale/$state'
     | '/strength-equipment/$type'
+    | '/supplements/$type'
     | '/uk/$category'
     | '/uk/shop-equipment'
     | '/blog/'
@@ -574,6 +602,7 @@ export interface FileRouteTypes {
     | '/free-weights/'
     | '/gym-accessories/'
     | '/strength-equipment/'
+    | '/supplements/'
     | '/uk/'
     | '/admin/reviews'
     | '/ca/$category/$type'
@@ -610,6 +639,7 @@ export interface FileRouteTypes {
     | '/gym-accessories/$type'
     | '/gym-equipment-for-sale/$state'
     | '/strength-equipment/$type'
+    | '/supplements/$type'
     | '/uk/shop-equipment'
     | '/blog'
     | '/brands'
@@ -620,6 +650,7 @@ export interface FileRouteTypes {
     | '/free-weights'
     | '/gym-accessories'
     | '/strength-equipment'
+    | '/supplements'
     | '/uk'
     | '/admin/reviews'
     | '/ca/$category/$type'
@@ -652,6 +683,7 @@ export interface FileRouteTypes {
     | '/shipping-information'
     | '/shop-equipment'
     | '/strength-equipment'
+    | '/supplements'
     | '/terms-and-conditions'
     | '/uk'
     | '/used-gym-equipment'
@@ -668,6 +700,7 @@ export interface FileRouteTypes {
     | '/gym-accessories/$type'
     | '/gym-equipment-for-sale/$state'
     | '/strength-equipment/$type'
+    | '/supplements/$type'
     | '/uk/$category'
     | '/uk/shop-equipment'
     | '/blog/'
@@ -679,6 +712,7 @@ export interface FileRouteTypes {
     | '/free-weights/'
     | '/gym-accessories/'
     | '/strength-equipment/'
+    | '/supplements/'
     | '/uk/'
     | '/_authenticated/admin/reviews'
     | '/ca/$category/$type'
@@ -712,6 +746,7 @@ export interface RootRouteChildren {
   ShippingInformationRoute: typeof ShippingInformationRoute
   ShopEquipmentRoute: typeof ShopEquipmentRoute
   StrengthEquipmentRoute: typeof StrengthEquipmentRouteWithChildren
+  SupplementsRoute: typeof SupplementsRouteWithChildren
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   UkRoute: typeof UkRouteWithChildren
   UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
@@ -874,6 +909,13 @@ declare module '@tanstack/react-router' {
       path: '/strength-equipment'
       fullPath: '/strength-equipment'
       preLoaderRoute: typeof StrengthEquipmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supplements': {
+      id: '/supplements'
+      path: '/supplements'
+      fullPath: '/supplements'
+      preLoaderRoute: typeof SupplementsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms-and-conditions': {
@@ -1050,6 +1092,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/strength-equipment/$type'
       preLoaderRoute: typeof StrengthEquipmentTypeRouteImport
       parentRoute: typeof StrengthEquipmentRoute
+    }
+    '/supplements/': {
+      id: '/supplements/'
+      path: '/'
+      fullPath: '/supplements/'
+      preLoaderRoute: typeof SupplementsIndexRouteImport
+      parentRoute: typeof SupplementsRoute
+    }
+    '/supplements/$type': {
+      id: '/supplements/$type'
+      path: '/$type'
+      fullPath: '/supplements/$type'
+      preLoaderRoute: typeof SupplementsTypeRouteImport
+      parentRoute: typeof SupplementsRoute
     }
     '/uk/': {
       id: '/uk/'
@@ -1278,6 +1334,20 @@ const StrengthEquipmentRouteChildren: StrengthEquipmentRouteChildren = {
 const StrengthEquipmentRouteWithChildren =
   StrengthEquipmentRoute._addFileChildren(StrengthEquipmentRouteChildren)
 
+interface SupplementsRouteChildren {
+  SupplementsTypeRoute: typeof SupplementsTypeRoute
+  SupplementsIndexRoute: typeof SupplementsIndexRoute
+}
+
+const SupplementsRouteChildren: SupplementsRouteChildren = {
+  SupplementsTypeRoute: SupplementsTypeRoute,
+  SupplementsIndexRoute: SupplementsIndexRoute,
+}
+
+const SupplementsRouteWithChildren = SupplementsRoute._addFileChildren(
+  SupplementsRouteChildren,
+)
+
 interface UkCategoryRouteChildren {
   UkCategoryTypeRoute: typeof UkCategoryTypeRoute
   UkCategoryIndexRoute: typeof UkCategoryIndexRoute
@@ -1329,6 +1399,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShippingInformationRoute: ShippingInformationRoute,
   ShopEquipmentRoute: ShopEquipmentRoute,
   StrengthEquipmentRoute: StrengthEquipmentRouteWithChildren,
+  SupplementsRoute: SupplementsRouteWithChildren,
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   UkRoute: UkRouteWithChildren,
   UsedGymEquipmentRoute: UsedGymEquipmentRoute,

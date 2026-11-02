@@ -17,7 +17,7 @@ import { businessInfo } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
 import { useQuery } from "@tanstack/react-query";
 import { productsQueryOptions } from "@/lib/queries";
-import { departments } from "@/lib/taxonomy";
+import { departmentBySlug, equipmentDepartments } from "@/lib/taxonomy";
 import logoMark from "@/assets/logo-mark.png";
 
 // Grouped instead of one flat 15-link row: "Gym Equipment" and "Resources"
@@ -32,6 +32,14 @@ const shopLinks = [
   { to: "/commercial-gym-equipment", label: "Commercial Gym" },
   { to: "/home-gym-equipment", label: "Home Gym" },
 ] as const;
+
+const supplementLinks = [
+  { to: "/supplements", label: "All Supplements" },
+  ...departmentBySlug("supplements")!.types.map((t) => ({
+    to: `/supplements/${t.slug}`,
+    label: t.name,
+  })),
+];
 
 const useLinks = [
   { to: "/used-gym-equipment", label: "Used Gym Equipment" },
@@ -88,7 +96,7 @@ function ShopMegaMenu() {
       {open && (
         <div className="absolute inset-x-0 top-full z-30 border-t border-white/10 bg-charcoal shadow-xl">
           <div className="mx-auto grid max-w-7xl gap-8 px-6 py-6 md:grid-cols-3 lg:grid-cols-5">
-            {departments.map((d) => (
+            {equipmentDepartments.map((d) => (
               <div key={d.slug}>
                 <Link
                   to={`/${d.slug}` as never}
@@ -156,6 +164,7 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/shop-equipment", label: "Gym Equipment" },
   ...shopLinks,
+  { to: "/supplements", label: "Supplements" },
   { to: "/brands", label: "Brands" },
   ...resourceLinks,
   { to: "/contact", label: "Contact" },
@@ -348,6 +357,7 @@ export function Header() {
             </Link>
           </li>
           <ShopMegaMenu />
+          <NavDropdown label="Supplements" to="/supplements" items={supplementLinks} />
           <li>
             <Link
               to="/brands"
@@ -390,7 +400,7 @@ export function Header() {
             <ul className="pb-3">
               {navLinks.map((l, i) => (
                 <li key={l.to}>
-                  {(i === 1 || i === shopLinks.length + 3) && (
+                  {(i === 1 || i === shopLinks.length + 4) && (
                     <p className="mt-2 px-4 pb-1 text-[11px] font-bold tracking-wide text-charcoal-foreground/50 uppercase">
                       {i === 1 ? "Gym Equipment" : "Resources"}
                     </p>
