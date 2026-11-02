@@ -84,7 +84,14 @@ async function fetchAllProducts(): Promise<ProductRow[]> {
   const supabase = createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  const { data, error } = await supabase.from("products").select("*").order("slug");
+  // Supplements stay out of the feed: the range includes HGH, peptides and
+  // injectables, which Google Merchant Center prohibits, and prohibited items
+  // can get the whole account suspended.
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .neq("category", "supplements")
+    .order("slug");
   if (error || !data) {
     console.error("Failed to fetch products for merchant feed:", error?.message);
     return [];
