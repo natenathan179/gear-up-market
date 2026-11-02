@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   Breadcrumbs,
   FaqList,
@@ -7,15 +8,80 @@ import {
   faqSchema,
 } from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
-import { brands, categories, guides, type Category } from "@/data/catalog";
+import { categories, guides, type Category } from "@/data/catalog";
 import { canonicalUrl, hreflangLinks } from "@/lib/seo";
 import { countries, type CountryCode } from "@/lib/region";
 import { useRegion } from "@/lib/region-context";
+import { productsQueryOptions } from "@/lib/queries";
+import {
+  departmentBySlug,
+  departments,
+  matchesCollection,
+  usageForCollection,
+  type Department,
+} from "@/lib/taxonomy";
+import { buildBrandDirectory } from "@/lib/brands";
+
+// Equipment-type links with live counts. On a usage collection (Home /
+// Commercial) every department is shown, and each link carries the usage
+// filter through to the type page.
+function TypeLinks({
+  department,
+  usage,
+  prefix,
+  heading,
+}: {
+  heading?: boolean;
+  department: Department;
+  usage?: "Commercial" | "Home" | undefined;
+  prefix: string;
+}) {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const counts = new Map<string, number>();
+  for (const p of products) {
+    if (p.department !== department.slug || (usage && p.usage !== usage)) continue;
+    counts.set(p.typeSlug, (counts.get(p.typeSlug) ?? 0) + 1);
+  }
+  const types = department.types.filter((t) => counts.has(t.slug));
+  if (types.length === 0) return null;
+  const list = (
+    <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+      {types.map((t) => (
+        <li key={t.slug}>
+          <Link
+            to={`${prefix}/${department.slug}/${t.slug}` as never}
+            search={(usage ? { usage } : {}) as never}
+            className="flex items-center justify-between gap-2 border border-border px-3 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
+          >
+            <span>{t.short}</span>
+            <span className="text-xs text-muted-foreground">{counts.get(t.slug)}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+  if (!heading) return list;
+  return (
+    <div>
+      <h3 className="mb-2 text-xs font-bold tracking-wide text-muted-foreground uppercase">
+        {department.name}
+      </h3>
+      {list}
+    </div>
+  );
+}
 
 export function CategoryPage({ category }: { category: Category }) {
   const region = useRegion();
   const prefix = countries[region].prefix;
   const others = categories.filter((c) => c.slug !== category.slug);
+  const department = departmentBySlug(category.slug);
+  const usage = usageForCollection(category.slug);
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const topBrands = buildBrandDirectory(products.filter((p) => matchesCollection(p, category.slug)))
+    .filter((b) => b.count > 0)
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 16);
   return (
     <>
       <Breadcrumbs
@@ -33,24 +99,23 @@ export function CategoryPage({ category }: { category: Category }) {
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         <SectionHeading title={`Shop ${category.name} by Type`} as="h2" />
-        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-          {category.subcategories.map((s) => (
-            <li key={s}>
-              <Link
-                to={`${prefix}/shop-equipment` as never}
-                search={{ q: s } as never}
-                className="block border border-border px-3 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
-              >
-                {s}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {department ? (
+          <TypeLinks department={department} prefix={prefix} />
+        ) : (
+          <div className="space-y-6">
+            {departments.map((d) => (
+              <TypeLinks key={d.slug} heading department={d} usage={usage} prefix={prefix} />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-12">
         <SectionHeading title={`${category.name} Listings`} as="h2" />
-        <EquipmentBrowser lockCategory={category.slug} />
+        <EquipmentBrowser
+          {...(department ? { lockDepartment: department.slug } : {})}
+          {...(usage ? { lockUsage: usage } : {})}
+        />
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-12">
@@ -73,20 +138,25 @@ export function CategoryPage({ category }: { category: Category }) {
       <section className="bg-secondary py-12">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeading
-            title="Shop by Brand"
+            title={`${category.name} by Brand`}
             href="/brands"
             linkLabel="View All Brands"
             as="h2"
           />
           <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-            {brands.map((b) => (
+            {topBrands.map((b) => (
               <li key={b.slug}>
                 <Link
                   to="/brands/$slug"
                   params={{ slug: b.slug }}
                   className="flex h-16 items-center justify-center border border-border bg-card px-2 text-center text-xs font-bold tracking-wide uppercase transition-colors hover:border-primary hover:text-primary"
                 >
-                  {b.name}
+                  <span>
+                    {b.name}
+                    <span className="mt-0.5 block text-[10px] font-medium text-muted-foreground normal-case">
+                      {b.count} {b.count === 1 ? "listing" : "listings"}
+                    </span>
+                  </span>
                 </Link>
               </li>
             ))}

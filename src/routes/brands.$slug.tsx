@@ -1,23 +1,26 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Breadcrumbs, ListingCard, PageHeader, SectionHeading } from "@/components/site/Bits";
+import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { brandBySlug, brands, categories, type Brand } from "@/data/catalog";
+import type { Brand } from "@/data/catalog";
+import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
+import { buildBrandDirectory, findBrand } from "@/lib/brands";
 import { productsQueryOptions } from "@/lib/queries";
 import brandImg from "@/assets/cat-strength.avif";
 import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/brands/$slug")({
-  loader: ({ params }) => {
-    const brand = brandBySlug(params.slug);
-    if (!brand) throw notFound();
-    return { brand };
+  loader: async ({ params, context }) => {
+    const products = await context.queryClient.ensureQueryData(productsQueryOptions);
+    const entry = findBrand(products, params.slug);
+    if (!entry) throw notFound();
+    return { brand: entry.profile, count: entry.count };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) {
       return { meta: [{ title: "Not found" }, { name: "robots", content: "noindex" }] };
     }
     const name = loaderData.brand.name;
-    const title = `Used ${name} Equipment for Sale`;
+    const title = `${name} Gym Equipment for Sale – New & Used`;
     const description = `Shop new and used ${name} gym equipment for sale. Compare popular ${name} models, condition, price and location from verified sellers.`;
     return {
       meta: [
@@ -29,6 +32,8 @@ export const Route = createFileRoute("/brands/$slug")({
         { property: "og:url", content: `/brands/${params.slug}` },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
+        // An out-of-stock brand page is thin — reachable, but not indexed.
+        ...(loaderData.count === 0 ? [{ name: "robots", content: "noindex, follow" }] : []),
       ],
       links: [{ rel: "canonical", href: canonicalUrl(`/brands/${params.slug}`) }],
       scripts: [
@@ -53,15 +58,18 @@ export const Route = createFileRoute("/brands/$slug")({
 const bestForCopy: Record<Brand["bestFor"], { label: string; className: string }> = {
   Commercial: { label: "Best for Commercial", className: "bg-charcoal text-charcoal-foreground" },
   Home: { label: "Best for Home", className: "bg-primary text-primary-foreground" },
-  Both: { label: "Best for Home & Commercial", className: "bg-secondary text-foreground border border-border" },
+  Both: {
+    label: "Best for Home & Commercial",
+    className: "bg-secondary text-foreground border border-border",
+  },
 };
 
 function BrandPage() {
   const { brand } = Route.useLoaderData();
   const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const directory = buildBrandDirectory(products);
+  const entry = directory.find((b) => b.slug === brand.slug);
   const items = products.filter((l) => l.brandSlug === brand.slug);
-  const newItems = items.filter((l) => l.condition === "New");
-  const usedItems = items.filter((l) => l.condition !== "New");
   const bestFor = bestForCopy[brand.bestFor];
 
   return (
@@ -69,75 +77,79 @@ function BrandPage() {
       <Breadcrumbs items={[{ label: "Brands", to: "/brands" }, { label: brand.name }]} />
       <PageHeader
         eyebrow="Brand"
-        h1={`Used ${brand.name} Gym Equipment for Sale`}
+        h1={`${brand.name} Gym Equipment for Sale`}
         intro={brand.intro}
         image={brandImg}
       />
 
       <section className="mx-auto max-w-7xl px-4 pt-8">
         <div className="flex flex-wrap items-center gap-3 border border-border bg-card p-5">
-          <span className={`inline-block px-2.5 py-1 text-xs font-bold tracking-wide uppercase ${bestFor.className}`}>
+          <span
+            className={`inline-block px-2.5 py-1 text-xs font-bold tracking-wide uppercase ${bestFor.className}`}
+          >
             {bestFor.label}
           </span>
           <p className="text-sm text-muted-foreground">{brand.bestForNote}</p>
         </div>
       </section>
 
-      {newItems.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 py-10">
-          <SectionHeading title={`New ${brand.name} Equipment`} as="h2" />
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {newItems.map((l) => (
-              <ListingCard key={l.slug} listing={l} />
+      {entry && entry.types.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 pt-10">
+          <SectionHeading title={`Shop ${brand.name} by Equipment Type`} as="h2" />
+          <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+            {entry.types.map(({ type, count }) => (
+              <li key={`${type.department}/${type.slug}`}>
+                <Link
+                  to={`/${type.department}/${type.slug}` as never}
+                  search={{ brand: brand.slug } as never}
+                  className="flex items-center justify-between gap-2 border border-border px-3 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
+                >
+                  <span>
+                    {brand.name} {type.short}
+                  </span>
+                  <span className="text-xs text-muted-foreground">{count}</span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       )}
 
-      {usedItems.length > 0 && (
-        <section className="mx-auto max-w-7xl px-4 pb-10">
-          <SectionHeading
-            title={`Used ${brand.name} Equipment`}
-            href="/used-gym-equipment"
-            linkLabel="All Used Equipment"
-            as="h2"
-          />
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-            {usedItems.map((l) => (
-              <ListingCard key={l.slug} listing={l} />
-            ))}
-          </div>
-        </section>
-      )}
+      <section className="mx-auto max-w-7xl px-4 py-10">
+        <SectionHeading title={`${brand.name} Listings`} as="h2" />
+        {items.length > 0 ? (
+          <EquipmentBrowser pool={items} />
+        ) : (
+          <p className="border border-border p-6 text-sm text-muted-foreground">
+            No {brand.name} equipment is listed right now. New stock arrives regularly —{" "}
+            <Link to="/contact" className="text-primary hover:underline">
+              tell us what you're looking for
+            </Link>{" "}
+            and we'll match you with a seller.
+          </p>
+        )}
+      </section>
 
-      <section className="bg-secondary py-12">
-        <div className="mx-auto max-w-7xl px-4 grid gap-10 md:grid-cols-2">
-          <div>
+      {brand.popularModels.length > 0 && (
+        <section className="bg-secondary py-12">
+          <div className="mx-auto max-w-7xl px-4">
             <SectionHeading title={`Popular ${brand.name} Models`} as="h2" />
-            <ul className="space-y-2 text-sm">
+            <ul className="flex flex-wrap gap-2 text-sm">
               {brand.popularModels.map((m) => (
                 <li key={m}>
-                  <Link to="/shop-equipment" search={{ q: m }} className="text-primary hover:underline">
+                  <Link
+                    to="/shop-equipment"
+                    search={{ q: m }}
+                    className="inline-block border border-border bg-card px-3 py-2 font-medium hover:border-primary hover:text-primary"
+                  >
                     {brand.name} {m}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <SectionHeading title="Related Categories" as="h2" />
-            <ul className="space-y-2 text-sm">
-              {categories.map((c) => (
-                <li key={c.slug}>
-                  <Link to={`/${c.slug}` as never} className="text-primary hover:underline">
-                    {c.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="mx-auto max-w-7xl px-4 py-12">
         <SectionHeading title={`${brand.name} FAQs`} as="h2" />
@@ -151,8 +163,8 @@ function BrandPage() {
         </dl>
         <h2 className="font-display mt-10 text-lg font-bold text-foreground">Other Brands</h2>
         <ul className="mt-3 flex flex-wrap gap-2 text-sm">
-          {brands
-            .filter((b) => b.slug !== brand.slug)
+          {directory
+            .filter((b) => b.slug !== brand.slug && b.count > 0)
             .map((b) => (
               <li key={b.slug}>
                 <Link

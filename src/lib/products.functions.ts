@@ -12,6 +12,7 @@ import {
   type ProductSummaryRow,
   type Review,
 } from "@/lib/product-utils";
+import { classifyProduct } from "@/lib/taxonomy";
 
 // A Supabase project waking from a free-tier idle pause (or any transient
 // backend slowness) can leave the outbound fetch hanging well past what a
@@ -148,11 +149,31 @@ export const fetchProductDetail = createServerFn({ method: "GET" })
       } catch {
         pool = [];
       }
-      const offset = pool.length > 0 ? hashSeed(slug) % pool.length : 0;
-      const candidates =
-        pool.length <= 4
-          ? pool
-          : Array.from({ length: 4 }, (_, i) => pool[(offset + i) % pool.length]!);
+      // Prefer the same equipment type (a leg press suggests other leg
+      // presses, not a bicep curl), topping up from the wider pool when the
+      // type has fewer than four other listings.
+      const sameType = pool.filter(
+        (r) =>
+          classifyProduct({
+            title: r.title,
+            category: r.category,
+            subcategory: r.subcategory,
+            muscleGroup: r.muscle_group,
+          }).type === listing.typeSlug,
+      );
+      const pick = (from: ProductSummaryRow[], n: number) => {
+        if (from.length <= n) return from;
+        const offset = hashSeed(slug) % from.length;
+        return Array.from({ length: n }, (_, i) => from[(offset + i) % from.length]!);
+      };
+      const typePicks = pick(sameType, 4);
+      const candidates = [
+        ...typePicks,
+        ...pick(
+          pool.filter((r) => !typePicks.includes(r)),
+          4 - typePicks.length,
+        ),
+      ];
       const relatedFirstImages = candidates.flatMap((r) => (r.images?.[0] ? [r.images[0]] : []));
       const relatedSigned = await signImagePaths(supabase, relatedFirstImages);
       const related = candidates.map((r) => rowToProductSummary(r, relatedSigned));

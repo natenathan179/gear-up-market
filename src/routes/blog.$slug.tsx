@@ -6,6 +6,7 @@ import { BlogSidebar } from "@/components/site/BlogSidebar";
 import { brandBySlug, categoryBySlug, guideBySlug, locationBySlug, solutionBySlug } from "@/data/catalog";
 import { blogPostBySlug, formatBlogDate, pickPostCoverImage, type BlogProductShowcase } from "@/data/blog";
 import { productsQueryOptions } from "@/lib/queries";
+import { matchesCollection } from "@/lib/taxonomy";
 import { canonicalUrl } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -331,7 +332,7 @@ function ProductShowcase({ showcase }: { showcase: BlogProductShowcase }) {
   const { data: allProducts } = useSuspenseQuery(productsQueryOptions);
 
   let pool = allProducts;
-  if (showcase.category) pool = pool.filter((p) => p.category === showcase.category);
+  if (showcase.category) pool = pool.filter((p) => matchesCollection(p, showcase.category!));
   if (showcase.onlyUsed) pool = pool.filter((p) => p.condition !== "New");
   if (showcase.search) {
     const needles = (Array.isArray(showcase.search) ? showcase.search : [showcase.search]).map((s) =>

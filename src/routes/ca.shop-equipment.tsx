@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { z } from "zod";
 import {
   Breadcrumbs,
   CategoryShowcase,
@@ -7,7 +6,7 @@ import {
   PageHeader,
   faqSchema,
 } from "@/components/site/Bits";
-import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
+import { EquipmentBrowser, browseSearchSchema } from "@/components/site/EquipmentBrowser";
 import shopImg from "@/assets/cat-commercial.jpg";
 import { canonicalUrl, hreflangLinks } from "@/lib/seo";
 
@@ -35,7 +34,7 @@ const caShopFaqs = [
 ];
 
 export const Route = createFileRoute("/ca/shop-equipment")({
-  validateSearch: z.object({ q: z.string().optional() }),
+  validateSearch: browseSearchSchema,
   head: ({ match }) => ({
     meta: [
       { title },
@@ -46,7 +45,9 @@ export const Route = createFileRoute("/ca/shop-equipment")({
       { property: "og:url", content: "/ca/shop-equipment" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      ...(match.search.q ? [{ name: "robots", content: "noindex, follow" }] : []),
+      ...(Object.values(match.search).some(Boolean)
+        ? [{ name: "robots", content: "noindex, follow" }]
+        : []),
     ],
     links: [
       { rel: "canonical", href: canonicalUrl("/ca/shop-equipment") },
@@ -75,7 +76,7 @@ function CaShopPage() {
         image={shopImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-10">
-        <EquipmentBrowser initialQuery={q ?? ""} />
+        <EquipmentBrowser initialQuery={q == null ? "" : String(q)} />
       </section>
 
       <CategoryShowcase prefix="/ca" />

@@ -12,6 +12,7 @@ import {
 } from "@/components/site/Bits";
 import { InquiryModal } from "@/components/site/InquiryModal";
 import { categoryBySlug } from "@/data/catalog";
+import { departmentBySlug, typeBySlug } from "@/lib/taxonomy";
 import { productDetailQueryOptions } from "@/lib/queries";
 import { useCart } from "@/lib/cart";
 import { resizedImageUrl, type Product, type ProductSummary } from "@/lib/product-utils";
@@ -116,16 +117,17 @@ export const Route = createFileRoute("/equipment/$slug")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
-            itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-              { "@type": "ListItem", position: 2, name: "Shop Equipment", item: "/shop-equipment" },
-              {
-                "@type": "ListItem",
-                position: 3,
-                name: l.title,
-                item: `/equipment/${params.slug}`,
-              },
-            ],
+            itemListElement: (() => {
+              const d = departmentBySlug(l.department);
+              const t = typeBySlug(l.department, l.typeSlug);
+              return [
+                { name: "Home", item: "/" },
+                { name: "Shop Equipment", item: "/shop-equipment" },
+                ...(d ? [{ name: d.name, item: `/${d.slug}` }] : []),
+                ...(d && t ? [{ name: t.name, item: `/${d.slug}/${t.slug}` }] : []),
+                { name: l.title, item: `/equipment/${params.slug}` },
+              ].map((crumb, i) => ({ "@type": "ListItem", position: i + 1, ...crumb }));
+            })(),
           }),
         },
         ...faqSchema(productFaqs(l)),
@@ -162,7 +164,8 @@ function ListingPage() {
     listing: Product;
     related: ProductSummary[];
   };
-  const category = categoryBySlug(listing.category);
+  const category = categoryBySlug(listing.department);
+  const type = typeBySlug(listing.department, listing.typeSlug);
   const isUsed = listing.condition !== "New";
   const cart = useCart();
   const [inquiryOpen, setInquiryOpen] = useState(false);
@@ -175,6 +178,9 @@ function ListingPage() {
         items={[
           { label: "Shop Equipment", to: "/shop-equipment" },
           ...(category ? [{ label: category.name, to: `/${category.slug}` }] : []),
+          ...(category && type
+            ? [{ label: type.short, to: `/${category.slug}/${type.slug}` }]
+            : []),
           { label: listing.title },
         ]}
       />
@@ -231,7 +237,7 @@ function ListingPage() {
               <Row label="Model" value={listing.model} />
               <Row label="Condition" value={listing.condition} />
               <Row label="Category" value={category?.name ?? listing.category} />
-              <Row label="Type" value={listing.subcategory} />
+              <Row label="Type" value={type?.name ?? listing.subcategory} />
               <Row label="Use" value={listing.usage} />
               <Row label="Muscle group" value={listing.muscleGroup} />
               <Row label="Resistance" value={listing.resistance} />

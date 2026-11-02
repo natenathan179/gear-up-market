@@ -3,6 +3,7 @@ import { Breadcrumbs, PageHeader, SectionHeading } from "@/components/site/Bits"
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { brands, type Brand } from "@/data/catalog";
 import { productsQueryOptions } from "@/lib/queries";
+import { buildBrandDirectory } from "@/lib/brands";
 import brandsImg from "@/assets/cat-strength.avif";
 import { canonicalUrl } from "@/lib/seo";
 
@@ -85,6 +86,12 @@ export const Route = createFileRoute("/brands/")({
 
 function BrandsIndex() {
   const { data: products } = useSuspenseQuery(productsQueryOptions);
+  const directory = buildBrandDirectory(products).filter((b) => b.count > 0);
+  const byLetter = new Map<string, typeof directory>();
+  for (const b of directory) {
+    const letter = /[a-z]/i.test(b.name[0] ?? "") ? b.name[0]!.toUpperCase() : "#";
+    byLetter.set(letter, [...(byLetter.get(letter) ?? []), b]);
+  }
   const commercialBrands = brands.filter((b) => b.bestFor === "Commercial" || b.bestFor === "Both");
   const homeBrands = brands.filter((b) => b.bestFor === "Home" || b.bestFor === "Both");
 
@@ -198,7 +205,7 @@ function BrandsIndex() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-10">
-        <SectionHeading title="Shop by Brand" />
+        <SectionHeading title="Featured Brands" />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {brands.map((b) => {
             const count = products.filter((l) => l.brandSlug === b.slug).length;
@@ -221,6 +228,33 @@ function BrandsIndex() {
             );
           })}
         </ul>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 pb-12">
+        <SectionHeading title={`All Brands A–Z (${directory.length})`} />
+        <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+          {[...byLetter.entries()].map(([letter, entries]) => (
+            <div key={letter}>
+              <h3 className="border-b border-border pb-1 font-display text-sm font-bold text-primary">
+                {letter}
+              </h3>
+              <ul className="mt-2 space-y-1.5 text-sm">
+                {entries.map((b) => (
+                  <li key={b.slug} className="flex items-baseline justify-between gap-2">
+                    <Link
+                      to="/brands/$slug"
+                      params={{ slug: b.slug }}
+                      className="font-medium hover:text-primary"
+                    >
+                      {b.name}
+                    </Link>
+                    <span className="text-xs text-muted-foreground">{b.count}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="bg-secondary py-12">

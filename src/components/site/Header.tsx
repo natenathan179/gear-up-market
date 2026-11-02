@@ -15,20 +15,132 @@ import {
 } from "lucide-react";
 import { businessInfo } from "@/data/catalog";
 import { useCart } from "@/lib/cart";
+import { useQuery } from "@tanstack/react-query";
+import { productsQueryOptions } from "@/lib/queries";
+import { departments } from "@/lib/taxonomy";
 import logoMark from "@/assets/logo-mark.png";
 
 // Grouped instead of one flat 15-link row: "Gym Equipment" and "Resources"
 // become dropdowns on desktop so the bar stays to a handful of top-level
 // items instead of overflowing/wrapping the header.
 const shopLinks = [
-  { to: "/used-gym-equipment", label: "Used Equipment" },
-  { to: "/commercial-gym-equipment", label: "Commercial" },
-  { to: "/home-gym-equipment", label: "Home Gym" },
-  { to: "/cardio-equipment", label: "Cardio" },
-  { to: "/strength-equipment", label: "Strength" },
+  { to: "/strength-equipment", label: "Strength Equipment" },
+  { to: "/cardio-equipment", label: "Cardio Equipment" },
   { to: "/free-weights", label: "Free Weights" },
-  { to: "/gym-accessories", label: "Accessories" },
+  { to: "/gym-accessories", label: "Gym Accessories" },
+  { to: "/used-gym-equipment", label: "Used Equipment" },
+  { to: "/commercial-gym-equipment", label: "Commercial Gym" },
+  { to: "/home-gym-equipment", label: "Home Gym" },
 ] as const;
+
+const useLinks = [
+  { to: "/used-gym-equipment", label: "Used Gym Equipment" },
+  { to: "/commercial-gym-equipment", label: "Commercial Gym Equipment" },
+  { to: "/home-gym-equipment", label: "Home Gym Equipment" },
+  { to: "/brands", label: "Shop by Brand" },
+  { to: "/sell-your-equipment", label: "Sell Your Equipment" },
+] as const;
+
+// Department → equipment type mega menu. Types with no live stock are
+// hidden once inventory has loaded, so the menu never leads to an empty page.
+function ShopMegaMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLLIElement>(null);
+  const { data: products } = useQuery({ ...productsQueryOptions, enabled: open });
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("click", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  const inStock = new Set(products?.map((p) => `${p.department}/${p.typeSlug}`));
+  const close = () => setOpen(false);
+  const itemClass =
+    "block py-1 text-[13px] font-medium normal-case tracking-normal text-charcoal-foreground/80 transition-colors hover:text-primary";
+
+  return (
+    <li ref={ref} className="flex items-center">
+      <Link
+        to="/shop-equipment"
+        activeProps={{ className: "bg-primary text-primary-foreground" }}
+        className="px-3 py-3 text-[13px] font-semibold tracking-wide uppercase transition-colors hover:bg-white/10"
+      >
+        Gym Equipment
+      </Link>
+      <button
+        type="button"
+        aria-label="Gym Equipment menu"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="flex h-full items-center px-1.5 transition-colors hover:bg-white/10"
+      >
+        <ChevronDown className={`size-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+      {open && (
+        <div className="absolute inset-x-0 top-full z-30 border-t border-white/10 bg-charcoal shadow-xl">
+          <div className="mx-auto grid max-w-7xl gap-8 px-6 py-6 md:grid-cols-3 lg:grid-cols-5">
+            {departments.map((d) => (
+              <div key={d.slug}>
+                <Link
+                  to={`/${d.slug}` as never}
+                  onClick={close}
+                  className="mb-2 block border-b border-white/10 pb-2 text-[13px] font-bold tracking-wide text-white uppercase hover:text-primary"
+                >
+                  {d.name}
+                </Link>
+                <ul>
+                  {d.types
+                    .filter((t) => !products || inStock.has(`${d.slug}/${t.slug}`))
+                    .map((t) => (
+                      <li key={t.slug}>
+                        <Link
+                          to={`/${d.slug}/${t.slug}` as never}
+                          onClick={close}
+                          className={itemClass}
+                        >
+                          {t.short}
+                        </Link>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+            <div>
+              <p className="mb-2 border-b border-white/10 pb-2 text-[13px] font-bold tracking-wide text-white uppercase">
+                Shop by Use
+              </p>
+              <ul>
+                {useLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link to={l.to} onClick={close} className={itemClass}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/shop-equipment"
+                onClick={close}
+                className="mt-4 inline-block bg-primary px-3 py-2 text-xs font-bold tracking-wide text-primary-foreground uppercase"
+              >
+                Shop all equipment
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </li>
+  );
+}
 
 const resourceLinks = [
   { to: "/blog", label: "Blog" },
@@ -224,7 +336,7 @@ export function Header() {
       </div>
 
       <nav aria-label="Main" className="bg-charcoal text-charcoal-foreground">
-        <ul className="mx-auto hidden max-w-7xl items-center gap-1 px-4 md:flex">
+        <ul className="relative mx-auto hidden max-w-7xl items-center gap-1 px-4 md:flex">
           <li>
             <Link
               to="/"
@@ -235,7 +347,7 @@ export function Header() {
               Home
             </Link>
           </li>
-          <NavDropdown label="Gym Equipment" to="/shop-equipment" items={shopLinks} />
+          <ShopMegaMenu />
           <li>
             <Link
               to="/brands"

@@ -13,11 +13,20 @@ import { execFileSync } from "node:child_process";
 import { readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createClient } from "@supabase/supabase-js";
-import { categories, brands, guides, locations, solutions } from "@/data/catalog";
+import { categories, guides, locations, solutions } from "@/data/catalog";
 import { blogPosts } from "@/data/blog";
 import { SITE_URL } from "@/lib/seo";
+import { classifyProduct, departments, unbrandedSlugs } from "@/lib/taxonomy";
 
-type ProductRow = { slug: string; updated_at: string | null };
+type ProductRow = {
+  slug: string;
+  updated_at: string | null;
+  title: string;
+  category: string;
+  subcategory: string;
+  muscle_group: string;
+  brand_slug: string;
+};
 
 async function fetchProducts(): Promise<ProductRow[]> {
   const url = process.env["SUPABASE_URL"] ?? process.env["VITE_SUPABASE_URL"];
@@ -30,7 +39,9 @@ async function fetchProducts(): Promise<ProductRow[]> {
   const supabase = createClient(url, key, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
-  const { data, error } = await supabase.from("products").select("slug, updated_at");
+  const { data, error } = await supabase
+    .from("products")
+    .select("slug, updated_at, title, category, subcategory, muscle_group, brand_slug");
   if (error || !data) {
     console.error("Failed to fetch product slugs for sitemap:", error?.message);
     return [];
@@ -69,7 +80,7 @@ function gitDate(file: string): Date | null {
 // (brands.$slug.tsx).
 function routeFileFor(path: string): string | null {
   const base = path === "/" ? "index" : path.slice(1).replace(/\//g, ".");
-  for (const candidate of [`${base}.tsx`, `${base}.index.tsx`]) {
+  for (const candidate of [`${base}.index.tsx`, `${base}.tsx`]) {
     if (routeFiles.includes(candidate)) return `src/routes/${candidate}`;
   }
   const parent = base.slice(0, base.lastIndexOf("."));
@@ -123,7 +134,6 @@ async function main() {
   const paths = new Set<string>(staticPaths);
 
   for (const c of categories) paths.add(`/${c.slug}`);
-  for (const b of brands) paths.add(`/brands/${b.slug}`);
   for (const g of guides) paths.add(`/fitness-equipment-guide/${g.slug}`);
   for (const l of locations) paths.add(`/gym-equipment-for-sale/${l.slug}`);
   for (const s of solutions) paths.add(`/commercial-gym-equipment/${s.slug}`);
@@ -132,12 +142,37 @@ async function main() {
   const products = await fetchProducts();
   for (const { slug } of products) paths.add(`/equipment/${slug}`);
 
+  // Brand pages: every brand with live stock (out-of-stock ones are noindex).
+  const stockedBrands = new Set(
+    products.map((p) => p.brand_slug).filter((slug) => !unbrandedSlugs.has(slug)),
+  );
+  for (const slug of stockedBrands) paths.add(`/brands/${slug}`);
+
+  // Equipment-type pages (/strength-equipment/chest-machines…) — only types
+  // with stock; empty ones render noindex.
+  const stockedTypes = new Set(
+    products.map((p) => {
+      const c = classifyProduct({
+        title: p.title,
+        category: p.category,
+        subcategory: p.subcategory,
+        muscleGroup: p.muscle_group,
+      });
+      return `/${c.department}/${c.type}`;
+    }),
+  );
+  const typePaths = departments.flatMap((d) =>
+    d.types.map((t) => `/${d.slug}/${t.slug}`).filter((path) => stockedTypes.has(path)),
+  );
+  for (const path of typePaths) paths.add(path);
+
   // International (Canada/UK) pages: home, browse, and the shared categories.
   const internationalPaths = new Set<string>();
   for (const prefix of ["/ca", "/uk"]) {
     internationalPaths.add(prefix);
     internationalPaths.add(`${prefix}/shop-equipment`);
     for (const slug of internationalCategorySlugs) internationalPaths.add(`${prefix}/${slug}`);
+    for (const path of typePaths) internationalPaths.add(`${prefix}${path}`);
   }
   for (const p of internationalPaths) paths.add(p);
 
@@ -153,6 +188,7 @@ async function main() {
   addGroup("/");
   addGroup("/shop-equipment");
   for (const slug of internationalCategorySlugs) addGroup(`/${slug}`);
+  for (const path of typePaths) addGroup(path);
   const usPathToGroup = new Map<string, Record<"en-US" | "en-CA" | "en-GB", string>>();
   for (const group of hreflangGroups.values()) {
     for (const path of Object.values(group)) usPathToGroup.set(path, group);

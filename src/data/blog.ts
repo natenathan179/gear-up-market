@@ -1,3 +1,4 @@
+import { matchesCollection } from "@/lib/taxonomy";
 export interface BlogBodySection {
   heading: string;
   paragraphs: string[];
@@ -6974,7 +6975,7 @@ export function pickPostCoverImage(
   products: { image: string; category: string; condition: string; title: string; subcategory: string }[],
 ): string {
   let pool = products;
-  if (post.products.category) pool = pool.filter((p) => p.category === post.products.category);
+  if (post.products.category) pool = pool.filter((p) => matchesCollection(p, post.products.category!));
   if (post.products.onlyUsed) pool = pool.filter((p) => p.condition !== "New");
   if (post.products.search) {
     const needles = (Array.isArray(post.products.search) ? post.products.search : [post.products.search]).map(

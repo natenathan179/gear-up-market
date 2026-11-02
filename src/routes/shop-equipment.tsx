@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { z } from "zod";
 import {
   Breadcrumbs,
   CategoryShowcase,
@@ -8,7 +7,7 @@ import {
   SectionHeading,
   faqSchema,
 } from "@/components/site/Bits";
-import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
+import { EquipmentBrowser, browseSearchSchema } from "@/components/site/EquipmentBrowser";
 import shopImg from "@/assets/cat-commercial.jpg";
 import { canonicalUrl, hreflangLinks } from "@/lib/seo";
 
@@ -40,7 +39,7 @@ const shopFaqs = [
 ];
 
 export const Route = createFileRoute("/shop-equipment")({
-  validateSearch: z.object({ q: z.string().optional() }),
+  validateSearch: browseSearchSchema,
   head: ({ match }) => ({
     meta: [
       { title },
@@ -53,7 +52,9 @@ export const Route = createFileRoute("/shop-equipment")({
       { name: "twitter:description", content: description },
       // Search-filtered results are near-duplicates of the unfiltered page;
       // keep them crawlable (for internal link equity) but out of the index.
-      ...(match.search.q ? [{ name: "robots", content: "noindex, follow" }] : []),
+      ...(Object.values(match.search).some(Boolean)
+        ? [{ name: "robots", content: "noindex, follow" }]
+        : []),
     ],
     links: [
       { rel: "canonical", href: canonicalUrl("/shop-equipment") },
@@ -80,7 +81,7 @@ function ShopPage() {
         image={shopImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-10">
-        <EquipmentBrowser initialQuery={q ?? ""} />
+        <EquipmentBrowser initialQuery={q == null ? "" : String(q)} />
       </section>
 
       <section className="bg-secondary py-12">

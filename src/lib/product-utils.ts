@@ -1,6 +1,7 @@
 import type { Condition, Listing } from "@/data/catalog";
 import type { Database } from "@/integrations/supabase/types";
 import { categoryImage } from "@/lib/catalog-images";
+import { classifyProduct, normalizeBrandName, type DepartmentSlug } from "@/lib/taxonomy";
 
 export const PRODUCT_BUCKET = "product-images";
 export const SIGNED_URL_TTL = 60 * 60 * 24 * 7;
@@ -62,6 +63,9 @@ export type ReviewRow = Database["public"]["Tables"]["reviews"]["Row"];
 
 export interface Product extends Listing {
   id: string;
+  /** Derived from the row by classifyProduct — see lib/taxonomy.ts. */
+  department: DepartmentSlug;
+  typeSlug: string;
   images: string[];
   imagePaths: string[];
 }
@@ -163,13 +167,24 @@ export function resolveImagePaths(paths: string[], signed: Map<string, string>):
     .filter(Boolean);
 }
 
+function taxonomyFields(row: ProductSummaryRow): Pick<Product, "department" | "typeSlug"> {
+  const { department, type } = classifyProduct({
+    title: row.title,
+    category: row.category,
+    subcategory: row.subcategory,
+    muscleGroup: row.muscle_group,
+  });
+  return { department, typeSlug: type };
+}
+
 export function rowToProduct(row: ProductRow, signed: Map<string, string>): Product {
   const usable = resolveImagePaths(row.images ?? [], signed);
   return {
     id: row.id,
     slug: row.slug,
     title: cleanProductTitle(row.title),
-    brand: row.brand,
+    ...taxonomyFields(row),
+    brand: normalizeBrandName(row.brand_slug, row.brand),
     brandSlug: row.brand_slug,
     model: row.model,
     category: row.category,
@@ -249,7 +264,8 @@ export function rowToProductSummary(
     id: row.id,
     slug: row.slug,
     title: cleanProductTitle(row.title),
-    brand: row.brand,
+    ...taxonomyFields(row),
+    brand: normalizeBrandName(row.brand_slug, row.brand),
     brandSlug: row.brand_slug,
     model: row.model,
     category: row.category,
