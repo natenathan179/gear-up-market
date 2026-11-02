@@ -1,3 +1,3 @@
 # Tasks
-- [ ] Replace all Kits4Less product image galleries with matching images from the uploaded ZIP and verify them.
-- [ ] Cloudflare deployment: blocked by unavailable authorization; direct Cloudflare hosting deployment is unsupported here.
+- [ ] Replace images for verified lawful supplements and accessories only; awaiting an eligible product subset because the ZIP includes anabolic steroids and unapproved injectable drugs.
+- [ ] Cloudflare deployment: direct Cloudflare hosting deployment is unsupported here; use Lovable Publish or the existing external deployment workflow.
