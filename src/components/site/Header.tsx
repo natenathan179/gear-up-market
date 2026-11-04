@@ -232,15 +232,30 @@ const resourceLinks = [
   { to: "/faq", label: "FAQ" },
 ] as const;
 
-const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/shop-equipment", label: "Gym Equipment" },
-  ...shopLinks,
-  { to: "/supplements", label: "Supplements" },
-  { to: "/brands", label: "Brands" },
-  ...resourceLinks,
-  { to: "/contact", label: "Contact" },
-] as const;
+// Mobile menu: top-level links plus collapsible categories mirroring the
+// desktop dropdowns. `items` sections expand; plain entries are links.
+type MobileEntry =
+  | { label: string; to: string }
+  | { label: string; items: readonly { to: string; label: string }[] };
+
+const mobileMenu: readonly MobileEntry[] = [
+  { label: "Home", to: "/" },
+  {
+    label: "Gym Equipment",
+    items: [
+      { to: "/shop-equipment", label: "All Gym Equipment" },
+      ...shopLinks,
+      { to: "/sell-your-equipment", label: "Sell Your Equipment" },
+    ],
+  },
+  { label: "Supplements", items: supplementLinks },
+  { label: "Brands", to: "/brands" },
+  { label: "Resources", items: resourceLinks },
+  { label: "Contact", to: "/contact" },
+];
+
+const mobileLinkClass =
+  "block px-4 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-white/10";
 
 function NavDropdown({
   label,
@@ -310,11 +325,17 @@ export function Header() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [section, setSection] = useState<string | null>(null);
+
+  const closeMenu = () => {
+    setOpen(false);
+    setSection(null);
+  };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     navigate({ to: "/shop-equipment", search: { q: query.trim() } });
-    setOpen(false);
+    closeMenu();
   };
 
   return (
@@ -468,23 +489,52 @@ export function Header() {
                 <Search className="size-4" />
               </button>
             </form>
-            <ul className="pb-3">
-              {navLinks.map((l, i) => (
-                <li key={l.to}>
-                  {(i === 1 || i === shopLinks.length + 4) && (
-                    <p className="mt-2 px-4 pb-1 text-[11px] font-bold tracking-wide text-charcoal-foreground/50 uppercase">
-                      {i === 1 ? "Gym Equipment" : "Resources"}
-                    </p>
-                  )}
-                  <Link
-                    to={l.to}
-                    onClick={() => setOpen(false)}
-                    className="block px-4 py-2.5 text-sm font-medium hover:bg-white/10"
-                  >
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+            <ul className="divide-y divide-white/10 border-t border-white/10 pb-3">
+              {mobileMenu.map((entry) =>
+                "items" in entry ? (
+                  <li key={entry.label}>
+                    <button
+                      type="button"
+                      aria-expanded={section === entry.label}
+                      onClick={() => setSection((s) => (s === entry.label ? null : entry.label))}
+                      className={`${mobileLinkClass} flex w-full items-center justify-between text-left`}
+                    >
+                      {entry.label}
+                      <ChevronDown
+                        className={`size-4 transition-transform ${section === entry.label ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {section === entry.label && (
+                      <ul className="bg-charcoal-deep pb-2">
+                        {entry.items.map((item) => (
+                          <li key={item.to}>
+                            <Link
+                              to={item.to as never}
+                              onClick={closeMenu}
+                              activeProps={{ className: "text-primary" }}
+                              className="block px-7 py-2.5 text-sm font-medium hover:bg-white/10 hover:text-primary"
+                            >
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ) : (
+                  <li key={entry.label}>
+                    <Link
+                      to={entry.to as never}
+                      onClick={closeMenu}
+                      activeOptions={{ exact: entry.to === "/" }}
+                      activeProps={{ className: "text-primary" }}
+                      className={mobileLinkClass}
+                    >
+                      {entry.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         )}
