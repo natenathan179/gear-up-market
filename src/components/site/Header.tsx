@@ -359,14 +359,21 @@ export function Header() {
       </div>
 
       <div className="bg-background">
-        <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-4">
-          <Link to="/" className="flex shrink-0 items-center gap-2">
-            <img src={logoMark} alt="Gym Equipment Marketplace" className="h-14 w-auto" />
-            <span className="font-display leading-none">
-              <span className="block text-lg font-extrabold tracking-tight text-foreground uppercase">
+        {/* Mobile: 3-column grid with menu left, logo centered, name right.
+            The logo link is `contents` there so its image and name land in
+            separate columns; from md up it's the usual flex row. */}
+        <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-2 px-4 py-4 md:flex md:gap-6">
+          <Link to="/" className="contents md:flex md:shrink-0 md:items-center md:gap-2">
+            <img
+              src={logoMark}
+              alt="Gym Equipment Marketplace"
+              className="h-12 w-auto justify-self-center md:h-14"
+            />
+            <span className="justify-self-end text-right font-display leading-none md:text-left">
+              <span className="block text-sm font-extrabold tracking-tight text-foreground uppercase sm:text-base md:text-lg">
                 Gym Equipment
               </span>
-              <span className="block text-sm font-bold tracking-[0.18em] text-primary uppercase">
+              <span className="block text-[11px] font-bold tracking-[0.18em] text-primary uppercase sm:text-xs md:text-sm">
                 Marketplace
               </span>
             </span>
@@ -408,7 +415,7 @@ export function Header() {
 
           <button
             onClick={() => setOpen((v) => !v)}
-            className="-mr-2.5 ml-auto p-2.5 text-foreground md:hidden"
+            className="order-first -ml-2.5 justify-self-start p-2.5 text-foreground md:hidden"
             aria-label="Toggle menu"
           >
             {open ? <X className="size-6" /> : <Menu className="size-6" />}
