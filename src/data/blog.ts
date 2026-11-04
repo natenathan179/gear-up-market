@@ -4,7 +4,12 @@ export interface BlogBodySection {
   paragraphs: string[];
   list?: string[];
   table?: { headers: string[]; rows: string[][] };
-  cta?: { label: string; to: string; params?: Record<string, string>; search?: Record<string, string> };
+  cta?: {
+    label: string;
+    to: string;
+    params?: Record<string, string>;
+    search?: Record<string, string>;
+  };
 }
 
 export interface BlogFaq {
@@ -62,6 +67,8 @@ import { cardioPosts } from "@/data/blog-cardio";
 import { usedPosts } from "@/data/blog-used";
 import { arcPosts } from "@/data/blog-arc";
 import { storagePosts } from "@/data/blog-storage";
+import { climberPosts } from "@/data/blog-climbers";
+import { trainerPosts } from "@/data/blog-trainers";
 
 const STOCK_CATEGORY_IMAGES = new Set<string>([
   heroImg,
@@ -91,7 +98,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What Counts as Gym Equipment",
         paragraphs: [
-          "\"Gym equipment\" covers a wider range of products than most first-time buyers expect. Beyond the treadmills and dumbbells everyone pictures, it spans selectorized and plate-loaded strength machines, racks and benches, free weights, and the flooring and accessories that finish a setup.",
+          '"Gym equipment" covers a wider range of products than most first-time buyers expect. Beyond the treadmills and dumbbells everyone pictures, it spans selectorized and plate-loaded strength machines, racks and benches, free weights, and the flooring and accessories that finish a setup.',
           "Knowing which category you actually need narrows the search fast. A home gym rarely needs the same equipment mix as a commercial facility, and shopping by category instead of browsing everything at once will save you time.",
         ],
         list: [
@@ -151,7 +158,7 @@ export const blogPosts: BlogPost[] = [
         heading: "Understanding Equipment Condition Grades",
         paragraphs: [
           "Every listing states a condition grade, and understanding what each one actually means makes comparing gym equipment for sale far easier than guessing from photos alone. Grades run from New down through Excellent, Very Good and Good, with Refurbished sitting in its own category since it describes a service history rather than a pure wear level.",
-          "\"Excellent\" generally means light cosmetic wear with no functional issues — the kind of condition you'd expect from a machine that's seen a year or two of moderate use. \"Very Good\" and \"Good\" step down from there, typically showing more visible wear on upholstery, paint or grips, though the underlying mechanics should still be fully functional; any exceptions are meant to be called out directly in the listing. Refurbished equipment has been cleaned, serviced and often re-certified by a dealer, which is why it frequently carries its own limited warranty even though it isn't brand new.",
+          '"Excellent" generally means light cosmetic wear with no functional issues — the kind of condition you\'d expect from a machine that\'s seen a year or two of moderate use. "Very Good" and "Good" step down from there, typically showing more visible wear on upholstery, paint or grips, though the underlying mechanics should still be fully functional; any exceptions are meant to be called out directly in the listing. Refurbished equipment has been cleaned, serviced and often re-certified by a dealer, which is why it frequently carries its own limited warranty even though it isn\'t brand new.',
         ],
       },
       {
@@ -207,7 +214,7 @@ export const blogPosts: BlogPost[] = [
         a: "Yes. Submit your equipment through Sell Your Equipment with photos, condition and asking price, and it can be listed for buyers to find.",
       },
       {
-        q: "What does \"Refurbished\" mean on a listing?",
+        q: 'What does "Refurbished" mean on a listing?',
         a: "It means the equipment has been cleaned, serviced and often re-certified by a dealer before resale, which is why refurbished listings frequently carry their own limited warranty separate from a private used sale.",
       },
       {
@@ -290,10 +297,30 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Where You Buy", "Selection", "Typical Price", "Inspection Before Buying"],
           rows: [
-            ["Online Marketplace", "Widest — sellers nationwide", "Varies by condition and seller", "Photos and listing details only"],
-            ["Local Dealer", "Limited to current inventory", "Often higher, reflects service and warranty", "In person, before you pay"],
-            ["Wholesale/Supplier", "Full packages, multiple units", "Volume pricing on larger orders", "Sample units or spec sheets"],
-            ["Private Seller", "One-off, as-is listings", "Usually the lowest", "In person if local, photos otherwise"],
+            [
+              "Online Marketplace",
+              "Widest — sellers nationwide",
+              "Varies by condition and seller",
+              "Photos and listing details only",
+            ],
+            [
+              "Local Dealer",
+              "Limited to current inventory",
+              "Often higher, reflects service and warranty",
+              "In person, before you pay",
+            ],
+            [
+              "Wholesale/Supplier",
+              "Full packages, multiple units",
+              "Volume pricing on larger orders",
+              "Sample units or spec sheets",
+            ],
+            [
+              "Private Seller",
+              "One-off, as-is listings",
+              "Usually the lowest",
+              "In person if local, photos otherwise",
+            ],
           ],
         },
       },
@@ -322,7 +349,11 @@ export const blogPosts: BlogPost[] = [
           "Auctions and liquidation sales happen when a gym, hotel or corporate fitness center closes or replaces its entire equipment lineup at once, and they can turn up commercial-grade machines at prices well below what the same condition grade sells for one piece at a time. Because everything sells at once, timing matters — the best pieces usually go first, and shipping is rarely included, so factor freight into whatever you bid or offer before assuming the sale price is the final cost.",
           "The trade-off is less room to negotiate condition after the fact. Liquidation lots are typically sold as-is with a limited or no return window, so the inspection steps that matter for any used purchase — checking cables, bearings and welds — matter even more here, and it's worth asking the seller for a walk-through video if you can't attend in person.",
         ],
-        cta: { label: "Read: Used & Discount Gym Equipment", to: "/blog/$slug", params: { slug: "used-and-discount-gym-equipment" } },
+        cta: {
+          label: "Read: Used & Discount Gym Equipment",
+          to: "/blog/$slug",
+          params: { slug: "used-and-discount-gym-equipment" },
+        },
       },
       {
         heading: "What Shipping and Delivery Actually Costs",
@@ -389,7 +420,15 @@ export const blogPosts: BlogPost[] = [
         a: "Favor payment methods that offer buyer protection and clear before the seller ships, and be cautious of any seller pushing an unusual payment method or urgency to pay outside the platform's normal process.",
       },
     ],
-    related: ["gym-equipment-for-sale-buyers-guide", "used-gym-equipment", "commercial-gym-equipment", "texas", "florida", "california", "new-york"],
+    related: [
+      "gym-equipment-for-sale-buyers-guide",
+      "used-gym-equipment",
+      "commercial-gym-equipment",
+      "texas",
+      "florida",
+      "california",
+      "new-york",
+    ],
     products: {
       heading: "Equipment Available Now",
       moreLink: { label: "View More Products", to: "/shop-equipment" },
@@ -608,9 +647,18 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Space", "Realistic Equipment Mix"],
           rows: [
-            ["Small (spare room, 1-car garage)", "Rack or multi-gym, bench, adjustable dumbbells, one cardio piece"],
-            ["Medium (2-car garage, larger basement)", "Above, plus a dedicated cardio zone and floor space to move"],
-            ["Large (finished basement, bonus room)", "Rack, cable functional trainer, multiple cardio machines, flooring throughout"],
+            [
+              "Small (spare room, 1-car garage)",
+              "Rack or multi-gym, bench, adjustable dumbbells, one cardio piece",
+            ],
+            [
+              "Medium (2-car garage, larger basement)",
+              "Above, plus a dedicated cardio zone and floor space to move",
+            ],
+            [
+              "Large (finished basement, bonus room)",
+              "Rack, cable functional trainer, multiple cardio machines, flooring throughout",
+            ],
           ],
         },
       },
@@ -695,7 +743,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Matching Equipment to Your Training Goal",
         paragraphs: [
-          "The \"core equipment\" list above covers most home gyms, but the priority order shifts depending on what you're training for. Someone focused on building muscle and strength should weight their budget toward a rack, bench and free weights first; someone training primarily for weight loss gets more day-to-day value from a cardio machine and a set of adjustable dumbbells for circuit-style work.",
+          'The "core equipment" list above covers most home gyms, but the priority order shifts depending on what you\'re training for. Someone focused on building muscle and strength should weight their budget toward a rack, bench and free weights first; someone training primarily for weight loss gets more day-to-day value from a cardio machine and a set of adjustable dumbbells for circuit-style work.',
         ],
         cta: {
           label: "Read: Best Home Gym Equipment for Muscle & Strength",
@@ -824,9 +872,21 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Type", "What It Means", "What to Check"],
           rows: [
-            ["Used", "Sold as-is by a previous owner", "Wear on moving parts, cables and upholstery"],
-            ["Refurbished", "Cleaned, serviced and often re-certified by a dealer", "What the refurbishment included, and warranty terms"],
-            ["Clearance", "New or lightly used, discounted to move inventory", "Why it's discounted — often just older stock, not damage"],
+            [
+              "Used",
+              "Sold as-is by a previous owner",
+              "Wear on moving parts, cables and upholstery",
+            ],
+            [
+              "Refurbished",
+              "Cleaned, serviced and often re-certified by a dealer",
+              "What the refurbishment included, and warranty terms",
+            ],
+            [
+              "Clearance",
+              "New or lightly used, discounted to move inventory",
+              "Why it's discounted — often just older stock, not damage",
+            ],
           ],
         },
       },
@@ -869,7 +929,11 @@ export const blogPosts: BlogPost[] = [
           headers: ["Cost Factor", "Used/Discounted", "New"],
           rows: [
             ["Purchase price", "Lower, varies by condition", "Higher, fixed by dealer"],
-            ["Freight/delivery", "Same market rate, quoted separately", "Same market rate, quoted separately"],
+            [
+              "Freight/delivery",
+              "Same market rate, quoted separately",
+              "Same market rate, quoted separately",
+            ],
             ["Repairs/parts", "Possible, depends on condition", "Rare, covered by warranty"],
             ["Warranty", "Varies — often none on private sales", "Full manufacturer coverage"],
           ],
@@ -1040,9 +1104,19 @@ export const blogPosts: BlogPost[] = [
           headers: ["Machine", "Impact on Joints", "Muscles Worked", "Best For"],
           rows: [
             ["Treadmill", "Higher impact", "Legs, core", "Running, walking, incline training"],
-            ["Exercise/Spin Bike", "Lowest impact", "Legs, core", "Joint-friendly cardio, small spaces"],
+            [
+              "Exercise/Spin Bike",
+              "Lowest impact",
+              "Legs, core",
+              "Joint-friendly cardio, small spaces",
+            ],
             ["Elliptical", "Low impact", "Full body, leg-dominant", "Low-impact full-body cardio"],
-            ["Rowing Machine", "Low impact", "Legs, back, arms, core", "Full-body cardio and conditioning"],
+            [
+              "Rowing Machine",
+              "Low impact",
+              "Legs, back, arms, core",
+              "Full-body cardio and conditioning",
+            ],
           ],
         },
       },
@@ -1238,10 +1312,26 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Experience Level", "Recommended Equipment", "Why"],
           rows: [
-            ["Beginner", "Selectorized machines, Smith machine", "Fixed path and pin-adjustable stack reduce the technique needed to train safely alone"],
-            ["Intermediate", "Mix of machines and free weights", "Building comfort with barbell movements alongside guided machines"],
-            ["Advanced", "Rack, free weights, plate-loaded machines", "Barbell progression needs stabilization a fixed path can't replicate"],
-            ["Returning after a break", "Selectorized machines, moderate free-weight work", "Rebuilding movement patterns before loading heavier free weights"],
+            [
+              "Beginner",
+              "Selectorized machines, Smith machine",
+              "Fixed path and pin-adjustable stack reduce the technique needed to train safely alone",
+            ],
+            [
+              "Intermediate",
+              "Mix of machines and free weights",
+              "Building comfort with barbell movements alongside guided machines",
+            ],
+            [
+              "Advanced",
+              "Rack, free weights, plate-loaded machines",
+              "Barbell progression needs stabilization a fixed path can't replicate",
+            ],
+            [
+              "Returning after a break",
+              "Selectorized machines, moderate free-weight work",
+              "Rebuilding movement patterns before loading heavier free weights",
+            ],
           ],
         },
       },
@@ -1251,10 +1341,30 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Equipment Type", "Best For", "Space Needed", "Maintenance"],
           rows: [
-            ["Selectorized Machine", "Beginners, quick weight changes", "Moderate", "Low — sealed weight stack"],
-            ["Plate-Loaded Machine", "Natural movement, commercial use", "Moderate to large", "Moderate — check bearings, welds"],
-            ["Rack, Bench & Free Weights", "Barbell training, strength progression", "Small to large, scalable", "Low — mainly cosmetic wear"],
-            ["Functional Trainer / Cable Machine", "Exercise variety in limited space", "Small to moderate", "Moderate — check cables and pulleys"],
+            [
+              "Selectorized Machine",
+              "Beginners, quick weight changes",
+              "Moderate",
+              "Low — sealed weight stack",
+            ],
+            [
+              "Plate-Loaded Machine",
+              "Natural movement, commercial use",
+              "Moderate to large",
+              "Moderate — check bearings, welds",
+            ],
+            [
+              "Rack, Bench & Free Weights",
+              "Barbell training, strength progression",
+              "Small to large, scalable",
+              "Low — mainly cosmetic wear",
+            ],
+            [
+              "Functional Trainer / Cable Machine",
+              "Exercise variety in limited space",
+              "Small to moderate",
+              "Moderate — check cables and pulleys",
+            ],
           ],
         },
       },
@@ -1346,7 +1456,13 @@ export const blogPosts: BlogPost[] = [
         a: "Most setups build a rack and bench first, since they cover the most common barbell lifts, then add free weights, a cable machine and selectorized or plate-loaded machines as the setup grows.",
       },
     ],
-    related: ["strength-equipment", "free-weights", "best-gym-equipment-brands", "commercial-vs-home-gym-equipment", "used-cable-machines-for-sale"],
+    related: [
+      "strength-equipment",
+      "free-weights",
+      "best-gym-equipment-brands",
+      "commercial-vs-home-gym-equipment",
+      "used-cable-machines-for-sale",
+    ],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -1423,7 +1539,11 @@ export const blogPosts: BlogPost[] = [
         paragraphs: [
           "Few people buy all of this at once, and there's no reason to. Start with the rack, bench and barbell, then add dumbbells, a functional trainer and cardio as budget allows.",
         ],
-        cta: { label: "Read: Home Gym Equipment for Sale", to: "/blog/$slug", params: { slug: "home-gym-equipment-for-sale-guide" } },
+        cta: {
+          label: "Read: Home Gym Equipment for Sale",
+          to: "/blog/$slug",
+          params: { slug: "home-gym-equipment-for-sale-guide" },
+        },
       },
       {
         heading: "How This Differs From an All-in-One Machine Approach",
@@ -1509,7 +1629,13 @@ export const blogPosts: BlogPost[] = [
         a: "It varies by individual, but consistent progressive overload over a sustained period matters more than any specific equipment choice — tracking your lifts is the most reliable way to confirm progress is happening.",
       },
     ],
-    related: ["free-weights", "home-gym-equipment", "best-gym-equipment-for-a-home-gym", "gym-accessories", "best-dumbbells-weight-sets-for-home-gym"],
+    related: [
+      "free-weights",
+      "home-gym-equipment",
+      "best-gym-equipment-for-a-home-gym",
+      "gym-accessories",
+      "best-dumbbells-weight-sets-for-home-gym",
+    ],
     products: {
       category: "free-weights",
       heading: "Free Weights & Strength Essentials",
@@ -1569,9 +1695,24 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Selling Route", "Speed", "Typical Payout", "Effort Required"],
           rows: [
-            ["Dealer Buyback", "Fastest — often same-week pickup", "Lowest, reflects resale and refurbishment costs", "Minimal — dealer handles everything"],
-            ["Consignment", "Slower — depends on finding a buyer", "Higher than buyback, closer to resale value", "Low — dealer lists and sells for you"],
-            ["Selling It Yourself", "Variable — depends on demand", "Highest — keeps the full sale price", "Highest — you photograph, list and coordinate pickup"],
+            [
+              "Dealer Buyback",
+              "Fastest — often same-week pickup",
+              "Lowest, reflects resale and refurbishment costs",
+              "Minimal — dealer handles everything",
+            ],
+            [
+              "Consignment",
+              "Slower — depends on finding a buyer",
+              "Higher than buyback, closer to resale value",
+              "Low — dealer lists and sells for you",
+            ],
+            [
+              "Selling It Yourself",
+              "Variable — depends on demand",
+              "Highest — keeps the full sale price",
+              "Highest — you photograph, list and coordinate pickup",
+            ],
           ],
         },
       },
@@ -1686,7 +1827,11 @@ export const blogPosts: BlogPost[] = [
         a: "Yes — a clean, well-presented listing consistently sells faster and closer to asking price than one that looks rushed, even when the underlying condition is identical.",
       },
     ],
-    related: ["used-gym-equipment", "new-vs-used-gym-equipment", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "used-gym-equipment",
+      "new-vs-used-gym-equipment",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       heading: "Equipment Buyers Are Looking For",
       moreLink: { label: "View More Products", to: "/shop-equipment" },
@@ -1723,8 +1868,16 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Type", "How It Works", "Best For"],
           rows: [
-            ["Single-Stack Cable Machine", "One weight stack, one or two pulley positions", "Focused exercises, smaller footprint"],
-            ["Dual-Stack Functional Trainer", "Two independent stacks and pulleys", "Two people training at once, unilateral and two-arm movements"],
+            [
+              "Single-Stack Cable Machine",
+              "One weight stack, one or two pulley positions",
+              "Focused exercises, smaller footprint",
+            ],
+            [
+              "Dual-Stack Functional Trainer",
+              "Two independent stacks and pulleys",
+              "Two people training at once, unilateral and two-arm movements",
+            ],
           ],
         },
       },
@@ -2150,7 +2303,7 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-09-21",
     body: [
       {
-        heading: "What Actually Makes Equipment \"Compact\"",
+        heading: 'What Actually Makes Equipment "Compact"',
         paragraphs: [
           "Three design traits separate genuinely space-saving equipment from equipment that just looks small in a photo: it folds or collapses for storage, it covers multiple exercises in one footprint, or it mounts to a wall instead of standing on the floor.",
         ],
@@ -2302,7 +2455,12 @@ export const blogPosts: BlogPost[] = [
         a: "Ceiling height, especially if you're considering any rack or pull-up option — it's the single most common constraint that rules out equipment before floor space even becomes a factor.",
       },
     ],
-    related: ["home-gym-equipment", "gym-accessories", "best-gym-equipment-for-a-home-gym", "best-home-gym-equipment-for-weight-loss"],
+    related: [
+      "home-gym-equipment",
+      "gym-accessories",
+      "best-gym-equipment-for-a-home-gym",
+      "best-home-gym-equipment-for-weight-loss",
+    ],
     products: {
       category: "home-gym-equipment",
       heading: "Home Gym Equipment for Sale",
@@ -2340,8 +2498,16 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Type", "How Resistance Works", "Trade-Offs"],
           rows: [
-            ["Weight Stack", "Steel plates on a pin-adjustable stack, cable-driven", "Consistent resistance feel; heavier, larger frame"],
-            ["Resistance Rods / Bands", "Flexible rods or bands provide resistance", "Lighter and more compact; resistance can feel different from free weight"],
+            [
+              "Weight Stack",
+              "Steel plates on a pin-adjustable stack, cable-driven",
+              "Consistent resistance feel; heavier, larger frame",
+            ],
+            [
+              "Resistance Rods / Bands",
+              "Flexible rods or bands provide resistance",
+              "Lighter and more compact; resistance can feel different from free weight",
+            ],
           ],
         },
       },
@@ -2382,7 +2548,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Space & Assembly Considerations",
         paragraphs: [
-          "\"Compact\" is relative — most all-in-one machines still need clearance for the cable arms to move through their full range, and assembly can be involved, with some models requiring the frame to be bolted down for stability under load.",
+          '"Compact" is relative — most all-in-one machines still need clearance for the cable arms to move through their full range, and assembly can be involved, with some models requiring the frame to be bolted down for stability under load.',
         ],
         cta: { label: "Shop Home Gym Equipment", to: "/home-gym-equipment" },
       },
@@ -2515,8 +2681,16 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Type", "Space Needed", "Best For"],
           rows: [
-            ["Adjustable Dumbbells", "One compact footprint for a full weight range", "Small spaces, progressive overload without buying more weight"],
-            ["Fixed Dumbbells", "A full rack per pair, more total footprint", "Fast weight changes, commercial-style training"],
+            [
+              "Adjustable Dumbbells",
+              "One compact footprint for a full weight range",
+              "Small spaces, progressive overload without buying more weight",
+            ],
+            [
+              "Fixed Dumbbells",
+              "A full rack per pair, more total footprint",
+              "Fast weight changes, commercial-style training",
+            ],
           ],
         },
       },
@@ -2559,8 +2733,16 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Finish", "Durability", "Noise/Impact"],
           rows: [
-            ["Cast Iron", "Very durable, can chip paint over time", "No cushioning — loudest, most impact transferred to floor"],
-            ["Rubber-Coated", "Good durability, coating can wear over years", "Moderate cushioning, quieter than bare iron"],
+            [
+              "Cast Iron",
+              "Very durable, can chip paint over time",
+              "No cushioning — loudest, most impact transferred to floor",
+            ],
+            [
+              "Rubber-Coated",
+              "Good durability, coating can wear over years",
+              "Moderate cushioning, quieter than bare iron",
+            ],
             ["Urethane", "Most resistant to cracking and wear", "Best cushioning, quietest option"],
           ],
         },
@@ -2720,9 +2902,21 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Type", "Footprint", "Best For"],
           rows: [
-            ["Power Rack", "Full four-post frame, largest footprint", "Squats, bench, overhead press with full safety pins"],
-            ["Squat Cage", "Similar four-post design, often with extra attachment points", "Squat-focused training with added accessory options"],
-            ["Half Rack", "Two-post, smaller footprint", "Space-constrained rooms, most of a full rack's function"],
+            [
+              "Power Rack",
+              "Full four-post frame, largest footprint",
+              "Squats, bench, overhead press with full safety pins",
+            ],
+            [
+              "Squat Cage",
+              "Similar four-post design, often with extra attachment points",
+              "Squat-focused training with added accessory options",
+            ],
+            [
+              "Half Rack",
+              "Two-post, smaller footprint",
+              "Space-constrained rooms, most of a full rack's function",
+            ],
           ],
         },
       },
@@ -2791,10 +2985,26 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Type", "Typical Depth", "Repositionable?"],
           rows: [
-            ["Power Rack / Cage", "Largest — four posts plus working space", "Possible, but heavy and awkward to move often"],
-            ["Half Rack", "Moderate — two posts plus working space", "Easier than a full rack, still substantial"],
-            ["Wall-Mounted/Folding Rack", "Minimal when folded, moderate when deployed", "Fixed installation point, folds rather than moves"],
-            ["Power Tower", "Smallest — no barbell working space needed", "Yes, relatively easy to reposition"],
+            [
+              "Power Rack / Cage",
+              "Largest — four posts plus working space",
+              "Possible, but heavy and awkward to move often",
+            ],
+            [
+              "Half Rack",
+              "Moderate — two posts plus working space",
+              "Easier than a full rack, still substantial",
+            ],
+            [
+              "Wall-Mounted/Folding Rack",
+              "Minimal when folded, moderate when deployed",
+              "Fixed installation point, folds rather than moves",
+            ],
+            [
+              "Power Tower",
+              "Smallest — no barbell working space needed",
+              "Yes, relatively easy to reposition",
+            ],
           ],
         },
       },
@@ -2876,7 +3086,12 @@ export const blogPosts: BlogPost[] = [
         a: "It depends on the design — some racks are stable freestanding under their own weight, while others benefit from anchoring for extra stability under maximal loads. Check the specific listing's guidance.",
       },
     ],
-    related: ["strength-equipment", "rogue-fitness", "how-to-inspect-used-gym-equipment", "best-dumbbells-weight-sets-for-home-gym"],
+    related: [
+      "strength-equipment",
+      "rogue-fitness",
+      "how-to-inspect-used-gym-equipment",
+      "best-dumbbells-weight-sets-for-home-gym",
+    ],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -3284,9 +3499,21 @@ export const blogPosts: BlogPost[] = [
           headers: ["Machine", "Movement", "What It Targets"],
           rows: [
             ["Chest Press Machine", "Seated, pressing forward", "Chest, front shoulders, triceps"],
-            ["Incline Chest Press", "Seated, pressing at an upward angle", "Upper chest emphasis, front shoulders"],
-            ["Pec Deck / Chest Fly Machine", "Arms sweep from out to in", "Chest, isolated with minimal shoulder and triceps involvement"],
-            ["Cable Crossover", "Cables pulled from high or low anchor points", "Chest through a longer, adjustable range of motion"],
+            [
+              "Incline Chest Press",
+              "Seated, pressing at an upward angle",
+              "Upper chest emphasis, front shoulders",
+            ],
+            [
+              "Pec Deck / Chest Fly Machine",
+              "Arms sweep from out to in",
+              "Chest, isolated with minimal shoulder and triceps involvement",
+            ],
+            [
+              "Cable Crossover",
+              "Cables pulled from high or low anchor points",
+              "Chest through a longer, adjustable range of motion",
+            ],
           ],
         },
         cta: { label: "Shop Chest Machines", to: "/strength-equipment" },
@@ -3435,7 +3662,11 @@ export const blogPosts: BlogPost[] = [
         a: "Yes, for most routines — it trains the chest through a longer, adjustable range of motion than a fixed press station, adding variety a chest press alone doesn't provide.",
       },
     ],
-    related: ["strength-equipment", "best-gym-equipment-brands", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "strength-equipment",
+      "best-gym-equipment-brands",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       category: "strength-equipment",
       search: "chest",
@@ -3468,9 +3699,21 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Machine", "Movement", "What It Targets"],
           rows: [
-            ["Shoulder Press Machine", "Seated, pressing overhead", "Front and side shoulders, triceps"],
-            ["Lateral Raise Machine", "Arms lift out to the sides", "Side shoulders (the muscle that builds width)"],
-            ["Rear Delt / Reverse Fly Machine", "Arms sweep backward against pads", "Rear shoulders and upper back"],
+            [
+              "Shoulder Press Machine",
+              "Seated, pressing overhead",
+              "Front and side shoulders, triceps",
+            ],
+            [
+              "Lateral Raise Machine",
+              "Arms lift out to the sides",
+              "Side shoulders (the muscle that builds width)",
+            ],
+            [
+              "Rear Delt / Reverse Fly Machine",
+              "Arms sweep backward against pads",
+              "Rear shoulders and upper back",
+            ],
           ],
         },
         cta: { label: "Shop Shoulder Machines", to: "/strength-equipment" },
@@ -3621,7 +3864,11 @@ export const blogPosts: BlogPost[] = [
         a: "Start lighter than feels challenging and prioritize controlling the full range of motion — the shoulder tolerates poor form less forgivingly than larger joints, so building technique first pays off over time.",
       },
     ],
-    related: ["strength-equipment", "best-gym-equipment-brands", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "strength-equipment",
+      "best-gym-equipment-brands",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       category: "strength-equipment",
       search: "shoulder",
@@ -3651,7 +3898,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Why Chest, Shoulders and Triceps Train Well Together",
         paragraphs: [
-          "Chest, shoulder and tricep exercises all involve a pushing motion, and the triceps and front shoulders naturally assist on chest presses while the chest assists on shoulder presses. Grouping these \"pushing\" muscles into one session — often called a push day — is a common and efficient way to structure machine-based training.",
+          'Chest, shoulder and tricep exercises all involve a pushing motion, and the triceps and front shoulders naturally assist on chest presses while the chest assists on shoulder presses. Grouping these "pushing" muscles into one session — often called a push day — is a common and efficient way to structure machine-based training.',
         ],
       },
       {
@@ -3687,7 +3934,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "What About Back and Arms?",
         paragraphs: [
-          "Back training is usually grouped with pulling exercises — rows and pulldowns — on a separate \"pull\" day, rather than combined with chest and shoulders. Biceps typically pair with that pull day for the same reason triceps pair here: they assist on the same movement pattern as the larger muscles being trained.",
+          'Back training is usually grouped with pulling exercises — rows and pulldowns — on a separate "pull" day, rather than combined with chest and shoulders. Biceps typically pair with that pull day for the same reason triceps pair here: they assist on the same movement pattern as the larger muscles being trained.',
         ],
       },
       {
@@ -3744,7 +3991,7 @@ export const blogPosts: BlogPost[] = [
     faqs: [
       {
         q: "Can I train chest, shoulders and arms in the same workout?",
-        a: "Yes — chest, shoulders and triceps all involve a pushing motion, which is exactly why they're commonly grouped into one \"push day\" session.",
+        a: 'Yes — chest, shoulders and triceps all involve a pushing motion, which is exactly why they\'re commonly grouped into one "push day" session.',
       },
       {
         q: "What order should I do chest and shoulder machines in?",
@@ -3799,7 +4046,11 @@ export const blogPosts: BlogPost[] = [
         a: "It can work for experienced lifters comfortable managing fatigue across muscle groups, though beginners generally get more out of completing each exercise's full sets before moving to the next.",
       },
     ],
-    related: ["strength-equipment", "free-weights", "shrug-machines-and-trapezius-training-equipment"],
+    related: [
+      "strength-equipment",
+      "free-weights",
+      "shrug-machines-and-trapezius-training-equipment",
+    ],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -3831,9 +4082,21 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Machine", "Movement", "What It Targets"],
           rows: [
-            ["Preacher Curl Bench/Machine", "Arm braced on an angled pad, curling forward", "Biceps, with the pad preventing swing or momentum"],
-            ["Seated/Standing Curl Machine", "Cam or pin-loaded guided curl", "Biceps through a fixed, repeatable path"],
-            ["Cable Curl (Functional Trainer)", "Cable pulled from a low anchor point", "Biceps with constant tension through the full range"],
+            [
+              "Preacher Curl Bench/Machine",
+              "Arm braced on an angled pad, curling forward",
+              "Biceps, with the pad preventing swing or momentum",
+            ],
+            [
+              "Seated/Standing Curl Machine",
+              "Cam or pin-loaded guided curl",
+              "Biceps through a fixed, repeatable path",
+            ],
+            [
+              "Cable Curl (Functional Trainer)",
+              "Cable pulled from a low anchor point",
+              "Biceps with constant tension through the full range",
+            ],
           ],
         },
         cta: { label: "Shop Bicep Machines", to: "/strength-equipment" },
@@ -3990,7 +4253,11 @@ export const blogPosts: BlogPost[] = [
         a: "Largely, yes — both isolate the biceps effectively. A cable curl keeps constant tension throughout the range, while a cam machine follows a specific resistance curve, giving a slightly different feel rather than a lesser result.",
       },
     ],
-    related: ["strength-equipment", "best-gym-equipment-brands", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "strength-equipment",
+      "best-gym-equipment-brands",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       category: "strength-equipment",
       search: "bicep",
@@ -4023,9 +4290,21 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Machine", "Movement", "What It Targets"],
           rows: [
-            ["Tricep Extension Machine", "Seated, pressing or extending forward against a pad", "Triceps, isolated with the elbow braced"],
-            ["Tricep Pushdown (Cable)", "Standing, pushing a cable attachment downward", "Triceps, the most common gym tricep exercise"],
-            ["Arm Extension Machine", "Seated pressing-style extension, similar setup to a chest press", "Triceps, with a guided fixed path"],
+            [
+              "Tricep Extension Machine",
+              "Seated, pressing or extending forward against a pad",
+              "Triceps, isolated with the elbow braced",
+            ],
+            [
+              "Tricep Pushdown (Cable)",
+              "Standing, pushing a cable attachment downward",
+              "Triceps, the most common gym tricep exercise",
+            ],
+            [
+              "Arm Extension Machine",
+              "Seated pressing-style extension, similar setup to a chest press",
+              "Triceps, with a guided fixed path",
+            ],
           ],
         },
         cta: { label: "Shop Tricep Machines", to: "/strength-equipment" },
@@ -4055,8 +4334,16 @@ export const blogPosts: BlogPost[] = [
           headers: ["", "Tricep Pushdown (Cable)", "Tricep Extension Machine"],
           rows: [
             ["Position", "Standing", "Seated, braced against a pad"],
-            ["Setup", "Needs a cable station or functional trainer", "Dedicated machine, ready to use immediately"],
-            ["Stabilization", "More core and shoulder involvement", "Fully guided, minimal stabilization needed"],
+            [
+              "Setup",
+              "Needs a cable station or functional trainer",
+              "Dedicated machine, ready to use immediately",
+            ],
+            [
+              "Stabilization",
+              "More core and shoulder involvement",
+              "Fully guided, minimal stabilization needed",
+            ],
           ],
         },
       },
@@ -4180,7 +4467,11 @@ export const blogPosts: BlogPost[] = [
         a: "That's expected — the triceps do significant work controlling the lowering phase of an extension or pushdown, not just pushing the weight up, which is why rushing that phase reduces the exercise's effectiveness.",
       },
     ],
-    related: ["strength-equipment", "best-gym-equipment-brands", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "strength-equipment",
+      "best-gym-equipment-brands",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       category: "strength-equipment",
       search: "tricep",
@@ -4364,7 +4655,11 @@ export const blogPosts: BlogPost[] = [
         a: "It's possible on the same day, but most routines separate them to manage total fatigue — pairing biceps and triceps together on their own day keeps each session focused and manageable.",
       },
     ],
-    related: ["strength-equipment", "free-weights", "shrug-machines-and-trapezius-training-equipment"],
+    related: [
+      "strength-equipment",
+      "free-weights",
+      "shrug-machines-and-trapezius-training-equipment",
+    ],
     products: {
       category: "strength-equipment",
       heading: "Strength Equipment for Sale",
@@ -4439,10 +4734,26 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Alternative", "How It Works", "Best For"],
           rows: [
-            ["Dumbbell Shrugs", "Dumbbells held at the sides, shrugged straight up", "Home gyms, natural range of motion"],
-            ["Barbell Shrugs", "Barbell held in front, shrugged straight up", "Heavier loading than dumbbells allow"],
-            ["Trap Bar Shrugs", "Hex-shaped bar with side handles, shrugged from a hip-hinge position", "Reduced lower back strain versus a straight barbell"],
-            ["Cable Shrugs", "Low-anchored cable pulled straight up", "Constant tension through the full range"],
+            [
+              "Dumbbell Shrugs",
+              "Dumbbells held at the sides, shrugged straight up",
+              "Home gyms, natural range of motion",
+            ],
+            [
+              "Barbell Shrugs",
+              "Barbell held in front, shrugged straight up",
+              "Heavier loading than dumbbells allow",
+            ],
+            [
+              "Trap Bar Shrugs",
+              "Hex-shaped bar with side handles, shrugged from a hip-hinge position",
+              "Reduced lower back strain versus a straight barbell",
+            ],
+            [
+              "Cable Shrugs",
+              "Low-anchored cable pulled straight up",
+              "Constant tension through the full range",
+            ],
           ],
         },
         cta: { label: "Shop Free Weights", to: "/free-weights" },
@@ -4554,7 +4865,12 @@ export const blogPosts: BlogPost[] = [
         a: "Rolling the shoulders in a circular motion instead of shrugging straight up, which shifts stress toward the shoulder joint instead of keeping it on the trapezius.",
       },
     ],
-    related: ["strength-equipment", "plate-loaded-machines-for-sale", "hammer-strength", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "strength-equipment",
+      "plate-loaded-machines-for-sale",
+      "hammer-strength",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       category: "strength-equipment",
       search: "shrug",
@@ -4602,10 +4918,22 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["", "Lateral Raise Machine", "Dumbbell Lateral Raise"],
           rows: [
-            ["Resistance curve", "Often matched to the shoulder's strength curve via a cam", "Resistance from gravity alone — hardest at the top"],
-            ["Cheating risk", "Low — fixed path limits momentum", "Higher — easy to swing or use body English"],
+            [
+              "Resistance curve",
+              "Often matched to the shoulder's strength curve via a cam",
+              "Resistance from gravity alone — hardest at the top",
+            ],
+            [
+              "Cheating risk",
+              "Low — fixed path limits momentum",
+              "Higher — easy to swing or use body English",
+            ],
             ["Setup", "Dedicated machine required", "Just a pair of dumbbells, works anywhere"],
-            ["Unilateral training", "Depends on machine design", "Naturally trains each arm independently"],
+            [
+              "Unilateral training",
+              "Depends on machine design",
+              "Naturally trains each arm independently",
+            ],
           ],
         },
         cta: {
@@ -4769,10 +5097,26 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Machine", "Movement", "What It Targets"],
           rows: [
-            ["V-Squat / Hack Squat", "Angled or vertical squat pattern, back supported", "Quads, glutes, with reduced lower back strain"],
-            ["Belt Squat", "Squat pattern loaded through a belt at the hips, not the spine", "Quads and glutes with no direct spinal loading"],
-            ["Calf Raise (Standing/Seated)", "Heel raises against resistance", "Calves — standing emphasizes the gastrocnemius, seated the soleus"],
-            ["Hip Abductor / Adductor", "Legs pushed outward (abductor) or squeezed inward (adductor)", "Outer and inner thigh muscles"],
+            [
+              "V-Squat / Hack Squat",
+              "Angled or vertical squat pattern, back supported",
+              "Quads, glutes, with reduced lower back strain",
+            ],
+            [
+              "Belt Squat",
+              "Squat pattern loaded through a belt at the hips, not the spine",
+              "Quads and glutes with no direct spinal loading",
+            ],
+            [
+              "Calf Raise (Standing/Seated)",
+              "Heel raises against resistance",
+              "Calves — standing emphasizes the gastrocnemius, seated the soleus",
+            ],
+            [
+              "Hip Abductor / Adductor",
+              "Legs pushed outward (abductor) or squeezed inward (adductor)",
+              "Outer and inner thigh muscles",
+            ],
           ],
         },
         cta: { label: "Shop Leg Machines", to: "/strength-equipment" },
@@ -4969,9 +5313,21 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Position", "Hip Angle", "Best For"],
           rows: [
-            ["Seated", "Hips flexed, seated upright", "Lower back comfort, easy to load and unload"],
-            ["Prone (Lying)", "Hips extended, face down", "A more traditional hamstring curl movement pattern"],
-            ["Standing", "Hips neutral, one leg at a time", "Unilateral training, addressing left-right imbalances"],
+            [
+              "Seated",
+              "Hips flexed, seated upright",
+              "Lower back comfort, easy to load and unload",
+            ],
+            [
+              "Prone (Lying)",
+              "Hips extended, face down",
+              "A more traditional hamstring curl movement pattern",
+            ],
+            [
+              "Standing",
+              "Hips neutral, one leg at a time",
+              "Unilateral training, addressing left-right imbalances",
+            ],
           ],
         },
       },
@@ -5095,7 +5451,11 @@ export const blogPosts: BlogPost[] = [
         a: "Not necessarily — it's a common approach since a selectorized machine allows fast weight changes between the two, but training them as separate straight sets works just as well.",
       },
     ],
-    related: ["strength-equipment", "plate-loaded-machines-for-sale", "how-to-inspect-used-gym-equipment"],
+    related: [
+      "strength-equipment",
+      "plate-loaded-machines-for-sale",
+      "how-to-inspect-used-gym-equipment",
+    ],
     products: {
       category: "strength-equipment",
       search: ["leg extension", "leg curl"],
@@ -5139,10 +5499,22 @@ export const blogPosts: BlogPost[] = [
           headers: ["Factor", "Plate-Loaded", "Weight Stack (Selectorized)"],
           rows: [
             ["Changing weight", "Manually add or remove plates", "Move a pin — a few seconds"],
-            ["Top-end load", "Limited mainly by the frame's rating", "Capped at the stack's built-in maximum"],
-            ["Resistance feel", "Often described as closer to a free-weight curve", "Consistent, mechanically guided curve"],
+            [
+              "Top-end load",
+              "Limited mainly by the frame's rating",
+              "Capped at the stack's built-in maximum",
+            ],
+            [
+              "Resistance feel",
+              "Often described as closer to a free-weight curve",
+              "Consistent, mechanically guided curve",
+            ],
             ["Noise", "Plates can clank when racked or set down", "Generally quieter in use"],
-            ["Extra space needed", "Nearby storage for loose plates", "Self-contained, no extra storage"],
+            [
+              "Extra space needed",
+              "Nearby storage for loose plates",
+              "Self-contained, no extra storage",
+            ],
           ],
         },
       },
@@ -5496,7 +5868,11 @@ export const blogPosts: BlogPost[] = [
           "Our current Technogym listings center on strength machines and cable stations, along with a Technogym elliptical. Cardio inventory rotates independently of strength equipment, so check current listings directly if you're specifically after a Technogym cardio piece like a treadmill.",
           "Like other established commercial manufacturers, Technogym builds equipment meant to be serviced and kept running for years on a busy gym floor rather than replaced after a short product cycle, which is part of why used Technogym machines remain in active circulation long after they were first installed.",
         ],
-        cta: { label: "View Technogym Equipment", to: "/brands/$slug", params: { slug: "technogym" } },
+        cta: {
+          label: "View Technogym Equipment",
+          to: "/brands/$slug",
+          params: { slug: "technogym" },
+        },
       },
       {
         heading: "Technogym Strength Machines",
@@ -5870,7 +6246,11 @@ export const blogPosts: BlogPost[] = [
           "Life Fitness is one of the largest and most widely recognized commercial fitness equipment manufacturers in the United States, known for both cardio equipment — treadmills and bikes among them — and a full range of selectorized strength machines used across commercial gyms, studios and fitness facilities.",
           "Our current Life Fitness listings center on selectorized strength machines covering chest, back, arms, shoulders and core — the same commercial-grade build quality Life Fitness is known for, sold as used equipment coming off active commercial gym floors rather than new from a factory catalog.",
         ],
-        cta: { label: "View Life Fitness Equipment", to: "/brands/$slug", params: { slug: "life-fitness" } },
+        cta: {
+          label: "View Life Fitness Equipment",
+          to: "/brands/$slug",
+          params: { slug: "life-fitness" },
+        },
       },
       {
         heading: "Life Fitness Selectorized Strength Machines",
@@ -6465,10 +6845,26 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Priority", "Best Brand Strategy", "Why"],
           rows: [
-            ["Home cardio with interactive features", "NordicTrack", "Purpose-built for household cardio use and price point"],
-            ["Garage strength training", "Rogue Fitness", "Overbuilt, simple equipment that suits unattended home use"],
-            ["One standout durable machine", "Used commercial brand", "Commercial-grade durability at a used price"],
-            ["Budget-conscious full setup", "Mix of new home-grade + used commercial", "Balances cost against durability by equipment type"],
+            [
+              "Home cardio with interactive features",
+              "NordicTrack",
+              "Purpose-built for household cardio use and price point",
+            ],
+            [
+              "Garage strength training",
+              "Rogue Fitness",
+              "Overbuilt, simple equipment that suits unattended home use",
+            ],
+            [
+              "One standout durable machine",
+              "Used commercial brand",
+              "Commercial-grade durability at a used price",
+            ],
+            [
+              "Budget-conscious full setup",
+              "Mix of new home-grade + used commercial",
+              "Balances cost against durability by equipment type",
+            ],
           ],
         },
       },
@@ -6608,12 +7004,27 @@ export const blogPosts: BlogPost[] = [
         table: {
           headers: ["Brand", "Known For"],
           rows: [
-            ["Life Fitness", "Broad cardio and strength lineup, widely used across health clubs and corporate gyms"],
-            ["Precor", "Pioneering cardio equipment, including some of the earliest commercial ellipticals"],
+            [
+              "Life Fitness",
+              "Broad cardio and strength lineup, widely used across health clubs and corporate gyms",
+            ],
+            [
+              "Precor",
+              "Pioneering cardio equipment, including some of the earliest commercial ellipticals",
+            ],
             ["Technogym", "Design-led equipment for luxury clubs, hotels and boutique studios"],
-            ["Cybex", "Biomechanically researched strength machines, common in university and hospital settings"],
-            ["Matrix Fitness", "Durable, quiet cardio and strength equipment suited to apartment and hotel gyms"],
-            ["Hammer Strength", "Heavy plate-loaded machines built for serious strength-training floors"],
+            [
+              "Cybex",
+              "Biomechanically researched strength machines, common in university and hospital settings",
+            ],
+            [
+              "Matrix Fitness",
+              "Durable, quiet cardio and strength equipment suited to apartment and hotel gyms",
+            ],
+            [
+              "Hammer Strength",
+              "Heavy plate-loaded machines built for serious strength-training floors",
+            ],
           ],
         },
         cta: { label: "Shop Commercial Gym Equipment", to: "/commercial-gym-equipment" },
@@ -6785,7 +7196,11 @@ export const blogPosts: BlogPost[] = [
         paragraphs: [
           "Technogym has built several elliptical and cross-trainer product families over the years — names like Excite, Synchro, Vario and Crossover have all appeared in its cardio lineup at different points, alongside its more design-focused Artis line. Our current listing is a Technogym elliptical built for commercial full-body cardio use, the same category of machine that's made the brand a fixture on commercial gym floors.",
         ],
-        cta: { label: "View Technogym Equipment", to: "/brands/$slug", params: { slug: "technogym" } },
+        cta: {
+          label: "View Technogym Equipment",
+          to: "/brands/$slug",
+          params: { slug: "technogym" },
+        },
       },
       {
         heading: "Elliptical vs. Cross Trainer: Is There a Real Difference?",
@@ -6943,6 +7358,8 @@ export const blogPosts: BlogPost[] = [
   ...usedPosts,
   ...arcPosts,
   ...storagePosts,
+  ...climberPosts,
+  ...trainerPosts,
 ];
 
 export const blogPostBySlug = (slug: string) => blogPosts.find((p) => p.slug === slug);
@@ -6972,22 +7389,30 @@ function hashSeed(seed: string): number {
  *  same post always shows the same product image instead of a stock/AI photo. */
 export function pickPostCoverImage(
   post: BlogPost,
-  products: { image: string; category: string; condition: string; title: string; subcategory: string }[],
+  products: {
+    image: string;
+    category: string;
+    condition: string;
+    title: string;
+    subcategory: string;
+  }[],
 ): string {
   let pool = products;
-  if (post.products.category) pool = pool.filter((p) => matchesCollection(p, post.products.category!));
+  if (post.products.category)
+    pool = pool.filter((p) => matchesCollection(p, post.products.category!));
   if (post.products.onlyUsed) pool = pool.filter((p) => p.condition !== "New");
   if (post.products.search) {
-    const needles = (Array.isArray(post.products.search) ? post.products.search : [post.products.search]).map(
-      (s) => s.toLowerCase(),
-    );
+    const needles = (
+      Array.isArray(post.products.search) ? post.products.search : [post.products.search]
+    ).map((s) => s.toLowerCase());
     pool = pool.filter((p) => {
       const haystack = `${p.title} ${p.subcategory}`.toLowerCase();
       return needles.some((n) => haystack.includes(n));
     });
   }
   const withRealPhotos = pool.filter((p) => !STOCK_CATEGORY_IMAGES.has(p.image));
-  if (withRealPhotos.length > 0) return withRealPhotos[hashSeed(post.slug) % withRealPhotos.length]!.image;
+  if (withRealPhotos.length > 0)
+    return withRealPhotos[hashSeed(post.slug) % withRealPhotos.length]!.image;
   if (pool.length > 0) return pool[hashSeed(post.slug) % pool.length]!.image;
   return post.heroImage;
 }
