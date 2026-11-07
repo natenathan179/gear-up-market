@@ -83,6 +83,22 @@ import { fatLossPosts } from "@/data/blog-fat-loss";
 import { wellnessPosts } from "@/data/blog-wellness";
 import { supplementAudiencePosts } from "@/data/blog-supplement-audiences";
 import { supplementSafetyPosts } from "@/data/blog-supplement-safety";
+import { equipmentHowToPosts } from "@/data/blog-equipment-howto";
+import { exerciseGuidePosts } from "@/data/blog-exercise-guides";
+import { workoutProgramPosts } from "@/data/blog-workout-programs";
+import { pricePosts } from "@/data/blog-prices";
+import { specialtyPosts } from "@/data/blog-specialty";
+import { equipmentGoalPosts } from "@/data/blog-equipment-goals";
+import { brandComparisonPosts } from "@/data/blog-brand-comparisons";
+import { businessSeasonalPosts } from "@/data/blog-business-seasonal";
+import { ingredientPosts } from "@/data/blog-ingredients";
+import { proteinNutritionPosts } from "@/data/blog-protein-nutrition";
+import { creatineDeepPosts } from "@/data/blog-creatine-deep";
+import { gymNutritionPosts } from "@/data/blog-gym-nutrition";
+import { supplementBrandPosts } from "@/data/blog-supplement-brands";
+import { healthMenWomenPosts } from "@/data/blog-health-men-women";
+import { recoverySafetyPosts } from "@/data/blog-recovery-safety";
+import { supplementBusinessPosts } from "@/data/blog-supplement-business";
 
 const STOCK_CATEGORY_IMAGES = new Set<string>([
   heroImg,
@@ -7388,6 +7404,22 @@ export const blogPosts: BlogPost[] = [
   ...wellnessPosts,
   ...supplementAudiencePosts,
   ...supplementSafetyPosts,
+  ...equipmentHowToPosts,
+  ...exerciseGuidePosts,
+  ...workoutProgramPosts,
+  ...pricePosts,
+  ...specialtyPosts,
+  ...equipmentGoalPosts,
+  ...brandComparisonPosts,
+  ...businessSeasonalPosts,
+  ...ingredientPosts,
+  ...proteinNutritionPosts,
+  ...creatineDeepPosts,
+  ...gymNutritionPosts,
+  ...supplementBrandPosts,
+  ...healthMenWomenPosts,
+  ...recoverySafetyPosts,
+  ...supplementBusinessPosts,
 ];
 
 export const blogPostBySlug = (slug: string) => blogPosts.find((p) => p.slug === slug);
