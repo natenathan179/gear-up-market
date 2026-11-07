@@ -69,6 +69,20 @@ import { arcPosts } from "@/data/blog-arc";
 import { storagePosts } from "@/data/blog-storage";
 import { climberPosts } from "@/data/blog-climbers";
 import { trainerPosts } from "@/data/blog-trainers";
+import { peptidePosts } from "@/data/blog-peptides";
+import { homeGymPosts } from "@/data/blog-home-gym";
+import { freeWeightPosts } from "@/data/blog-free-weights";
+import { strengthHomePosts } from "@/data/blog-strength-home";
+import { cardioHomePosts } from "@/data/blog-cardio-home";
+import { accessoryPosts } from "@/data/blog-accessories";
+import { commercialBuyingPosts } from "@/data/blog-commercial-buying";
+import { proteinPosts } from "@/data/blog-protein";
+import { creatinePosts } from "@/data/blog-creatine";
+import { preWorkoutPosts } from "@/data/blog-pre-workout";
+import { fatLossPosts } from "@/data/blog-fat-loss";
+import { wellnessPosts } from "@/data/blog-wellness";
+import { supplementAudiencePosts } from "@/data/blog-supplement-audiences";
+import { supplementSafetyPosts } from "@/data/blog-supplement-safety";
 
 const STOCK_CATEGORY_IMAGES = new Set<string>([
   heroImg,
@@ -7360,6 +7374,20 @@ export const blogPosts: BlogPost[] = [
   ...storagePosts,
   ...climberPosts,
   ...trainerPosts,
+  ...peptidePosts,
+  ...homeGymPosts,
+  ...freeWeightPosts,
+  ...strengthHomePosts,
+  ...cardioHomePosts,
+  ...accessoryPosts,
+  ...commercialBuyingPosts,
+  ...proteinPosts,
+  ...creatinePosts,
+  ...preWorkoutPosts,
+  ...fatLossPosts,
+  ...wellnessPosts,
+  ...supplementAudiencePosts,
+  ...supplementSafetyPosts,
 ];
 
 export const blogPostBySlug = (slug: string) => blogPosts.find((p) => p.slug === slug);
