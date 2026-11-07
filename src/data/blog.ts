@@ -99,6 +99,7 @@ import { supplementBrandPosts } from "@/data/blog-supplement-brands";
 import { healthMenWomenPosts } from "@/data/blog-health-men-women";
 import { recoverySafetyPosts } from "@/data/blog-recovery-safety";
 import { supplementBusinessPosts } from "@/data/blog-supplement-business";
+import { postExpansions } from "@/data/blog-expansions";
 
 const STOCK_CATEGORY_IMAGES = new Set<string>([
   heroImg,
@@ -111,7 +112,14 @@ const STOCK_CATEGORY_IMAGES = new Set<string>([
   accessoriesImg,
 ]);
 
-export const blogPosts: BlogPost[] = [
+/** Appends the long-form expansion sections (see blog-expansions.ts) to each post's body. */
+const withExpansions = (posts: BlogPost[]): BlogPost[] =>
+  posts.map((p) => {
+    const extra = postExpansions[p.slug];
+    return extra ? { ...p, body: [...p.body, ...extra] } : p;
+  });
+
+export const blogPosts: BlogPost[] = withExpansions([
   {
     slug: "gym-equipment-for-sale-buyers-guide",
     title: "Gym Equipment for Sale: The Complete Buyer's Guide",
@@ -7420,7 +7428,7 @@ export const blogPosts: BlogPost[] = [
   ...healthMenWomenPosts,
   ...recoverySafetyPosts,
   ...supplementBusinessPosts,
-];
+]);
 
 export const blogPostBySlug = (slug: string) => blogPosts.find((p) => p.slug === slug);
 
