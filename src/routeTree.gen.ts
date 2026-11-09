@@ -35,6 +35,7 @@ import { Route as SupplementsRouteImport } from './routes/supplements'
 import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
 import { Route as UkRouteImport } from './routes/uk'
 import { Route as UsedGymEquipmentRouteImport } from './routes/used-gym-equipment'
+import { Route as UsedGymEquipmentPricesRouteImport } from './routes/used-gym-equipment-prices'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -59,6 +60,11 @@ import { Route as StrengthEquipmentIndexRouteImport } from './routes/strength-eq
 import { Route as StrengthEquipmentTypeRouteImport } from './routes/strength-equipment.$type'
 import { Route as SupplementsIndexRouteImport } from './routes/supplements.index'
 import { Route as SupplementsTypeRouteImport } from './routes/supplements.$type'
+import { Route as ToolsIndexRouteImport } from './routes/tools.index'
+import { Route as ToolsGymSpaceCalculatorRouteImport } from './routes/tools.gym-space-calculator'
+import { Route as ToolsHomeGymCostCalculatorRouteImport } from './routes/tools.home-gym-cost-calculator'
+import { Route as ToolsOneRepMaxCalculatorRouteImport } from './routes/tools.one-rep-max-calculator'
+import { Route as ToolsPlateCalculatorRouteImport } from './routes/tools.plate-calculator'
 import { Route as UkIndexRouteImport } from './routes/uk.index'
 import { Route as UkCategoryRouteImport } from './routes/uk.$category'
 import { Route as UkShopEquipmentRouteImport } from './routes/uk.shop-equipment'
@@ -199,6 +205,11 @@ const UsedGymEquipmentRoute = UsedGymEquipmentRouteImport.update({
   path: '/used-gym-equipment',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UsedGymEquipmentPricesRoute = UsedGymEquipmentPricesRouteImport.update({
+  id: '/used-gym-equipment-prices',
+  path: '/used-gym-equipment-prices',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin/login',
   path: '/admin/login',
@@ -324,6 +335,33 @@ const SupplementsTypeRoute = SupplementsTypeRouteImport.update({
   path: '/$type',
   getParentRoute: () => SupplementsRoute,
 } as any)
+const ToolsIndexRoute = ToolsIndexRouteImport.update({
+  id: '/tools/',
+  path: '/tools/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsGymSpaceCalculatorRoute = ToolsGymSpaceCalculatorRouteImport.update({
+  id: '/tools/gym-space-calculator',
+  path: '/tools/gym-space-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsHomeGymCostCalculatorRoute =
+  ToolsHomeGymCostCalculatorRouteImport.update({
+    id: '/tools/home-gym-cost-calculator',
+    path: '/tools/home-gym-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ToolsOneRepMaxCalculatorRoute =
+  ToolsOneRepMaxCalculatorRouteImport.update({
+    id: '/tools/one-rep-max-calculator',
+    path: '/tools/one-rep-max-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ToolsPlateCalculatorRoute = ToolsPlateCalculatorRouteImport.update({
+  id: '/tools/plate-calculator',
+  path: '/tools/plate-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UkIndexRoute = UkIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -403,6 +441,7 @@ export interface FileRoutesByFullPath {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/used-gym-equipment-prices': typeof UsedGymEquipmentPricesRoute
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
@@ -417,6 +456,10 @@ export interface FileRoutesByFullPath {
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/strength-equipment/$type': typeof StrengthEquipmentTypeRoute
   '/supplements/$type': typeof SupplementsTypeRoute
+  '/tools/gym-space-calculator': typeof ToolsGymSpaceCalculatorRoute
+  '/tools/home-gym-cost-calculator': typeof ToolsHomeGymCostCalculatorRoute
+  '/tools/one-rep-max-calculator': typeof ToolsOneRepMaxCalculatorRoute
+  '/tools/plate-calculator': typeof ToolsPlateCalculatorRoute
   '/uk/$category': typeof UkCategoryRouteWithChildren
   '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog/': typeof BlogIndexRoute
@@ -429,6 +472,7 @@ export interface FileRoutesByFullPath {
   '/gym-accessories/': typeof GymAccessoriesIndexRoute
   '/strength-equipment/': typeof StrengthEquipmentIndexRoute
   '/supplements/': typeof SupplementsIndexRoute
+  '/tools/': typeof ToolsIndexRoute
   '/uk/': typeof UkIndexRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/ca/$category/$type': typeof CaCategoryTypeRoute
@@ -453,6 +497,7 @@ export interface FileRoutesByTo {
   '/shop-equipment': typeof ShopEquipmentRoute
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/used-gym-equipment-prices': typeof UsedGymEquipmentPricesRoute
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
@@ -466,6 +511,10 @@ export interface FileRoutesByTo {
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/strength-equipment/$type': typeof StrengthEquipmentTypeRoute
   '/supplements/$type': typeof SupplementsTypeRoute
+  '/tools/gym-space-calculator': typeof ToolsGymSpaceCalculatorRoute
+  '/tools/home-gym-cost-calculator': typeof ToolsHomeGymCostCalculatorRoute
+  '/tools/one-rep-max-calculator': typeof ToolsOneRepMaxCalculatorRoute
+  '/tools/plate-calculator': typeof ToolsPlateCalculatorRoute
   '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog': typeof BlogIndexRoute
   '/brands': typeof BrandsIndexRoute
@@ -477,6 +526,7 @@ export interface FileRoutesByTo {
   '/gym-accessories': typeof GymAccessoriesIndexRoute
   '/strength-equipment': typeof StrengthEquipmentIndexRoute
   '/supplements': typeof SupplementsIndexRoute
+  '/tools': typeof ToolsIndexRoute
   '/uk': typeof UkIndexRoute
   '/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/ca/$category/$type': typeof CaCategoryTypeRoute
@@ -514,6 +564,7 @@ export interface FileRoutesById {
   '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/uk': typeof UkRouteWithChildren
   '/used-gym-equipment': typeof UsedGymEquipmentRoute
+  '/used-gym-equipment-prices': typeof UsedGymEquipmentPricesRoute
   '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/brands/$slug': typeof BrandsSlugRoute
@@ -528,6 +579,10 @@ export interface FileRoutesById {
   '/gym-equipment-for-sale/$state': typeof GymEquipmentForSaleStateRoute
   '/strength-equipment/$type': typeof StrengthEquipmentTypeRoute
   '/supplements/$type': typeof SupplementsTypeRoute
+  '/tools/gym-space-calculator': typeof ToolsGymSpaceCalculatorRoute
+  '/tools/home-gym-cost-calculator': typeof ToolsHomeGymCostCalculatorRoute
+  '/tools/one-rep-max-calculator': typeof ToolsOneRepMaxCalculatorRoute
+  '/tools/plate-calculator': typeof ToolsPlateCalculatorRoute
   '/uk/$category': typeof UkCategoryRouteWithChildren
   '/uk/shop-equipment': typeof UkShopEquipmentRoute
   '/blog/': typeof BlogIndexRoute
@@ -540,6 +595,7 @@ export interface FileRoutesById {
   '/gym-accessories/': typeof GymAccessoriesIndexRoute
   '/strength-equipment/': typeof StrengthEquipmentIndexRoute
   '/supplements/': typeof SupplementsIndexRoute
+  '/tools/': typeof ToolsIndexRoute
   '/uk/': typeof UkIndexRoute
   '/_authenticated/admin/reviews': typeof AuthenticatedAdminReviewsRoute
   '/ca/$category/$type': typeof CaCategoryTypeRoute
@@ -577,6 +633,7 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/uk'
     | '/used-gym-equipment'
+    | '/used-gym-equipment-prices'
     | '/admin/login'
     | '/blog/$slug'
     | '/brands/$slug'
@@ -591,6 +648,10 @@ export interface FileRouteTypes {
     | '/gym-equipment-for-sale/$state'
     | '/strength-equipment/$type'
     | '/supplements/$type'
+    | '/tools/gym-space-calculator'
+    | '/tools/home-gym-cost-calculator'
+    | '/tools/one-rep-max-calculator'
+    | '/tools/plate-calculator'
     | '/uk/$category'
     | '/uk/shop-equipment'
     | '/blog/'
@@ -603,6 +664,7 @@ export interface FileRouteTypes {
     | '/gym-accessories/'
     | '/strength-equipment/'
     | '/supplements/'
+    | '/tools/'
     | '/uk/'
     | '/admin/reviews'
     | '/ca/$category/$type'
@@ -627,6 +689,7 @@ export interface FileRouteTypes {
     | '/shop-equipment'
     | '/terms-and-conditions'
     | '/used-gym-equipment'
+    | '/used-gym-equipment-prices'
     | '/admin/login'
     | '/blog/$slug'
     | '/brands/$slug'
@@ -640,6 +703,10 @@ export interface FileRouteTypes {
     | '/gym-equipment-for-sale/$state'
     | '/strength-equipment/$type'
     | '/supplements/$type'
+    | '/tools/gym-space-calculator'
+    | '/tools/home-gym-cost-calculator'
+    | '/tools/one-rep-max-calculator'
+    | '/tools/plate-calculator'
     | '/uk/shop-equipment'
     | '/blog'
     | '/brands'
@@ -651,6 +718,7 @@ export interface FileRouteTypes {
     | '/gym-accessories'
     | '/strength-equipment'
     | '/supplements'
+    | '/tools'
     | '/uk'
     | '/admin/reviews'
     | '/ca/$category/$type'
@@ -687,6 +755,7 @@ export interface FileRouteTypes {
     | '/terms-and-conditions'
     | '/uk'
     | '/used-gym-equipment'
+    | '/used-gym-equipment-prices'
     | '/admin/login'
     | '/blog/$slug'
     | '/brands/$slug'
@@ -701,6 +770,10 @@ export interface FileRouteTypes {
     | '/gym-equipment-for-sale/$state'
     | '/strength-equipment/$type'
     | '/supplements/$type'
+    | '/tools/gym-space-calculator'
+    | '/tools/home-gym-cost-calculator'
+    | '/tools/one-rep-max-calculator'
+    | '/tools/plate-calculator'
     | '/uk/$category'
     | '/uk/shop-equipment'
     | '/blog/'
@@ -713,6 +786,7 @@ export interface FileRouteTypes {
     | '/gym-accessories/'
     | '/strength-equipment/'
     | '/supplements/'
+    | '/tools/'
     | '/uk/'
     | '/_authenticated/admin/reviews'
     | '/ca/$category/$type'
@@ -750,9 +824,15 @@ export interface RootRouteChildren {
   TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   UkRoute: typeof UkRouteWithChildren
   UsedGymEquipmentRoute: typeof UsedGymEquipmentRoute
+  UsedGymEquipmentPricesRoute: typeof UsedGymEquipmentPricesRoute
   AdminLoginRoute: typeof AdminLoginRoute
   EquipmentSlugRoute: typeof EquipmentSlugRoute
   GymEquipmentForSaleStateRoute: typeof GymEquipmentForSaleStateRoute
+  ToolsGymSpaceCalculatorRoute: typeof ToolsGymSpaceCalculatorRoute
+  ToolsHomeGymCostCalculatorRoute: typeof ToolsHomeGymCostCalculatorRoute
+  ToolsOneRepMaxCalculatorRoute: typeof ToolsOneRepMaxCalculatorRoute
+  ToolsPlateCalculatorRoute: typeof ToolsPlateCalculatorRoute
+  ToolsIndexRoute: typeof ToolsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -939,6 +1019,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UsedGymEquipmentRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/used-gym-equipment-prices': {
+      id: '/used-gym-equipment-prices'
+      path: '/used-gym-equipment-prices'
+      fullPath: '/used-gym-equipment-prices'
+      preLoaderRoute: typeof UsedGymEquipmentPricesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/admin/login'
@@ -1106,6 +1193,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/supplements/$type'
       preLoaderRoute: typeof SupplementsTypeRouteImport
       parentRoute: typeof SupplementsRoute
+    }
+    '/tools/': {
+      id: '/tools/'
+      path: '/tools'
+      fullPath: '/tools/'
+      preLoaderRoute: typeof ToolsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/gym-space-calculator': {
+      id: '/tools/gym-space-calculator'
+      path: '/tools/gym-space-calculator'
+      fullPath: '/tools/gym-space-calculator'
+      preLoaderRoute: typeof ToolsGymSpaceCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/home-gym-cost-calculator': {
+      id: '/tools/home-gym-cost-calculator'
+      path: '/tools/home-gym-cost-calculator'
+      fullPath: '/tools/home-gym-cost-calculator'
+      preLoaderRoute: typeof ToolsHomeGymCostCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/one-rep-max-calculator': {
+      id: '/tools/one-rep-max-calculator'
+      path: '/tools/one-rep-max-calculator'
+      fullPath: '/tools/one-rep-max-calculator'
+      preLoaderRoute: typeof ToolsOneRepMaxCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/plate-calculator': {
+      id: '/tools/plate-calculator'
+      path: '/tools/plate-calculator'
+      fullPath: '/tools/plate-calculator'
+      preLoaderRoute: typeof ToolsPlateCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/uk/': {
       id: '/uk/'
@@ -1403,9 +1525,15 @@ const rootRouteChildren: RootRouteChildren = {
   TermsAndConditionsRoute: TermsAndConditionsRoute,
   UkRoute: UkRouteWithChildren,
   UsedGymEquipmentRoute: UsedGymEquipmentRoute,
+  UsedGymEquipmentPricesRoute: UsedGymEquipmentPricesRoute,
   AdminLoginRoute: AdminLoginRoute,
   EquipmentSlugRoute: EquipmentSlugRoute,
   GymEquipmentForSaleStateRoute: GymEquipmentForSaleStateRoute,
+  ToolsGymSpaceCalculatorRoute: ToolsGymSpaceCalculatorRoute,
+  ToolsHomeGymCostCalculatorRoute: ToolsHomeGymCostCalculatorRoute,
+  ToolsOneRepMaxCalculatorRoute: ToolsOneRepMaxCalculatorRoute,
+  ToolsPlateCalculatorRoute: ToolsPlateCalculatorRoute,
+  ToolsIndexRoute: ToolsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

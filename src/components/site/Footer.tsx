@@ -40,6 +40,8 @@ export function Footer() {
         <FooterCol title="Resources">
           <FooterLink to="/blog" label="Blog" />
           <FooterLink to="/fitness-equipment-guide" label="Fitness Equipment Guide" />
+          <FooterLink to="/used-gym-equipment-prices" label="Used Equipment Price Index" />
+          <FooterLink to="/tools" label="Free Gym Tools" />
           <FooterLink to="/sell-your-equipment" label="Sell Your Equipment" />
           <FooterLink to="/shipping-information" label="Shipping Information" />
           <FooterLink to="/returns-and-refunds" label="Returns & Refunds" />

@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Breadcrumbs, FaqList, PageHeader, SectionHeading, faqSchema } from "@/components/site/Bits";
+import {
+  Breadcrumbs,
+  FaqList,
+  PageHeader,
+  SectionHeading,
+  faqSchema,
+} from "@/components/site/Bits";
 import { EquipmentBrowser } from "@/components/site/EquipmentBrowser";
 import { brands, guides } from "@/data/catalog";
 import usedImg from "@/assets/cat-weights.jpg";
@@ -11,7 +17,7 @@ const description =
 
 const usedFaqs = [
   {
-    q: "What's the difference between \"Refurbished\" and \"Used\" on a listing?",
+    q: 'What\'s the difference between "Refurbished" and "Used" on a listing?',
     a: "Refurbished equipment has been inspected, serviced and often re-covered by a refurbisher, and usually includes a short warranty. Used equipment is sold as-is directly from the previous owner, typically at a lower price with no warranty.",
   },
   {
@@ -54,7 +60,12 @@ export const Route = createFileRoute("/used-gym-equipment")({
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: "/" },
-            { "@type": "ListItem", position: 2, name: "Used Gym Equipment", item: "/used-gym-equipment" },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Used Gym Equipment",
+              item: "/used-gym-equipment",
+            },
           ],
         }),
       },
@@ -74,6 +85,16 @@ function UsedPage() {
         image={usedImg}
       />
       <section className="mx-auto max-w-7xl px-4 py-10">
+        <p className="mb-6 border-l-4 border-primary bg-secondary px-4 py-3 text-sm text-foreground">
+          Not sure what's a fair price? See typical asking prices by machine type and brand in our{" "}
+          <Link
+            to="/used-gym-equipment-prices"
+            className="font-semibold text-primary hover:underline"
+          >
+            Used Gym Equipment Price Index
+          </Link>
+          .
+        </p>
         <EquipmentBrowser onlyUsed />
       </section>
 
@@ -98,7 +119,12 @@ function UsedPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-12">
-        <SectionHeading title="Used Equipment by Brand" href="/brands" linkLabel="All Brands" as="h2" />
+        <SectionHeading
+          title="Used Equipment by Brand"
+          href="/brands"
+          linkLabel="All Brands"
+          as="h2"
+        />
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
           {brands.map((b) => (
             <li key={b.slug}>
