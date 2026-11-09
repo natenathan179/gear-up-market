@@ -288,34 +288,10 @@ export const departments: Department[] = [
         "Vitamins, minerals, omegas, greens and targeted support for joints, heart, liver, digestion and everyday health.",
     },
     {
-      slug: "hgh",
-      name: "HGH",
-      short: "HGH",
-      intro: "HGH products, sealed and shipped fast with tracking.",
-    },
-    {
       slug: "peptides",
       name: "Peptides",
       short: "Peptides",
       intro: "Research peptides, factory sealed and shipped nationwide with tracking.",
-    },
-    {
-      slug: "injection-pens",
-      name: "Injection Pens",
-      short: "Injection Pens",
-      intro: "Pre-filled and reusable injection pens.",
-    },
-    {
-      slug: "injectable-oils",
-      name: "Injectable Oils",
-      short: "Injectable Oils",
-      intro: "Injectable oils, sealed and shipped fast with tracking.",
-    },
-    {
-      slug: "oral-tablets",
-      name: "Oral Tablets",
-      short: "Oral Tablets",
-      intro: "Oral tablets, sealed and shipped fast with tracking.",
     },
     {
       slug: "supplies",
@@ -538,11 +514,7 @@ const supplementTypes: Record<string, string> = {
   creatine: "creatine-amino-acids",
   "amino acids": "creatine-amino-acids",
   "weight management": "weight-management",
-  hgh: "hgh",
   peptides: "peptides",
-  "injection pens": "injection-pens",
-  "injectable oils": "injectable-oils",
-  "oral tablets": "oral-tablets",
   supplies: "supplies",
 };
 

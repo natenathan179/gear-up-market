@@ -431,7 +431,7 @@ export const categories: Category[] = [
     blurb: "Pre-Workout, Protein, Creatine and More",
     h1: "Sports Supplements for Sale – Pre-Workout, Protein, Peptides & Wellness",
     intro:
-      "Shop genuine, factory-sealed sports supplements from Dragon Pharma and Kits4Less: pre-workouts, whey and isolate protein, creatine, amino acids, pump formulas, HGH, research peptides, injection pens, weight-management support and everyday health essentials. Every product ships fast nationwide with tracking.",
+      "Shop genuine, factory-sealed sports supplements from Dragon Pharma and Landro Labs: pre-workouts, whey and isolate protein, creatine, amino acids, pump formulas, research peptides, weight-management support and everyday health essentials. Every product ships fast nationwide with tracking.",
     image: supplementsImg,
     subcategories: [
       "Pre-Workout",
@@ -446,11 +446,7 @@ export const categories: Category[] = [
       "Joint Support",
       "Heart Health",
       "Liver Support",
-      "HGH",
       "Peptides",
-      "Injection Pens",
-      "Injectable Oils",
-      "Oral Tablets",
       "Supplies",
     ],
     keywords: [
@@ -461,8 +457,6 @@ export const categories: Category[] = [
       "creatine monohydrate",
       "sports nutrition store",
       "buy peptides online",
-      "HGH for sale",
-      "kits4less supplements",
       "research peptides usa",
     ],
     body: [
@@ -487,13 +481,6 @@ export const categories: Category[] = [
           "Supplements support a good diet — they do not replace one. If you have a medical condition, take prescription medication, or are pregnant or nursing, talk to a physician before adding any new supplement to your routine.",
         ],
       },
-      {
-        heading: "HGH, Peptides and Performance Compounds from Kits4Less",
-        paragraphs: [
-          "Our Kits4Less range covers the most requested research peptides and performance compounds in the USA: HGH kits in multiple IU strengths, GLP-1 peptides such as semaglutide, tirzepatide and retatrutide in single vials, multi-vial kits and pre-filled injection pens, plus recovery staples like BPC-157, TB-500, GHK-Cu, NAD+ and glutathione. Every vial is lyophilized, preservative free and independently lab tested, with purity reports available for each batch.",
-          "You will also find a full line of injectable oils and oral tablets, bacteriostatic water for reconstitution, and bundle pricing on multi-kit orders. Store peptides and HGH in a cool, dark place and refrigerate after reconstitution — never freeze. These products are intended for research purposes; always consult a qualified professional before beginning any new protocol.",
-        ],
-      },
     ],
     faqs: [
       {
@@ -515,14 +502,6 @@ export const categories: Category[] = [
       {
         q: "Can I take several of these supplements together?",
         a: "Most of these products stack sensibly — for example a pre-workout, creatine and whey protein cover different needs. Avoid doubling up on stimulant-based products in the same window, and check with a physician if you take any medication.",
-      },
-      {
-        q: "Are the Kits4Less peptides and HGH lab tested?",
-        a: "Yes. Every Kits4Less vial and pen we list is independently lab tested for purity and potency, and batch test reports are published by the manufacturer. Products arrive factory sealed and lyophilized for maximum shelf life.",
-      },
-      {
-        q: "How should I store peptides and HGH?",
-        a: "Keep lyophilized vials in a cool, dark place away from direct sunlight. Once reconstituted with bacteriostatic water, store vials in the refrigerator and never freeze them.",
       },
     ],
   },
@@ -740,30 +719,6 @@ export const brands: Brand[] = [
       {
         q: "Which Dragon Pharma pre-workout is the strongest?",
         a: "Venom Inferno is the highest-stimulant option in the range and is intended for experienced users. Venom Essential is the moderate everyday option, and Mr. Veinz is the stim-free pump choice.",
-      },
-    ],
-  },
-  {
-    slug: "kits4less",
-    name: "Kits4Less",
-    intro:
-      "Kits4Less is one of the most lab-tested sources of research peptides, HGH and performance compounds in the USA, with independent purity reports published for every batch. The range covers HGH kits, GLP-1 peptides like semaglutide, tirzepatide and retatrutide, recovery peptides such as BPC-157 and TB-500, pre-filled injection pens, injectable oils, oral tablets and reconstitution supplies.",
-    popularModels: ["HGH Dragon", "Retatrutide", "Tirzepatide", "Semaglutide", "BPC-157", "TB-500"],
-    bestFor: "Both",
-    bestForNote:
-      "Single vials for first-time buyers, multi-vial kits and bundles for better value, and pre-filled injection pens for convenient, accurate dosing.",
-    faqs: [
-      {
-        q: "Are Kits4Less products lab tested?",
-        a: "Yes. Kits4Less publishes independent lab test reports for every batch, verifying purity and potency. It is one of the most frequently tested sources in the industry.",
-      },
-      {
-        q: "What is the difference between single vials, kits and injection pens?",
-        a: "Single vials are the lowest-cost way to try a compound. Kits bundle ten vials at a better per-vial price. Injection pens come pre-filled and ready to use for convenient, accurate dosing without reconstitution.",
-      },
-      {
-        q: "How should I store Kits4Less peptides and HGH?",
-        a: "Store lyophilized vials in a cool, dark place. After reconstituting with bacteriostatic water, keep vials refrigerated and never freeze them.",
       },
     ],
   },
